@@ -1,0 +1,51 @@
+html {
+    --imagen-logo-splash: url("../assets/images/logo_splash.svg");
+    --imagen-fondo-onboarding: url("../assets/images/fondo_onboarding.svg");
+    --imagen-flecha-izq: url("../assets/images/flecha-izq.svg");
+    --imagen-flecha-der: url("../assets/images/flecha-der.svg");
+    --imagen-punto-lleno: url("../assets/images/punto-lleno.svg");
+    --imagen-punto-vacio: url("../assets/images/punto-vacio.svg");
+    --imagen-fondo-agenda: url("../assets/images/agenda-fondo.svg");
+    --imagen-regalo: url("../assets/images/regalo.svg");
+    --imagen-carrito: url("../assets/images/carrito.svg");
+    --imagen-reloj: url("../assets/images/reloj.svg");
+    --imagen-foto: url("../assets/images/foto.svg");
+    --imagen-perro1: url("../assets/images/perro1.svg");
+    --imagen-perro2: url("../assets/images/perro2.svg");
+    --imagen-video-activo: url("../assets/images/video_fondo_a.svg");
+    --imagen-video-inactivo: url("../assets/images/video_fondo_i.svg");
+    --imagen-clave-mod: url("../assets/images/clave-mod.svg");
+    --imagen-novedades01: url("../assets/images/novedades01.svg");
+    --imagen-novedades02: url("../assets/images/novedades02.svg");
+    --imagen-novedades03: url("../assets/images/novedades03.svg");
+    --icon-flecha-izq: url("../assets/images/icon/flecha-izq.svg");
+    --icon-flecha-izq-sin-borde: url("../assets/images/icon/flecha-izq-sin-borde.svg");
+    --icon-flecha-der: url("../assets/images/icon/flecha-der.svg");
+    --icon-punto-lleno: url("../assets/images/icon/punto-lleno.svg");
+    --icon-punto-vacio: url("../assets/images/icon/punto-vacio.svg");
+    --icon-cerrar: url("../assets/images/icon/x.svg");
+    --icon-click: url("../assets/images/icon/click.svg");
+    --icon-flecha-abajo-sin-bordes: url("../assets/images/icon/flecha-abajo-sin-bordes.svg");
+    --icon-flecha-abajo: url("../assets/images/icon/flecha-abajo.svg");
+    --icon-flecha-arriba-sin-bordes: url("../assets/images/icon/flecha-arriba-sin-bordes.svg");
+    --icon-flecha-arriba: url("../assets/images/icon/flecha-arriba.svg");
+    --icon-campana-con-marca: url("../assets/images/icon/campana-con-marca.svg");
+    --icon-foto-edit: url("../assets/images/icon/foto-edit.svg");
+    --icon-trash: url("../assets/images/icon/trash.svg");
+    --icon-estrella: url("../assets/images/icon/estrella.svg");
+    --icon-estrella-borde: url("../assets/images/icon/estrella-borde.svg");
+}
+
+view-manager {
+    background-size: 100vw 100vh;
+
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+}
+
+view-manager[media-size="small"] {
+    /* background-image: url('../assets/images/fondo.png'); */
+
+}
