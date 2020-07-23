@@ -20,10 +20,11 @@
 ] */
 
 export const largeRoute = [
-    "1-splash",
-    "2-agenda",
-    "3-cardA",
-    "4-cardB",
-    "5-cardC",
-    "6-cardD"
+    "1 -splash",
+    "2 -onboarding",
+    "3 -inicioSesion",
+    "4 -principal",
+    "5 -videoRTC"
+
+
 ]

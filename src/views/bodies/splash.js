@@ -9,32 +9,22 @@ import {
 import {
     connect
 } from "@brunomon/helpers";
-
-
-import {
-    showScreen
-} from "../../redux/screens/actions";
 import {
     goNext,
-    goPrev,
     goTo
 } from "../../redux/routing/actions"
 import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 
-import {
-    dispararTimer,
-    CANCELAR_TIMER
-} from "../../redux/ui/actions"
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-export class pantallaSplash extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     constructor() {
         super();
-        this.hidden = false
+        this.hidden = true
         this.area = "body"
     }
 
@@ -42,62 +32,50 @@ export class pantallaSplash extends connect(store, MEDIA_CHANGE, SCREEN)(LitElem
         return css `
         :host{
             display: grid;
-            justify-items:center;
-            align-items: center;  
-            background-color: trasparent;
-            height: 100vh;
-            width: 100vw;   
+            justify-content: center;
+            align-items:center; 
+            position: absolute;
+            top: 0rem;
+            left: 0rem;  
+            height:100%;
+            width: 100%;
             background-color:var(--color-celeste);
+        }
+        :host([hidden]){
+            display:none ;
+        }
+        #cuerpo{
+            display: block;
+            height: 90vmin;
+            width: 90vmin;
             background-image:var(--imagen-logo-splash);
             background-repeat: no-repeat;
             background-position: center;
-            background-size: 80%;
-        }
-        :host([media-size="medium"]){
-            background-size: 50%;
-        }
-        :host([media-size="large"]){
-            background-size: 40%;
-        }
-        :host([hidden]){
-            display: none; 
-        }
-        #fondo{
-            height: 100%;
-            width: 100%;
-            background-color:transparent;            
+            background-size: 100%;
         }
         `
     }
     render() {
         return html `
-        <div id="fondo" @click="${this.pasar}">
+        <div id="cuerpo" @click=${this.proximo}>
         </div>
         `
     }
-
-
-    firstUpdated(changedProperties) {
-
-        store.dispatch(showScreen("splash", ""))
-
-    }
-
     stateChanged(state, name) {
-
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
-            if (isInLayout(state, this.area)) {
+            const haveBodyArea = isInLayout(state, this.area)
+            const SeMuestraEnUnasDeEstasPantallas = "-splash-".indexOf("-" + state.screen.name + "-") != -1
+            if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
-                store.dispatch(dispararTimer(3, "onboarding", "splash"))
-
             }
-
             this.update();
         }
+    }
 
-
+    proximo() {
+        store.dispatch(goNext());
     }
 
     static get properties() {
@@ -107,11 +85,14 @@ export class pantallaSplash extends connect(store, MEDIA_CHANGE, SCREEN)(LitElem
                 reflect: true,
                 attribute: 'media-size'
             },
+            layout: {
+                type: String,
+                reflect: true,
+            },
             hidden: {
                 type: Boolean,
-                reflect: true
+                reflect: true,
             },
-
             area: {
                 type: String
             }
@@ -119,4 +100,4 @@ export class pantallaSplash extends connect(store, MEDIA_CHANGE, SCREEN)(LitElem
     }
 
 }
-window.customElements.define("pantalla-splash", pantallaSplash);
+window.customElements.define("splash-screen", splashScreen);

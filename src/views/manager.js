@@ -31,6 +31,33 @@ import {
     pantallaSplash
 } from "./bodies/splash"
 
+import {
+    pantallaOnboarding
+} from "./bodies/onboarding"
+
+import {
+    pantallaInicioSesion
+} from "./bodies/iniciosesion"
+import {
+    headerComponente
+} from "./headers/header"
+
+import {
+    pantallaPrincipal
+} from "./bodies/principal"
+
+import {
+    pieComponente
+} from "./foots/pie"
+
+/* import {
+    pantallaRecuperaClave
+} from "./bodies/recuperaclave"
+ */
+
+import {
+    videoRTC
+} from "./bodies/videoRTC"
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
@@ -62,13 +89,14 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
 
     render() {
         return html `
-            <pantalla-splash class="body"></pantalla-splash>
-<!--             <blue-header class="header"></blue-header>
-            <green-dashboard class="body"></green-dashboard>
-            <red-foot class="foot"></red-foot> -->
+            <splash-screen class="body"></splash-screen>
+            <pantalla-onboarding class="body"></pantalla-onboarding>
+            <pantalla-iniciosesion class="body"></pantalla-iniciosesion>
+            <header-componente class="header"></header-componente>
+            <pantalla-principal class="body"></pantalla-principal>
+            <pie-componente class="foot"></pie-componente>
+            <video-rtc class="body"></video-rtc>`
 
-       
-        `
     }
 
     stateChanged(state, name) {

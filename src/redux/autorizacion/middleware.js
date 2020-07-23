@@ -52,6 +52,9 @@ import {
     hideSpinner,
     showError
 } from "../ui/actions";
+import {
+    goTo
+} from "../routing/actions";
 
 export const login = ({
     dispatch
@@ -130,6 +133,8 @@ export const processLogin = ({
 
             dispatch(setDatos(action.payload.receive))
 
+
+
             dispatch(getReservas({
                 token: getState().cliente.datos.token,
                 expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
@@ -145,6 +150,7 @@ export const processLogin = ({
                 token: getState().cliente.datos.token,
                 expand: "Raza($expand=MascotasTipo),Reservas"
             }))
+            dispatch(goTo("principal"))
         }
     }
 };

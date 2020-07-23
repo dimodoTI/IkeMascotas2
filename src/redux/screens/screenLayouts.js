@@ -12,9 +12,35 @@ import {
 export const screenLayuts = {
     splash: {
         small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+
+    onboarding: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+
+    inicioSesion: {
+        small: HEADER_BODY,
         medium: HEADER_BODY,
         large: HEADER_BODY
     },
+
+    principal: {
+        small: HEADER_BODY_FOOT,
+        medium: SLIDER_HEADER_BODY,
+        large: SLIDER_HEADER_BODY
+    },
+
+    videoRTC: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+
+    },
+
     agenda: {
         small: HEADER_BODY,
         medium: HEADER_BODY_FOOT,

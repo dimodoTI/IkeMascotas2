@@ -1,6 +1,7 @@
 export const GO_NEXT = "[routing] go next";
 export const GO_PREV = "[routing] go prev";
 export const GO_TO = "[routing] go to";
+export const GO_TO_NODE = "[routing] go to node";
 export const SET_CURRENT = "[routing] set Current";
 
 
@@ -21,7 +22,12 @@ export const goTo = (name) => {
         name: name
     }
 };
-
+export const goToNode = (node) => {
+    return {
+        type: GO_TO_NODE,
+        node: node
+    }
+};
 
 export const setCurrent = (node) => {
     return {

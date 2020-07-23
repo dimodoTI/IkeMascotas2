@@ -40,6 +40,12 @@ export const goTo = (option, route) => {
     })
 }
 
+export const goToNode = (node, route) => {
+    return route.findIndex(item => {
+        return item.split("-")[0].trim() == node
+    })
+}
+
 export const getNode = (pointer, route) => {
     return {
         pointer: pointer,

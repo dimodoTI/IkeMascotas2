@@ -2,14 +2,17 @@ import {
     GO_NEXT,
     GO_PREV,
     GO_TO,
+    GO_TO_NODE,
     setCurrent,
     SET_CURRENT
 } from "./actions";
 import {
     next as nextNode,
     prev as prevNode,
-    goTo as goToNode,
+    goToNode as goToNode,
+    goTo as goToOption,
     getNode as getNode
+
 } from "./functions"
 import {
     showScreen
@@ -46,9 +49,12 @@ export const goTo = ({
 }) => next => action => {
     next(action);
     if (action.type == GO_TO) {
-        let pointer = goToNode(action.name, largeRoute)
-        dispatch(setCurrent(getNode(pointer, largeRoute)))
+        dispatch(setCurrent(getNode(goToOption(action.name, largeRoute), largeRoute)))
     }
+    if (action.type == GO_TO_NODE) {
+        dispatch(setCurrent(getNode(goToNode(action.node, largeRoute), largeRoute)))
+    }
+
 };
 export const set = ({
     dispatch,

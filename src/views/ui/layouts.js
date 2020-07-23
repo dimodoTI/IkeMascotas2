@@ -41,7 +41,7 @@ export const layoutsCSS = css `
         grid-template-areas:"header"
                             "body"
                             "foot";
-        grid-template-rows:2fr 8fr 2fr;
+        grid-template-rows:1.8fr 7.2fr 1fr;
         grid-template-columns:1fr
     }
     :host([layout="${unsafeCSS(ALL_BODY.name)}"]){
@@ -52,13 +52,18 @@ export const layoutsCSS = css `
 
 
     .header{
-        grid-area:header
+        grid-area:header;
+        padding: 0 1rem 0 1rem; 
+        background-color: var(--color-blanco);
+        border-radius: 0 0 .5rem  .5rem;   
     }
     .body{
-        grid-area:body
+        grid-area:body;
+    
     }
     .foot{
-        grid-area:foot
+        grid-area:foot;
+        background-color: var(--color-blanco);
     }
 
 `

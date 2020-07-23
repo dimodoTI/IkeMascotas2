@@ -15,17 +15,17 @@ import {
     captureMedia
 } from "./redux/ui/actions";
 
+import {
+    showScreen
+} from "./redux/screens/actions"
+
 
 
 store.dispatch(captureMedia())
+store.dispatch(showScreen("splash", ""))
 
 
 
-const largeScreenRoute = [
-    "1 -splash",
-    "2 -onboarding",
-    "3 -iniciosesion"
-]
 /* 
 
 const largeScreenRoute = [
