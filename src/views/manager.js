@@ -59,6 +59,74 @@ import {
     videoRTC
 } from "./bodies/videoRTC"
 
+import {
+    pantallaCrearClave
+} from "./bodies/crearclave"
+
+import {
+    pantallaAccesoPlan
+} from "./bodies/accesoplan"
+
+import {
+    pantallaVerCobertura
+} from "./bodies/vercobertura"
+
+import {
+    pantallaRecuperaClave
+} from "./bodies/recuperaclave"
+
+import {
+    pantallaRecuperaClaveMsg
+} from "./bodies/recuperaclavemsg"
+
+import {
+    pantallaUsuarioDetalle
+} from "./bodies/usuariodetalle"
+
+import {
+    pantallaUsuarioRegistro
+} from "./bodies/usuarioRegistro"
+
+import {
+    pantallaMascota
+} from "./bodies/mascota"
+
+import {
+    pantallaMascotaVer
+} from "./bodies/mascotaVer"
+
+import {
+    pantallaCalendario
+} from "./bodies/calendario"
+
+import {
+    pantallaVacuna
+} from "./bodies/vacuna"
+
+import {
+    pantallaVacunaMsg
+} from "./bodies/vacunaMsg"
+
+
+
+import {
+    headerPrincipal
+} from "./headers/headerPrincipal"
+
+import {
+    header
+} from "./headers/headerMascota"
+
+import {
+    pantallaMascotaAlta
+} from "./bodies/mascotaAlta"
+
+import {
+    pantallaMisConsultas
+} from "./bodies/misConsultas"
+
+
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -95,7 +163,25 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <header-componente class="header"></header-componente>
             <pantalla-principal class="body"></pantalla-principal>
             <pie-componente class="foot"></pie-componente>
-            <video-rtc class="body"></video-rtc>`
+            <pantalla-crearclave class="body"></pantalla-crearclave>
+            <video-rtc class="body"></video-rtc>
+            <pantalla-accesoplan class="body"></pantalla-accesoplan>
+            <pantalla-vercobertura class="body"></pantalla-vercobertura>
+            <pantalla-recuperaclave class="body"></pantalla-recuperaclave>
+            <pantalla-recuperaclavemsg class="body"></pantalla-recuperaclavemsg>
+            <pantalla-usuariodetalle class="body"></pantalla-usuariodetalle>
+            <pantalla-usuarioregistro class="body"></pantalla-usuarioregistro>
+            <pantalla-mascota class="body"></pantalla-mascota>
+            <pantalla-mascotaver class="body"></pantalla-mascotaver>
+            <pantalla-calendario class="body"></pantalla-calendario>
+            <pantalla-vacuna class="body"></pantalla-vacuna>
+            <pantalla-vacunamsg class="body"></pantalla-vacunamsg>
+            <header-principal class="header"></header-principal>
+            <header-mascota class="header"></header-mascota>
+            <pantalla-mascotaalta class="body"></pantalla-mascotaalta>
+            <pantalla-misconsultas class="body"/></pantalla-misconsultas>
+            
+            `
 
     }
 

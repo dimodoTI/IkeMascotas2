@@ -6,8 +6,7 @@ const isBrother = (codeA, codeB) => {
     return elementsCodeA.join() == elementsCodeB.join()
 }
 const isParent = (currentCode, prevCode) => {
-    const tail = currentCode.trim().replace(prevCode.trim(), "").split("/")
-    return tail.length == 2 && tail[0] == ""
+    return currentCode.trim().split("/").length - 1 == prevCode.trim().split("/").length
 }
 
 export const next = (pointer, route) => {

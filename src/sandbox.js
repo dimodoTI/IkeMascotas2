@@ -19,12 +19,40 @@ import {
     showScreen
 } from "./redux/screens/actions"
 
+import {
+    get as getCalendario
+} from "./redux/calendario/actions"
+
+import {
+    get as getMascotasTipo
+} from "./redux/mascotastipo/actions"
+
+import {
+    get as getVacunas
+} from "./redux/vacunas/actions"
+import {
+    get as getRazas
+} from "./redux/razas/actions"
+
 
 
 store.dispatch(captureMedia())
 store.dispatch(showScreen("splash", ""))
+store.dispatch(getCalendario({
+    expand: "MascotasTipo, Vacuna"
+
+}))
+
+store.dispatch(getMascotasTipo({
+    orderby: "Descripcion"
+}))
+
+store.dispatch(getRazas({
+    orderby: "idMascotasTipo,Descripcion"
+}))
 
 
+store.dispatch(getVacunas({}))
 
 /* 
 

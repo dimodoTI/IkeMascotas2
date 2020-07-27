@@ -189,7 +189,7 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
         }
         :host(:not([media-size="small"])) #carroNovedades{
             width:95%;
-            height:100%;
+           
          }
          
         #divAyuda{
@@ -216,7 +216,7 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
         <div class="cuerpo">
             <div id="espacio" style="height:.5rem;width:1%;grid-column-start:1;grid-column-end:3;"></div>
 
-            <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" @click="${this.video}">
+            <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" style="padding-bottom:.5rem" @click="${this.video}">
                     </btn-nueva-consulta>
             
             
@@ -230,7 +230,7 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
                 </marquesina-componente>
             </div>
 
-             <label id="lbl-novedades">${idiomas[this.idioma].principal.lblNovedades}</label>
+             <label id="lbl-novedades" style="margin-bottom:.35rem">${idiomas[this.idioma].principal.lblNovedades}</label>
 
             <div id="carroNovedades">
                 <marquesina-componente id="marqNovedades" media-size="${this.mediaSize}"

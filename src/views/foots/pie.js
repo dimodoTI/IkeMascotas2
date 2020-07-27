@@ -29,6 +29,10 @@ import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 
+import {
+    get as getReservas
+} from "../../redux/reservas/actions"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -232,7 +236,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveFootArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-principal-agendas-atencionesMascotas-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-".indexOf("-" + state.screen.name + "-") != -1
             if (haveFootArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }
@@ -241,13 +245,26 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
 
     }
     clickBoton1() {
-        store.dispatch(goTo("misConsultas"))
+        store.dispatch(goTo("principal"))
+        this.opcion = 'uno'
     }
     clickBoton2() {
-        store.dispatch(goTo("agendas"))
+        store.dispatch(goTo("mascota"))
+        this.opcion = 'dos'
     }
     clickBoton3() {
-        store.dispatch(goTo("atencionesMascotas"))
+        this.opcion = "tres"
+        store.dispatch(goTo("misConsultas"))
+        store.dispatch(getReservas({
+            expand: "Atencion,Mascota",
+            token: store.getState().cliente.datos.token,
+            orderby: "FechaAtencion desc"
+        }))
+    }
+
+    clickBoton4() {
+        store.dispatch(goTo("calendario"))
+        this.opcion = 'cuatro'
     }
 
     static get properties() {

@@ -38,41 +38,85 @@ export const screenLayuts = {
         small: HEADER_BODY,
         medium: HEADER_BODY,
         large: HEADER_BODY
-
     },
 
-    agenda: {
+    crearclave: {
         small: HEADER_BODY,
-        medium: HEADER_BODY_FOOT,
-        large: HEADER_BODY_FOOT
+        medium: HEADER_BODY,
+        large: HEADER_BODY
     },
-    cardA: {
-        small: {
-            portrait: HEADER_BODY,
-            landscape: HEADER_BODY_FOOT
-        },
-        medium: {
-            portrait: SLIDER_HEADER_BODY,
-            landscape: HEADER_BODY
-        },
-        large: SLIDER_HEADER_BODY
-    },
-    cardB: {
+    accesoplan: {
         small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    vercobertura: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+
+    },
+    recuperaclave: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    recuperaclavemsg: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    usuariodetalle: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    usuarioregistro: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    mascota: {
+        small: HEADER_BODY_FOOT,
         medium: SLIDER_HEADER_BODY,
         large: SLIDER_HEADER_BODY
     },
-    cardC: {
+    mascotaver: {
         small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    calendario: {
+        small: HEADER_BODY_FOOT,
         medium: SLIDER_HEADER_BODY,
         large: SLIDER_HEADER_BODY
     },
-    cardD: {
+    vacuna: {
         small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    vacunaMsg: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    mascotaalta: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    mascotaAltaMsg: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    misConsultas: {
+        small: HEADER_BODY_FOOT,
         medium: SLIDER_HEADER_BODY,
         large: SLIDER_HEADER_BODY
+
     }
-
 }
 
 

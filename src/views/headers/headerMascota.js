@@ -24,9 +24,13 @@ import {
     goTo
 } from "../../redux/routing/actions"
 
+
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+
+const MASCOTASGETEDIT_TIMESTAMP = "mascotas.getEditTimeStamp"
+export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTASGETEDIT_TIMESTAMP)(LitElement) {
 
     constructor() {
         super();
@@ -65,7 +69,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 justify-content: center;
             }
             #divImg{
-                display:none;
+                display:grid;
                 padding-right: .4rem;
                 align-self: flex-end;
             }
@@ -73,9 +77,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 height: 1.5rem;
                 width: 1.5rem;
             }
-            :host([current="recuperaclave"]) #divImg, :host([current="crearclave"]) #divImg, :host([current="usuarioregistro"]) #divImg,:host([current="usuariodetalle"]) #divImg, :host([current="mascotaalta"]) #divImg,  :host([current="atencionesMascotas"]) #divImg, :host([current="listaReservas"]) #divImg, :host([current="igualDiagnosticosDetalle"]) #divImg {
-                display:grid;
-            }
+  
             #lblTitulo{               
                 background-color: transparent;
                 display: flex;
@@ -96,18 +98,42 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             :host(:not([media-size="small"])) #lblLeyenda {
                 justify-content: center;
             }
+            #detalle{
+            height: 90%;
+            width: 2rem;
+            background-image: var(--icon-flecha-abajo-sin-bordes);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            background-size: 1rem 1rem;
+            opacity:.4;
+        }
+
+       
+        #campana{
+
+            display:grid;
+
+           align-items:center
+
+        }
+
+
         `
     }
 
     render() {
         return html `
             <div id="divTitulo">
-                <div id="divImg" @click=${this.atras}>
+            <div id="divImg" @click=${this.atras}>
                      ${ATRAS}
                 </div>
                 <div id="divTxt">
-                    <label id="lblTitulo">${this.titulo}</label>
+
+                    <label id="lblTitulo">${this.item.Nombre}</label>
+                  
                 </div>
+                
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
@@ -115,44 +141,30 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             `
     }
 
+
     stateChanged(state, name) {
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.current = state.screen.name
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-calendario-vacuna-usuariodetalle-crearclave-misConsultas-agendas-videos-diagnosticos-diagnosticosDetalle-atencionesMascotas-listaReservas-igualDiagnosticosDetalle-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
-                this.titulo = idiomas[this.idioma][this.current].titulo
+
                 this.subTitulo = idiomas[this.idioma][this.current].subTitulo
             }
             this.update();
         }
+        if (name == MASCOTASGETEDIT_TIMESTAMP) {
+            this.item = state.mascotas.entities.currentEdit[0]
+            let a = 1
+            this.update()
+        }
     }
 
     atras() {
-        switch (this.current) {
-            case "videos":
-                store.dispatch(goTo("agendas"))
-                break;
-            case "usuarioregistro":
-                store.dispatch(goTo("accesoplan"))
-                break;
-            case "mascotaver":
-                store.dispatch(goTo("mascota"))
-                break;
-            case "usuariodetalle":
-                store.dispatch(goTo("principal"))
-                break;
-            case "mascotaalta":
-                store.dispatch(goPrev())
-                break;
-            default:
-                store.dispatch(goTo("inicioSesion"))
-                break
-
-        }
+        store.dispatch(goTo("mascota"))
     }
     static get properties() {
         return {
@@ -181,4 +193,4 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
 }
 
 
-window.customElements.define("header-componente", headerComponente);
+window.customElements.define("header-mascota", headerMascota);

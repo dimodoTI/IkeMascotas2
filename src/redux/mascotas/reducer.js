@@ -61,7 +61,9 @@ export const reducer = (state = initialState, action) => {
             break;
         case GETEDIT_SUCCESS:
             newState.getEditTimeStamp = (new Date()).getTime();
+
             newState.entities.currentEdit = action.payload.receive
+
 
     }
     return newState;

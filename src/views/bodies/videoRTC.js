@@ -84,6 +84,13 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             background-color:transparent;
           }
          
+         :host([orientation="portrait"]) #videoRemoto{
+             width:100%;
+         }
+         :host([orientation="landscape"]) #videoRemoto{
+             height:100%;
+
+         }
           #videoRemoto{
             display:grid;
             justify-self:center;
@@ -127,6 +134,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
         <video id="videoRemoto" autoplay playsinline></video>
         
         <div id="botonera">
+            
             <div id="btnFlip" class="boton-consola" @click="${this.cambioCamara}">${FLIP_CAMERA}</div>
             <div id="btnClose" class="boton-consola" @click="${this.leave}">${CLOSE_CAMERA}</div>
         </div>
@@ -148,12 +156,14 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
         } else {
           this.connectVeterinario()
         } */
+        /*         this.updateComplete.then(() => {
+                    if (this.shadowRoot.host.offsetHeight > this.shadowRoot.host.offsetWidth) {
+                        this.videoRemoto.width = this.shadowRoot.host.offsetWidth
+                    } else {
+                        this.videoRemoto.height = this.shadowRoot.host.offsetHeight
+                    }
+                }); */
 
-        if (this.shadowRoot.host.offsetHeight > this.shadowRoot.host.offsetWidth) {
-            this.videoRemoto.width = this.shadowRoot.host.offsetWidth
-        } else {
-            this.videoRemoto.height = this.shadowRoot.host.offsetHeight
-        }
 
     }
 
@@ -393,6 +403,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
 
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
+            this.orientation = state.ui.media.orientation
             this.hidden = true
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-videoRTC-".indexOf("-" + state.screen.name + "-") != -1
@@ -458,6 +469,11 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             },
             area: {
                 type: String
+            },
+            orientation: {
+                type: String,
+                reflect: true,
+
             }
         }
     }

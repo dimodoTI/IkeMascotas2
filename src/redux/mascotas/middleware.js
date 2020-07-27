@@ -17,11 +17,9 @@ import {
     GETEDIT,
     GETEDIT_ERROR,
     GETEDIT_SUCCESS
-
 } from "./actions";
 
 import {
-
     ikeMascotas,
     ikeMascotasQuery
 } from "../fetchs"

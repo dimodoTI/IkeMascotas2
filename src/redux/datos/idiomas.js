@@ -179,7 +179,7 @@ export const idiomas = {
             edad: "Edad: ",
             consultas: " Consulta/s"
         },
-        misconsultas: {
+        misConsultas: {
             titulo: "Mis consultas",
             subTitulo: "Creá el perfil de tus mascotas y accedé a su historia clínica.",
             titulo02: "Historial de consultas",
@@ -318,7 +318,7 @@ export const idiomas = {
             btn2: "Volver al inicio"
         },
         mascotaver: {
-            leyenda: "Ingresá al perfil de tus mascotas y accedé a su historia clínica.",
+            subTitulo: "Ingresá al perfil de tus mascotas y accedé a su historia clínica.",
             informacion: "Información",
             tipo: "Tipo de mascota: ",
             nombre: "Coquito",
@@ -377,6 +377,9 @@ export const idiomas = {
             hora: "Hora: ",
             veterinario: "Veterinario: ",
 
+        },
+        listaReservas: {
+            verDetalle: "Ver detalle"
         }
     }
 }

@@ -10,7 +10,8 @@ import {
     connect
 } from "@brunomon/helpers";
 import {
-    ATRAS
+    CAMPANA_CONMARCA,
+    FLECHA_ABAJO
 } from "../../../assets/icons/icons";
 import {
     idiomas
@@ -24,9 +25,11 @@ import {
     goTo
 } from "../../redux/routing/actions"
 
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+const CLIENTE_TIMESTAMP = "cliente.timestamp"
+export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENTE_TIMESTAMP)(LitElement) {
 
     constructor() {
         super();
@@ -57,9 +60,9 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             }
             #divTitulo{                    
                 height: 50%;
-                display:flex;
-                flex-flow: row;
-                align-items: flex-end;
+                display:grid;
+                grid-template-columns:90% 10%
+
             }
             :host(:not([media-size="small"])) #divTitulo {
                 justify-content: center;
@@ -73,9 +76,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 height: 1.5rem;
                 width: 1.5rem;
             }
-            :host([current="recuperaclave"]) #divImg, :host([current="crearclave"]) #divImg, :host([current="usuarioregistro"]) #divImg,:host([current="usuariodetalle"]) #divImg, :host([current="mascotaalta"]) #divImg,  :host([current="atencionesMascotas"]) #divImg, :host([current="listaReservas"]) #divImg, :host([current="igualDiagnosticosDetalle"]) #divImg {
-                display:grid;
-            }
+  
             #lblTitulo{               
                 background-color: transparent;
                 display: flex;
@@ -96,18 +97,50 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             :host(:not([media-size="small"])) #lblLeyenda {
                 justify-content: center;
             }
+            #detalle{
+            height: 90%;
+            width: 2rem;
+            background-image: var(--icon-flecha-abajo-sin-bordes);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            background-size: 1rem 1rem;
+            opacity:.4;
+        }
+
+       
+        #campana{
+
+            display:grid;
+
+           align-items:center
+
+        }
+        #divTxt{
+            display:grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+        }
+        .flecha{
+            display:grid;
+            align-items: flex-end;
+        }
+        
+        .flecha svg{
+            width:1rem;
+            height:1rem;
+        }
         `
     }
 
     render() {
         return html `
             <div id="divTitulo">
-                <div id="divImg" @click=${this.atras}>
-                     ${ATRAS}
-                </div>
                 <div id="divTxt">
-                    <label id="lblTitulo">${this.titulo}</label>
+                    <label id="lblTitulo">${this.titulo+" "+ store.getState().cliente.datos.nombre}</label>
+                    <div class="flecha" @click=${this.clickBotonUsuario} style="display:${store.getState().cliente.logueado?"":"none"}">${FLECHA_ABAJO}</div>
                 </div>
+                <div id="campana" @click=${this.clickBotonNotificacion}>${CAMPANA_CONMARCA}</div>
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
@@ -121,7 +154,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-calendario-vacuna-usuariodetalle-crearclave-misConsultas-agendas-videos-diagnosticos-diagnosticosDetalle-atencionesMascotas-listaReservas-igualDiagnosticosDetalle-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-principal-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo
@@ -129,30 +162,13 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             }
             this.update();
         }
+        if (name == CLIENTE_TIMESTAMP) {
+            this.update()
+        }
     }
 
-    atras() {
-        switch (this.current) {
-            case "videos":
-                store.dispatch(goTo("agendas"))
-                break;
-            case "usuarioregistro":
-                store.dispatch(goTo("accesoplan"))
-                break;
-            case "mascotaver":
-                store.dispatch(goTo("mascota"))
-                break;
-            case "usuariodetalle":
-                store.dispatch(goTo("principal"))
-                break;
-            case "mascotaalta":
-                store.dispatch(goPrev())
-                break;
-            default:
-                store.dispatch(goTo("inicioSesion"))
-                break
-
-        }
+    clickBotonUsuario() {
+        store.dispatch(goTo("usuariodetalle"))
     }
     static get properties() {
         return {
@@ -181,4 +197,4 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
 }
 
 
-window.customElements.define("header-componente", headerComponente);
+window.customElements.define("header-principal", headerPrincipal);
