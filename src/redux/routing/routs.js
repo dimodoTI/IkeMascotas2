@@ -20,6 +20,7 @@
 ] */
 
 export const largeRoute = [
+
     "1 -splash",
     "2 -onboarding",
     "3 -accesoplan",
@@ -28,24 +29,47 @@ export const largeRoute = [
     "3/3 -inicioSesion",
     "3/4 -vercobertura",
     "3/5 -usuariodetalle",
+    "3/5/1 -fotos",
+
 
     "4 -crearclave",
     "5 -inicioSesion",
     "5/1 -recuperaclave",
     "5/1/1 -recuperaclavemsg",
+
     "6 -principal",
+
     "8 -mascota",
     "9/1 -mascotaver",
-    "9/2 -mascotaalta",
-    "9/3 -mascotaAltaMsg",
+    "9/1/1 -videoMasocotaVer",
+    "9/1/3 -vacunaMsgMascota",
+    "9/2 -mascotaeditar",
+    "9/3 -mascotaEditarFoto",
+
+
+
+
+    "10/1 -mascotaalta",
+    "10/2 -mascotaAltaFoto",
+    "11 -mascotaAltaMsg",
+
+
 
     "15 -misConsultas",
+    "15/1 -consulta",
+    "15/2 -consultaTurnos",
 
-    "7 -videoRTC",
-    "10 -usuarioregistro",
-    "11 -calendario",
-    "12 -vacuna",
-    "12/1 -vacunaMsg"
+    "16/1 -diagnosticoDetalles",
+    "17/1 -videoConsulta",
+
+
+    "13 -usuarioregistro",
+    "14 -calendario",
+    "14/1 -vacuna",
+    "14/2 -vacunaMsg",
+
+    "12 -vacunaMascota"
+
 
 
 ]

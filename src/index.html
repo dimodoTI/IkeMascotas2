@@ -51,6 +51,11 @@
     <div id="snackbar">Una nueva versión esta disponible. Presione <a id="reload">Aqui</a> para actualizar.
     </div>
 </body>
+<script>
+    document.addEventListener('focusout', function (e) {
+        window.scrollTo(0, 0)
+    });
+</script>
 <!-- <script>
 
     let newWorker;

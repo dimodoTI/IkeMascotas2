@@ -36,6 +36,7 @@ export const cardMascotaVertical = css `
     font-size: var(--font-header-h1-size);
     font-weight: var(--font-header-h1-weight);            
     padding-left: .5rem;
+    padding-bottom:.5rem;
 }         
 #cmhDivRaza{
     font-size: var(--font-bajada-size);
@@ -47,6 +48,7 @@ export const cardMascotaVertical = css `
     font-weight: var(--font-bajada-weight);            
     padding-bottom: .8rem;
     padding-left: .5rem;
+    padding-top:.3rem;
 } 
 #cmhDivConsultas{
     font-size: var(--font-bajada-size);

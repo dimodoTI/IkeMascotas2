@@ -87,7 +87,7 @@ export const reservarFecha = (fecha, hora, tramoId) => ({
 
 })
 
-export const enAtencion = (options) => ({
+export const enAtencion = (registro) => ({
     type: ENATENCION,
-    options: options
+    registro: registro
 })

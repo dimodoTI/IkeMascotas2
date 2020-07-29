@@ -3,7 +3,8 @@
 ///https://codepen.io/declandewet/pen/aivLf spinner 9
 import {
     html,
-    LitElement
+    LitElement,
+    css
 } from "lit-element";
 import {
     store
@@ -11,16 +12,18 @@ import {
 import {
     connect
 } from "@brunomon/helpers/connect";
-export class dimodoSpinner extends connect(store, "api.loading")(LitElement) {
+const SPINNER = "ui.spinner.loading"
+export class dimodoSpinner extends connect(store, SPINNER)(LitElement) {
     constructor() {
         super();
-        this.oculto = true;
+
         this.type = "spinner1"
+        this.oculto = true;
     }
-    render() {
-        return html`
-        <style>
-            :host{
+
+    static get styles() {
+        return css `
+                   :host{
                 position:absolute;
                 left:50%;
                 top:50%;
@@ -29,7 +32,7 @@ export class dimodoSpinner extends connect(store, "api.loading")(LitElement) {
                 width:3rem;
                 height:3rem;
             }
-            :host([hidden]){
+            :host([oculto]){
                 display:none
             } 
 
@@ -403,25 +406,32 @@ export class dimodoSpinner extends connect(store, "api.loading")(LitElement) {
                     box-shadow: none;
                 }
             }
+        `
+    }
 
-        </style>
+    render() {
+        return html `
+
         <div id="spinner" class="spinner ${this.type}"></div>`
     }
     stateChanged(state, name) {
-        this.oculto = (state.api.loading == 0);
-    }
-    set oculto(value) {
-        if (value) {
-            this.setAttribute("hidden", "")
-        } else {
-            this.removeAttribute("hidden")
+        if (name == SPINNER) {
+            this.oculto = (state.ui.spinner.loading == 0);
+            this.update()
         }
+
     }
+
+
 
     static get properties() {
         return {
             type: {
                 type: String,
+                reflect: true
+            },
+            oculto: {
+                type: Boolean,
                 reflect: true
             }
         }

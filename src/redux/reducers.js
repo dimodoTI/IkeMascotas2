@@ -60,6 +60,10 @@ import {
   reducer as vacunasReducer
 } from "./vacunas/reducer"
 
+import {
+  reducer as fotosReducer
+} from "./fotos/reducer"
+
 export const rootReducer = (state = {}, action) => {
   return {
     api: apiReducer(state.reducer, action),
@@ -82,5 +86,6 @@ export const rootReducer = (state = {}, action) => {
     turnosdisponibles: turnosdisponiblesReducer(state.turnosdisponibles, action),
     usuario: usuarioReducer(state.usuario, action),
     vacunas: vacunasReducer(state.vacunas, action),
+    fotos: fotosReducer(state.fotos, action),
   }
 }

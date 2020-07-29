@@ -1,0 +1,282 @@
+import {
+    html,
+    LitElement,
+    css
+} from "lit-element";
+import {
+    store
+} from "../../redux/store";
+import {
+    connect
+} from "@brunomon/helpers";
+import {
+    idiomas
+} from "../../redux/datos/idiomas"
+import {
+    button
+} from "../css/button"
+
+
+import {
+    select
+} from "../css/select"
+import {
+    cardArchivo
+} from "../css/cardArchivo"
+
+import {
+
+    ARCHIVO,
+    BASURA
+} from "../../../assets/icons/icons"
+
+
+import {
+    RESERVAR,
+    reservar
+} from "../../redux/reservas/actions";
+
+import {
+    get as
+    getTurnosDisponibles
+} from "../../redux/turnosdisponibles/actions"
+
+
+const RESERVASRESERVAR_TIMESTAMP = "reservas.reservarTimeStamp"
+const MASCOTASGETEDIT_TIMESTAMP = "mascotas.getEditTimeStamp"
+
+
+import {
+    goNext,
+    goTo,
+    goPrev
+} from "../../redux/routing/actions"
+import {
+    isInLayout
+} from "../../redux/screens/screenLayouts";
+import {
+    showScreen
+} from "../../redux/screens/actions";
+
+const MEDIA_CHANGE = "ui.media.timeStamp"
+const SCREEN = "screen.timeStamp"
+
+export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+    constructor() {
+        super();
+        this.hidden = true
+        this.idioma = "ES"
+        this.area = "body"
+        this.item = []
+        //this.item = { para: "", motivo: "", sintoma: "" }
+        this.mascotas = []
+        this.reserva = []
+        this.archivo = [{
+            nombre: "Documento.jpg"
+        }, {
+            nombre: "Estudio.pdf"
+        }]
+    }
+
+    static get styles() {
+        return css `
+        ${button}
+
+        ${select}
+        ${cardArchivo}
+
+        :host{
+            position: absolute;
+            top: 0rem;
+            left: 0rem;  
+            height:100%;
+            width: 100%;
+            background-color:var(--color-gris-claro);
+            display:grid;
+         }
+        :host([hidden]){
+            display: none; 
+        } 
+        :host([media-size="small"]) #gridContenedor{
+            grid-row-start:1;
+            grid-row-end:3;
+        }
+        #cuerpo{
+            background-color: transparent;
+            display:grid;
+            padding:1rem;
+            grid-auto-flow:row;
+            grid-gap:.8rem;
+            align-content:start;
+            overflow-y: auto; 
+            overflow-x: hidden; 
+        }
+        #cuerpo::-webkit-scrollbar {
+            display: none;
+        }
+        :host(:not([media-size="small"])) #cuerpo{
+            width: 50%;
+            justify-self: center;
+        }
+        #selectMascota{
+            font-size: var(--font-label-size);
+            font-weight: var(--font-bajada-weight);   
+        }
+        #lblSintoma{
+            font-size: var(--font-label-size);
+            font-weight: var(--font-label-weight);
+            justify-self: left;
+            align-self: end;
+        }
+        #txtSintoma{
+            width:100%;
+            height:5rem;
+            font-size: var(--font-bajada-size);
+            font-weight: var(--font-bajada-weight);           
+        }
+        #pie{
+            position:relative;
+            grid-area: Pie; 
+            display:grid;
+            overflow-x: none; 
+        }
+        :host([media-size="small"]) #pie{
+            display:none;
+        }
+        `
+    }
+    render() {
+        return html `
+
+            <div id="cuerpo">
+
+                <div id="selectPara" class="select" style="width:100%;height:3.4rem"> 
+                    <label >${idiomas[this.idioma].consulta.para}</label>
+                    <select style="width:100%;height:1.7rem;" id="txtMascota">  
+                    <option  value=0>${idiomas[this.idioma].consulta.elegimascota}</option>
+                        ${this.mascotas.map((p)=>{
+                            return html `
+                            <option value=${p.Id} style="color:black">${p.Nombre}</option>
+                             `}
+                                )}
+                    </select>
+                </div>  
+
+                <div id="lblSintoma">${idiomas[this.idioma].consulta.sintoma}</div>
+                <textarea id="txtSintoma" style="width:100%;height:5rem;" @input=${this.activar}></textarea>
+                ${this.archivo.map(dato => html`
+                    <div id="ciDivEtiqueta">
+                        <div id="ciDivContenido">
+                            <div id="ciDivIcomo">${ARCHIVO}</div>
+                            <div id="ciDivNombre">${dato.nombre}</div>
+                        </div>
+                        <div id="ciDivDelete">${BASURA}</div>
+                    </div>
+                `)}              
+                <button id="btn-recuperar" btn3 @click=${this.clickBoton2}>
+                    ${idiomas[this.idioma].consulta.btn1}
+                </button>
+                <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
+                    ${idiomas[this.idioma].consulta.btn2}
+                </button>
+                <div style="height:1rem"></div>
+            </div>
+
+    `
+    }
+    activar() {
+        this.activo = true
+        const mascota = this.shadowRoot.querySelector("#txtMascota")
+
+        const sintoma = this.shadowRoot.querySelector("#txtSintoma")
+        if (mascota.value.length < 1) {
+            this.activo = false
+        }
+
+        if (sintoma.value.length < 4) {
+            this.activo = false
+        }
+        if (this.activo) {
+            this.shadowRoot.querySelector("#btnSeleccionar").removeAttribute("apagado")
+        } else {
+            this.shadowRoot.querySelector("#btnSeleccionar").setAttribute("apagado", "")
+        }
+        this.update()
+    }
+    valido() {
+        [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
+            element.setAttribute("oculto", "")
+        })
+        let valido = true
+        const mascota = this.shadowRoot.querySelector("#txtMascota")
+        const sintoma = this.shadowRoot.querySelector("#txtSintoma")
+        if (mascota.value.length < 8) {
+            valido = false
+        }
+
+        if (sintoma.value.length < 8) {
+            valido = false
+        }
+        this.update()
+        return valido
+    }
+    clickBoton1() {
+        store.dispatch(goPrev())
+    }
+
+    clickBoton2() {
+        store.dispatch(getTurnosDisponibles())
+        const mascota = this.shadowRoot.querySelector("#txtMascota").value
+        const motivo = this.shadowRoot.querySelector("#txtSintoma").value
+        store.dispatch((reservar(mascota, motivo)))
+        store.dispatch(goTo("consultaTurnos"))
+
+    }
+    stateChanged(state, name) {
+
+        if ((name == SCREEN || name == MEDIA_CHANGE)) {
+            this.mediaSize = state.ui.media.size
+            this.hidden = true
+            const haveBodyArea = isInLayout(state, this.area)
+            const SeMuestraEnUnasDeEstasPantallas = "-consulta-".indexOf("-" + state.screen.name + "-") != -1
+            if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
+                this.hidden = false
+                this.mascotas = state.mascotas.entities
+
+            }
+            this.update();
+        }
+
+
+
+
+
+    }
+
+
+    firstUpdated() {}
+
+    static get properties() {
+        return {
+            hidden: {
+                type: Boolean,
+                reflect: true
+            },
+            mediaSize: {
+                type: String,
+                reflect: true,
+                attribute: 'media-size'
+            },
+            layout: {
+                type: String,
+                reflect: true,
+            },
+            area: {
+                type: String
+            }
+
+        }
+    }
+}
+
+window.customElements.define("pantalla-consulta", pantallaConsulta);

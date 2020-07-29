@@ -32,6 +32,10 @@ import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 
+import {
+    enAtencion as getEnAtencion
+} from "../../redux/reservas/actions"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 const RESERVAS_TIMESTAMP = "reservas.timeStamp"
@@ -43,6 +47,7 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
         this.area = "body"
         this.idioma = "ES"
         this.item = []
+        this.current = ""
 
     }
 
@@ -104,34 +109,65 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     }
     render() {
         return html `
-  
-                    <div id="grilla">
-                   ${this.item.map(dato => html`
+            <div id="grilla">
+                ${this.item.map(dato => html`
                    <div id="cmhDivEtiqueta" >
-                    <div id="cmhDivImagen" style="background-position:center;background:url(${dato.Mascota.Foto});background-repeat: no-repeat;background-position: center center;"></div>
-                        <div id="cmhDivNombre">
-                            ${dato.Mascota.Nombre}
-                        </div>
-                        <div id="cmhDivFecha">
-                            ${dato.FechaAtencion.substring(8,10)+"/"+dato.FechaAtencion.substring(5,7)+"/"+dato.FechaAtencion.substring(0,4)+" "+ this.formateoHora( dato.HoraAtencion)}
-                        </div>
-                        <div id="cmhDivDiagnostico">
-                            ${dato.Motivo}
-                        </div>
+                        <div id="cmhDivImagen" style="background-position:center;background:url(${dato.Mascota.Foto});background-repeat: no-repeat;background-position: center center;"></div>
+                            <div id="cmhDivNombre">
+                                ${dato.Mascota.Nombre}
+                            </div>
+                            <div id="cmhDivFecha">
+                                ${dato.FechaAtencion.substring(8,10)+"/"+dato.FechaAtencion.substring(5,7)+"/"+dato.FechaAtencion.substring(0,4)+" "+ this.formateoHora( dato.HoraAtencion)}
+                            </div>
+                            <div id="cmhDivDiagnostico">
+                                ${dato.Motivo}
+                            </div>
 
-                        <div></div>
-                        <div id="cmhDivVerDetalle">
-                            <button btn2 .item=${dato} @click=${this.clickBoton1} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].misConsultas.verDetalle}</button>                    
+                            <div></div>
+                            <div id="cmhDivVerDetalle">
+                                <button btn2 .item=${dato} @click=${this.verDetalle} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].listaReserva.verDetalle}</button>                    
+                            </div>
+                            
+                            <div id="cmhDivChat" .item="${dato}" @click="${this.atencion}">${!dato.Atencion?VIDEO:ARCHIVO}</div>              
                         </div>
-                        <div id="cmhDivChat">${this.verReserva(dato.FechaAtencion)?VIDEO:ARCHIVO}</div>              
                     </div>
-                </div>
                     `)}
-                    </div>
+            </div>
+            <button style="margin-top:1rem" id="btn-edit" btn3 @click=${ this.clickConsulta}>
+                ${ idiomas[this.idioma].listaReserva.agendarReserva}
+            </button >
 
         `
     }
+
+    verDetalle(e) {
+        /*         store.dispatch(getEnAtencion({
+                    filter: "Id eq " + e.currentTarget.item.Id,
+                    expand: "Atencion,Mascota",
+                    token: store.getState().cliente.datos.token
+                })) */
+        store.dispatch(getEnAtencion({
+            registro: e.currentTarget.item
+        }))
+        store.dispatch(goTo("diagnosticoDetalles"))
+    }
+
+    atencion(e) {
+        if (e.currentTarget.item.Atencion) {
+            store.dispatch(goTo("diagnosticoDetalles"))
+        } else {
+            if (this.current == "mascotaver") {
+                store.dispatch(goTo("videoMasocotaVer"))
+            } else {
+                store.dispatch(goTo("videoConsulta"))
+            }
+
+        }
+
+    }
     verReserva(fecha) {
+
+
 
 
         let hoy = new Date();
@@ -144,6 +180,10 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
 
     }
 
+    clickConsulta(e) {
+        store.dispatch(goTo("consulta"))
+    }
+
     formateoHora(hora) {
         let horaRetorno = "0000" + hora.toString()
         horaRetorno = horaRetorno.substring(horaRetorno.length - 4)
@@ -154,6 +194,7 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     stateChanged(state, name) {
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
+            this.current = state.screen.name
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-listaReserva-mascotaver-misConsultas-".indexOf("-" + state.screen.name + "-") != -1
@@ -163,7 +204,6 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
             this.update();
         }
         if (name == RESERVAS_TIMESTAMP) {
-
             this.item = state.reservas.entities;
             this.update();
 
@@ -187,6 +227,9 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
         }

@@ -125,7 +125,28 @@ import {
     pantallaMisConsultas
 } from "./bodies/misConsultas"
 
+import {
+    pantallaConsulta
+} from "./bodies/consulta"
 
+import {
+    pantallaConsultaTurnos
+} from "./bodies/consultaTurnos"
+import {
+    pantallaDiagnosticosDetalles
+} from "./bodies/diagnosticoDetalles"
+
+import {
+    dimodoSpinner
+} from "./componentes/spinner"
+
+import {
+    fotosComponente
+} from "./componentes/fotos"
+
+import {
+    pantallaMascotaAltaMsg
+} from "./bodies/mascotaAltaMsg"
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
@@ -180,7 +201,12 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <header-mascota class="header"></header-mascota>
             <pantalla-mascotaalta class="body"></pantalla-mascotaalta>
             <pantalla-misconsultas class="body"/></pantalla-misconsultas>
-            
+            <pantalla-consulta class="body"></pantalla-consulta>
+            <pantalla-consultaturnos class="body"></pantalla-consultaturnos>
+            <pantalla-diagnosticosdetalles class="body"></pantalla-diagnosticosdetalles>
+            <dimodo-spinner  type="spinner2"></dimodo-spinner>
+            <fotos-componente class="body"></fotos-componente>
+            <pantalla-mascotaaltamsg class="body"></pantalla-mascotaaltamsg>
             `
 
     }

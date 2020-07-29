@@ -30,11 +30,16 @@ import {
 import {
     showScreen
 } from "../../redux/screens/actions";
+
+
+const MEDIA_CHANGE = "ui.media.timeStamp"
+const SCREEN = "screen.timeStamp";
 export class pantallaMascotaAltaMsg extends connect(store, SCREEN, MEDIA_CHANGE)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.idioma = "ES"
+        this.area = "body"
     }
 
     static get styles() {

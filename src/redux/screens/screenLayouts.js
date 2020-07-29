@@ -106,6 +106,11 @@ export const screenLayuts = {
         medium: HEADER_BODY,
         large: HEADER_BODY
     },
+    mascotaeditar: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
     mascotaAltaMsg: {
         small: ALL_BODY,
         medium: ALL_BODY,
@@ -116,7 +121,60 @@ export const screenLayuts = {
         medium: SLIDER_HEADER_BODY,
         large: SLIDER_HEADER_BODY
 
+    },
+    consulta: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    consultaTurnos: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    diagnosticoDetalles: {
+        small: HEADER_BODY_FOOT,
+        medium: SLIDER_HEADER_BODY,
+        large: SLIDER_HEADER_BODY
+    },
+    diagnosticoDetallesM: {
+        small: HEADER_BODY_FOOT,
+        medium: SLIDER_HEADER_BODY,
+        large: SLIDER_HEADER_BODY
+    },
+    fotos: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    mascotaEditarFoto: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    mascotaAltaFoto: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+
+    videoMasocotaVer: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+
+    videoConsulta: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    vacunaMascota: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
     }
+
 }
 
 

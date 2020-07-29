@@ -275,6 +275,22 @@ export const idiomas = {
             fechaerror: "Seleccioná la fecha de aplicación"
 
         },
+        vacunaMascota: {
+            titulo: "Registrá una vacuna",
+            subTitulo: "Completá los datos de la vacuna que le aplicaste a tu mascota.",
+            mascota: "¿A cuál mascota vacunaste?",
+            elegimascota: "Elegí una mascota",
+            vacuna: "¿Qué vacuna le aplicaron?",
+            elegivacuna: "Elegí una vacuna",
+            fecha: "¿Cuándo se la dieron?",
+            fecha_ph: "",
+            elegifecha: "Elegí una fecha",
+            btn1: "Registrar vacuna",
+            mascotaerror: "Tenés que elgir una mascota",
+            vacunaerror: "Tenés que seleccionar una vacuna",
+            fechaerror: "Seleccioná la fecha de aplicación"
+
+        },
 
         vacunamsg: {
             titulo: "¡Genial!",
@@ -297,7 +313,7 @@ export const idiomas = {
             btnCancelar: "Cancelar",
             castrada: "Castrado/a"
         },
-        mascotaedit: {
+        mascotaeditar: {
             titulo: "Editar perfil",
             subTitulo: "Editá al perfil de tus mascotas y mantené sus datos actualizados.",
             mascota: "¿Qué animal es?",
@@ -340,7 +356,7 @@ export const idiomas = {
             sintoma: "¿Qué síntomas tiene? (opcional)",
             elegimascota: "Elegí tu mascota"
         },
-        consultaturnos: {
+        consultaTurnos: {
             titulo: "Agendá una consulta",
             subTitulo: "Ahora seleccioná un día y horario para la consulta.",
             proximo: "Próximos turnos disponibles",
@@ -365,7 +381,7 @@ export const idiomas = {
             btn2: "Volver al inicio"
         },
 
-        diagnosticosdetalle: {
+        diagnosticoDetalles: {
             titulo: "Detalle de consulta",
             subTitulo: "Acá vas a encontrar el expediente correspondiente a una consulta.",
             lblDiagnostico: "Diagnóstico",
@@ -378,8 +394,10 @@ export const idiomas = {
             veterinario: "Veterinario: ",
 
         },
-        listaReservas: {
-            verDetalle: "Ver detalle"
+        listaReserva: {
+            verDetalle: "Ver detalle",
+            agendarReserva: "AgendarReserva"
+
         }
     }
 }

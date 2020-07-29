@@ -12,7 +12,7 @@ import {
     EDIT,
     RESERVAR,
     RESERVARFECHA,
-    ENATENCION_SUCCESS
+    ENATENCION
 } from "./actions";
 
 
@@ -86,9 +86,9 @@ export const reducer = (state = initialState, action) => {
 
             break;
 
-        case ENATENCION_SUCCESS:
+        case ENATENCION:
             newState.enAtencionTimeStamp = (new Date()).getTime();
-            newState.entities.enAtencion = action.payload.receive[0]
+            newState.entities.enAtencion = action.registro
             break;
 
     }

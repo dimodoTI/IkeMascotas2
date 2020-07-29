@@ -35,6 +35,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         this.area = "body"
         this.item = []
         this.pagina = store.getState().screen.name
+        this.current = "principal"
         this.titulo = ""
         this.subTitulo = ""
     }
@@ -73,7 +74,20 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 height: 1.5rem;
                 width: 1.5rem;
             }
-            :host([current="recuperaclave"]) #divImg, :host([current="crearclave"]) #divImg, :host([current="usuarioregistro"]) #divImg,:host([current="usuariodetalle"]) #divImg, :host([current="mascotaalta"]) #divImg,  :host([current="atencionesMascotas"]) #divImg, :host([current="listaReservas"]) #divImg, :host([current="igualDiagnosticosDetalle"]) #divImg {
+            :host([current="recuperaclave"]) #divImg, 
+            :host([current="crearclave"]) #divImg, 
+            :host([current="usuarioregistro"]) #divImg,
+            :host([current="usuariodetalle"]) #divImg, 
+            :host([current="mascotaalta"]) #divImg, 
+            :host([current="mascotaeditar"]) #divImg,  
+            :host([current="consulta"]) #divImg, 
+            :host([current="consultaTurnos"]) #divImg, 
+            :host([current="diagnosticoDetalles"]) #divImg, 
+            :host([current="diagnosticoDetallesM"]) #divImg ,
+            :host([current="vacuna"]) #divImg ,
+            :host([current="vacunaMascota"]) #divImg 
+
+            {
                 display:grid;
             }
             #lblTitulo{               
@@ -121,7 +135,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-calendario-vacuna-usuariodetalle-crearclave-misConsultas-agendas-videos-diagnosticos-diagnosticosDetalle-atencionesMascotas-listaReservas-igualDiagnosticosDetalle-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-videos-consultaTurnos-diagnosticoDetalles-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo
@@ -145,12 +159,24 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             case "usuariodetalle":
                 store.dispatch(goTo("principal"))
                 break;
-            case "mascotaalta":
+                /*             case "mascotaalta":
+                                store.dispatch(goPrev())
+                                break;
+                            case "consulta":
+                                store.dispatch(goPrev())
+                                break;
+                            case "consultaTurnos":
+                                store.dispatch(goPrev())
+                                break;
+                            case "diagnosticoDetalle":
+                                store.dispatch() */
+            case "vacunaMascota": {
+                store.dispatch(goTo("mascotaver"));
+                break;
+            }
+            default:
                 store.dispatch(goPrev())
                 break;
-            default:
-                store.dispatch(goTo("inicioSesion"))
-                break
 
         }
     }

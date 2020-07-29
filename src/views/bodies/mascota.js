@@ -40,6 +40,14 @@ import {
     getEdit
 } from "../../redux/mascotas/actions"
 
+import {
+    get as getMascotasVacuna
+} from "../../redux/mascotasvacunas/actions"
+
+import {
+    get as getReservas
+} from "../../redux/reservas/actions"
+
 const MASCOTAS_TIMESTAMP = "mascotas.timeStamp"
 const MASCOTAS_ADDTIMESTAMP = "mascotas.addTimeStamp"
 const MASCOTAS_UPDATETIMESTAMP = "mascotas.updateTimeStamp"
@@ -58,9 +66,7 @@ import {
     showScreen
 } from "../../redux/screens/actions";
 
-import {
-    get as getReservas
-} from "../../redux/reservas/actions"
+
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
@@ -145,7 +151,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
                         <div id="cmhDivNombre">${dato.Nombre}</div>
                         <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.Raza.Descripcion}</div>
                         <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + this.calculaEdad(dato.FechaNacimiento)}</div>
-                        <div id="cmhDivConsultas">${dato.Reservas.length + idiomas[this.idioma].mascota.consultas}</div>              
+                        <div id="cmhDivConsultas">${dato.Reservas?dato.Reservas.length:"0" + idiomas[this.idioma].mascota.consultas} Consultas</div>              
                     </div>
                 `)}
             </div>        
@@ -167,11 +173,15 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
 
     editar(e) {
 
-        store.dispatch(getEditMascota({
-            filter: "Id eq " + e.currentTarget.item.Id.toString(),
-            expand: "MascotasVacuna($expand=Vacuna($expand=Calendarios)),Raza($expand=MascotasTipo),Reservas($expand=Atencion)",
-            token: store.getState().cliente.datos.token,
+        store.dispatch(editMascotas("M", e.currentTarget.item))
+
+        store.dispatch(getMascotasVacuna({
+            filter: "MascotaId eq " + e.currentTarget.item.Id,
+            expand: "Vacuna($expand=Calendarios)",
+            token: store.getState().cliente.datos.token
         }))
+
+
 
         store.dispatch(getReservas({
             filter: "MascotaId eq " + e.currentTarget.item.Id.toString(),
@@ -179,6 +189,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
             token: store.getState().cliente.datos.token,
             orderby: "FechaAtencion desc"
         }))
+
         store.dispatch(goTo("mascotaver"))
 
     }
@@ -197,15 +208,13 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
         }
 
         if (name == MASCOTAS_ADDTIMESTAMP || name == MASCOTAS_REMOVETIMESTAMP || name == MASCOTAS_UPDATETIMESTAMP) {
-            store.dispatch(getMascota({
+            store.dispatch(getMascotas({
                 token: state.cliente.datos.token,
                 expand: "Raza($expand=MascotasTipo)"
             }))
         }
 
-        /*         if (name == MASCOTAS_GETEDITTIMESTAMP) {
-                    store.dispatch(goTo("mascotaver"))
-                } */
+
 
         if (name == MASCOTAS_TIMESTAMP) {
 

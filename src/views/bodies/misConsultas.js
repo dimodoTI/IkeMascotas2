@@ -57,16 +57,15 @@ import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 
-const RESERVAS_TIMESTAMP = "reservas.timeStamp"
+/* const RESERVAS_TIMESTAMP = "reservas.timeStamp"
 
-const RESERVASADD_TIMESTAMP = "reservas.addTimeStamp"
-const RESERVASENATENCION_TIMESTAMP = "reservas.enAtencionTimeStamp"
+const RESERVASADD_TIMESTAMP = "reservas.addTimeStamp" */
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 
-export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, RESERVAS_TIMESTAMP, RESERVASADD_TIMESTAMP, RESERVASENATENCION_TIMESTAMP)(LitElement) {
+export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -156,20 +155,21 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, R
         return html `
  
             <div id="cuerpo">    
-                <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}">
-                </btn-nueva-consulta>
+<!--                 <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}">
+                </btn-nueva-consulta> -->
+
+                <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" style="padding-bottom:.5rem" @click="${this.video}">
+                    </btn-nueva-consulta>
 
                 <div id="div-Titulo-02" >
                     ${idiomas[this.idioma].misConsultas.titulo02}
                 </div> 
                 <div>
                 <pantalla-listareserva></pantalla-listareserva></div>
-
-               
             </div>
                
 
-        <div id="bfaDivMas"  @click=${this.clickBoton2}>
+        <div id="bfaDivMas"  @click=${this.consulta}>
             ${CONSULTA}
             <label>${idiomas[this.idioma].misConsultas.btn}</label>
         </div>
@@ -185,15 +185,6 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, R
 
     }
 
-    clickBoton1(e) {
-
-        store.dispatch(getEnAtencion({
-            filter: "Id eq " + e.currentTarget.item.Id,
-            expand: "Atencion,Mascota",
-            token: store.getState().cliente.datos.token
-        }))
-
-    }
 
     formateoHora(hora) {
         let horaRetorno = "0000" + hora.toString()
@@ -202,7 +193,7 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, R
 
     }
 
-    clickBoton2() {
+    consulta() {
 
         store.dispatch(goTo("consulta"))
     }
@@ -226,7 +217,7 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, R
 
 
     }
-    firstUpdated() {}
+
 
     static get properties() {
         return {

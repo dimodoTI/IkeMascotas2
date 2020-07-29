@@ -42,7 +42,7 @@ import {
 
 
 const MASCOTAS_EDIT = "mascotas.editTimeStamp"
-const MASCOTASTIPO_TIMESPAM = "mascotastipo.timeStamp"
+
 const RAZAS_TIMESTAMP = "razas.timeStamp"
 const FOTOS_TIMESTAMP = "fotos.timeStamp"
 
@@ -57,16 +57,19 @@ import {
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 
-export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS_EDIT, MASCOTASTIPO_TIMESPAM, RAZAS_TIMESTAMP, FOTOS_TIMESTAMP)(LitElement) {
+export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS_EDIT, FOTOS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
         this.area = "body"
         this.idioma = "ES"
-        this.item = []
+        this.item = {
+            Foto: ""
+        }
         this.razas = []
         this.mascotasTipo = [];
         this.modo = ""
+        this.current = "mascotaalta"
     }
 
     static get styles() {
@@ -229,14 +232,14 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             <div id="cuerpo">
                 <div id="foto" >
                     <img src="${this.item.Foto}" id = "fotoMascota">
-                    <button id="fotoBoton" btn3 @click=${this.clickFoto}>${this.modo == "A"
-                ? idiomas[this.idioma].mascotaalta.btn1 : idiomas[this.idioma].mascotaedit.btn1}
+                    <button id="fotoBoton" btn3 @click=${this.clickFoto}>${
+                 idiomas[this.idioma][this.current].btn1 }
                     </button>
                 </div>
                 
                 
                 <div id="selectMascota" class="select" style="width:100%;height:3.4rem" > 
-                    <label >${idiomas[this.idioma].mascotaalta.mascota}</label>
+                    <label >${idiomas[this.idioma][this.current].mascota}</label>
                     <select style="width:100%;height:1.7rem; color:black" id="mascota"  @change="${this.cambioTipo}" > 
                         <option  value="0">Elija Tipo de Mascota</option>                          
                         ${this.mascotasTipo.map((p)=>{
@@ -251,20 +254,20 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
 
                 <div class="ikeInput">
-                    <label id="lblNombre">${idiomas[this.idioma].mascotaalta.nombre}</label>
-                    <input id="txtNombre"   placeholder=${idiomas[this.idioma].mascotaalta.nombre_ph} .value="${this.item.Nombre}">
+                    <label id="lblNombre">${idiomas[this.idioma][this.current].nombre}</label>
+                    <input id="txtNombre"   placeholder=${idiomas[this.idioma][this.current].nombre_ph} .value="${this.item.Nombre}">
                     <label id="lblErrorNombre" error oculto>"Nombre Erroneo"</label>
                 </div>
 
                 <div class="ikeInput">
-                    <label id="lblFecha">${idiomas[this.idioma].mascotaalta.fecha}</label>
-                    <input id="txtFecha"  type="date" placeholder=${idiomas[this.idioma].mascotaalta.fecha_ph}  .value="${this.item.FechaNacimiento?this.item.FechaNacimiento.substr(0,10):""}">
+                    <label id="lblFecha">${idiomas[this.idioma][this.current].fecha}</label>
+                    <input id="txtFecha"  type="date" placeholder=${idiomas[this.idioma][this.current].fecha_ph}  .value="${this.item.FechaNacimiento?this.item.FechaNacimiento.substr(0,10):""}">
                     <label id="lblErrorFecha" error oculto>"Fecha Erroneo"</label>
                 </div>
 
 
                 <div  class="select" style="width:100%;height:3.4rem"> 
-                    <label >${idiomas[this.idioma].mascotaalta.raza}</label>
+                    <label >${idiomas[this.idioma][this.current].raza}</label>
                     <select id="selectRaza" style="width:100%;height:1.7rem;"  >          
                     ${this.razas.map((p)=>{
                             return html `
@@ -275,14 +278,13 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                 </div>  
 
                 <div class="ikeInput" >
-                        <label>${idiomas[this.idioma].mascotaalta.castrada}</label>
+                        <label>${idiomas[this.idioma][this.current].castrada}</label>
                         <input type="checkbox" id="castrada" .checked="${this.item.Castrada}">
                 </div>
 
    
                 <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
-                    ${this.modo == "A"
-                ? idiomas[this.idioma].mascotaalta.btn2 : idiomas[this.idioma].mascotaedit.btn2}
+                    ${ idiomas[this.idioma][this.current].btn2}
                 </button>
                 <div style="height:1rem"></div>
             </div>
@@ -295,7 +297,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                             ${CAMARA}
                         </div>
                         <div id="divMsj1Linea1Col2">
-                            ${idiomas[this.idioma].mascotaalta.btnCamara}
+                            ${idiomas[this.idioma][this.current].btnCamara}
                         </div>
                     </div>
                     
@@ -306,12 +308,12 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                             ${CAMARAROLLO}
                         </div>
                         <div id="divMsj1Linea3Col2">
-                            ${idiomas[this.idioma].mascotaalta.btnImagen}
+                            ${idiomas[this.idioma][this.current].btnImagen}
                         </div>
                     </div>
                 </div>
                 <div id=divMensaje2 @click=${this.clickCancelar}>
-                    ${idiomas[this.idioma].mascotaalta.btnCancelar}
+                    ${idiomas[this.idioma][this.current].btnCancelar}
                 </div>
             </div>
 
@@ -319,7 +321,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
     }
 
     clickAtras() {
-        store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, store.getState().ui.quePantalla))
+        store.dispatch(goTo("mascota"))
     }
     clickFoto() {
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";
@@ -328,7 +330,12 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
     abreFoto() {
         store.dispatch(llamador("mascota"))
-        store.dispatch(modoPantalla("fotos", "mascotaalta"))
+        if (this.current == "mascotaalta") {
+            store.dispatch(goTo("mascotaAltaFoto"))
+        } else {
+            store.dispatch(goTo("mascotaEditarFoto"))
+        }
+
     }
     clickCancelar() {
         this.shadowRoot.querySelector("#divTapa").style.display = "none";
@@ -348,6 +355,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         item.Activo = true
 
         delete item.Raza
+        delete item.MascotasVacuna
 
         return item
     }
@@ -399,7 +407,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             store.dispatch(patchMascotas(this.item.Id, this.generaPathch(this.item), store.getState().cliente.datos.token))
         }
 
-        store.dispatch(goTo("mascotaaltamsg"));
+        store.dispatch(goTo("mascotaAltaMsg"));
         //            }
         //       }
     }
@@ -410,7 +418,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-mascotaalta-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-mascotaalta-mascotaeditar-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }
@@ -424,10 +432,13 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
 
         if (name == MASCOTAS_EDIT) {
-            this.mascotasTipo = [...state.mascotastipo.entities]
-            this.razas = [...state.razas.entities]
+            this.mascotasTipo = state.mascotastipo.entities
+            this.razas = state.razas.entities
             this.modo = state.mascotas.modo
             this.item = state.mascotas.entities.currentItem
+            if (!this.item.Foto) {
+                this.item.Foto = ""
+            }
 
             this.razas = state.razas.entities.filter(r => r.idMascotasTipo == this.item.Raza.MascotasTipo.Id)
 

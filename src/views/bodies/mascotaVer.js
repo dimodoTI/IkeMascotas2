@@ -54,12 +54,16 @@ import {
     pantallaListaReserva
 } from "./listaReserva"
 
-const MASCOTASGETEDIT_TIMESTAMP = "mascotas.getEditTimeStamp"
-const ENATENCION_TIMESTAMP = "reservas.enAtencionTimeStamp"
+
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 
-export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTASGETEDIT_TIMESTAMP, ENATENCION_TIMESTAMP)(LitElement) {
+const VACUNAS_MASCOTAS_TIMESTAMP = "mascotasvacunas.timeStamp"
+
+const CALENDARIO_TIMESTAMP = "calendario.timeStamp"
+
+export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VACUNAS_MASCOTAS_TIMESTAMP, CALENDARIO_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -67,6 +71,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, MAS
         this.idioma = "ES"
 
         this.calendario = []
+        this.mascotasVacuna = []
 
 
 
@@ -245,15 +250,18 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, MAS
                 <label class="subTitulo" >${idiomas[this.idioma].mascotaver.consulta}</label>
                     <pantalla-listareserva class="body"></pantalla-listareserva>
                 </div>
+                
                 <div style="padding:.5rem 0 .5rem 0">
                     <label class="subTitulo" >${idiomas[this.idioma].mascotaver.vacuna}</label>
                     <div style="display:grid;grid-gap:.8rem;">
-                        ${this.items.MascotasVacuna.map(dato => this.renderVacuna(dato) )}       
+                        ${this.vacunas()}
+      
                     </div> 
                     <button id="btn-edit" btn3 @click=${ this.clickVacunas}>
                         ${ idiomas[this.idioma].mascotaver.btn3}
                     </button >
                 </div>
+
 
             </div>`
     }
@@ -265,6 +273,35 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, MAS
             expand: "Atencion,Mascota",
             token: store.getState().cliente.datos.token
         }))
+    }
+
+    vacunas() {
+
+
+
+        return this.mascotasVacuna.map(dato => {
+
+
+
+            const calendario = this.calendario.filter(u => u.VacunaId == dato.VacunaId)
+            return html `
+            
+
+            <div id="ccDivEtiqueta" style="width:90%;justify-self:center">
+            <div id="ccDivVacuna">${dato.Vacuna?dato.Vacuna.Descripcion:""}</div>
+            <div id="ccDivPara">
+                ${calendario.length>0?calendario[0].Enfermedades:""}
+            </div>
+            <div class="labelRedondeado" id="ccDivCachorro">
+                ${calendario.length>0?calendario[0].Edad:""}
+            </div>
+            <div class="labelRedondeado" id="ccDivObligatorio">${calendario.length>0?calendario[0].Optativa?idiomas[this.idioma].calendario.optativa:idiomas[this.idioma].calendario.obligatoria:""}</div>
+            <div class="labelRedondeado" id="ccDivPeriodicidad">${calendario.length>0?calendario[0].Periodicidad:""}</div>
+        </div>`
+        })
+
+
+
     }
 
     renderVacuna(dato) {
@@ -291,14 +328,14 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, MAS
 
     clickEdit() {
         store.dispatch(mascotasEdit("M", this.items))
-        store.dispatch(goTo("mascotaalta"))
+        store.dispatch(goTo("mascotaeditar"))
     }
     clickConsulta() {
         store.dispatch(goTo("consulta"))
     }
     clickVacunas() {
         store.dispatch(mascotasEdit("M", this.items))
-        store.dispatch(goTo("vacuna"))
+        store.dispatch(goTo("vacunaMascota"))
     }
     clickFoto() {
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";
@@ -326,19 +363,24 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, MAS
             const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.items = state.mascotas.entities.currentItem
+
             }
             this.update();
         }
 
-        if (name == MASCOTASGETEDIT_TIMESTAMP) {
-            this.items = state.mascotas.entities.currentEdit[0]
-            this.calendario = state.calendario.entities
+
+
+        if (name == VACUNAS_MASCOTAS_TIMESTAMP) {
+            this.mascotasVacuna = state.mascotasvacunas.entities
             this.update()
         }
 
-        if (name == ENATENCION_TIMESTAMP) {
-            store.dispatch(goTo("diagnosticodetalles"))
+        if (name == CALENDARIO_TIMESTAMP) {
+            this.calendario = state.calendario.entities
+
         }
+
 
     }
     firstUpdated() {}

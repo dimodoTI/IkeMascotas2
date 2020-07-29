@@ -5,9 +5,13 @@ import {
   API_ADD,
   API_ACTION,
   API_FUNCTION,
+
+} from "./actions";
+
+import {
   showSpinner,
   hideSpinner
-} from "./actions";
+} from "../ui/actions"
 
 export const middleware = ({
   dispatch

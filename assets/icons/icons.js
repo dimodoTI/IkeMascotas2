@@ -61,8 +61,7 @@ export const PARLANTE = svg `
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 7.00002C1.39543 7.00002 0.5 7.89545 0.5 9.00002V16C0.5 17.1046 1.39543 18 2.5 18H8.50069L14.4272 23.9269C15.5611 25.0609 17.5 24.2579 17.5 22.6542V2.34584C17.5 0.74218 15.5611 -0.0609015 14.4272 1.0731L8.50069 7.00002H2.5ZM24.5337 12.5C24.5337 9.42326 23.2806 6.82929 20.7264 4.65259C20.306 4.29437 20.2556 3.66321 20.6139 3.24286C20.9721 2.82251 21.6032 2.77214 22.0236 3.13036C25.0144 5.67907 26.5337 8.82413 26.5337 12.5C26.5337 16.1782 25.0122 19.3067 22.0174 21.8175C21.5942 22.1723 20.9635 22.1169 20.6087 21.6937C20.2538 21.2704 20.3093 20.6397 20.7325 20.2849C23.2827 18.1468 24.5337 15.5745 24.5337 12.5Z" fill="none"/>
 </svg>
 `
-export const VIDEO = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="100%" height="100%"><path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/></svg>
-`
+
 export const ESTRELLA = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="100%" height="100%"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
 `
 export const ESTRELLABORDE = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="100%" height="100%"><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
@@ -90,3 +89,5 @@ export const FLECHA_ABAJO = svg `<svg width="100%" height="100%" viewBox="0 0 14
     <path d="M7.41,8.59L12,13.17L16.59,8.59L18,10L12,16L6,10L7.41,8.59Z" style="fill-rule:nonzero;"/>
 </g>
 </svg>`
+
+export const VIDEO = svg `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/></svg>`

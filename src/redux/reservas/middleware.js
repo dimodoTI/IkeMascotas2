@@ -14,9 +14,9 @@ import {
     REMOVE,
     REMOVE_SUCCESS,
     REMOVE_ERROR,
-    ENATENCION,
-    ENATENCION_SUCCESS,
-    ENATENCION_ERROR
+
+    /*     ENATENCION_SUCCESS,
+        ENATENCION_ERROR */
 
 } from "./actions";
 
@@ -45,7 +45,7 @@ export const get = ({
         dispatch(apiRequest(ikeReservasQuery, action.options, GET_SUCCESS, GET_ERROR))
     }
 };
-
+/* 
 export const enAtencion = ({
     dispatch
 }) => next => action => {
@@ -53,7 +53,7 @@ export const enAtencion = ({
     if (action.type === ENATENCION) {
         dispatch(apiRequest(ikeReservasQuery, action.options, ENATENCION_SUCCESS, ENATENCION_ERROR))
     }
-};
+}; */
 
 export const add = ({
     dispatch
@@ -105,7 +105,7 @@ export const processComand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS, action.type === ENATENCION_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
 
     }
 };
@@ -116,10 +116,10 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === ENATENCION_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR) {
 
     }
 };
 
 
-export const middleware = [get, add, update, patch, remove, enAtencion, processGet, processComand, processError];
+export const middleware = [get, add, update, patch, remove, processGet, processComand, processError];

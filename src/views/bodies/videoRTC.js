@@ -24,7 +24,8 @@ const CLOSE_CAMERA = svg `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2
 
 import {
     goNext,
-    goTo
+    goTo,
+    goPrev
 } from "../../redux/routing/actions"
 import {
     isInLayout
@@ -353,7 +354,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             sala: this.sala
         });
         this.handleLeave();
-        store.dispatch(goTo("principal"))
+        store.dispatch(goPrev())
     }
 
     handleLeave() {
@@ -406,7 +407,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             this.orientation = state.ui.media.orientation
             this.hidden = true
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-videoRTC-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-videoConsulta-videoMasocotaVer-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 if (!this.yours) {
                     this.sala = "dimodo"

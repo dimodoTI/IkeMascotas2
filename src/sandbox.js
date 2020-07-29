@@ -38,6 +38,7 @@ import {
 
 store.dispatch(captureMedia())
 store.dispatch(showScreen("splash", ""))
+
 store.dispatch(getCalendario({
     expand: "MascotasTipo, Vacuna"
 

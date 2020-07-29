@@ -29,8 +29,8 @@ import {
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 
-const MASCOTASGETEDIT_TIMESTAMP = "mascotas.getEditTimeStamp"
-export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTASGETEDIT_TIMESTAMP)(LitElement) {
+const MASCOTASEDIT_TIMESTAMP = "mascotas.editTimeStamp"
+export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTASEDIT_TIMESTAMP)(LitElement) {
 
     constructor() {
         super();
@@ -156,9 +156,9 @@ export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS
             }
             this.update();
         }
-        if (name == MASCOTASGETEDIT_TIMESTAMP) {
-            this.item = state.mascotas.entities.currentEdit[0]
-            let a = 1
+        if (name == MASCOTASEDIT_TIMESTAMP) {
+            this.item = state.mascotas.entities.currentItem
+
             this.update()
         }
     }

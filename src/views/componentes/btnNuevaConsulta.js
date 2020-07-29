@@ -51,6 +51,7 @@ export class btnNuevaConsulta extends connect(store, RESERVA_TIMESTAMP)(LitEleme
             grid-template-columns:100%;
             grid-template-rows: 100%;
             grid-gap:0rem;  
+            grid-template-columns: 9fr 1fr
         }
         :host(:not([media-size="small"])) #div-consultaNueva{
             background-color:var(--color-amarillo);

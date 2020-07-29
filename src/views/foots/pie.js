@@ -138,10 +138,9 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             pointer-events: none;  
         }
         svg{
-            fill:var(--color-gris);
-            stroke:var(--color-gris);
+            width:1rem;
             height:1rem;
-            width:1.1rem;
+            stroke:var(--color-gris);
         }
         :host(:not([media-size="small"])) svg{
             width:1.5rem;
@@ -236,7 +235,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveFootArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-diagnosticoDetalles-".indexOf("-" + state.screen.name + "-") != -1
             if (haveFootArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }

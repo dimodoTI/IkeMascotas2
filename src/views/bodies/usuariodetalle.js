@@ -261,7 +261,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
 
                 <button id="btnClave" btn2 style="justify-self:end" @click=${this.clickClave}>
                 ${idiomas[this.idioma].usuariodetalle.btnClave}</button>
-                <button id="btnEdit" btn1 apagado @click=${this.clickEdit}>
+                <button id="btnEdit" btn1  @click=${this.clickEdit}>
                 ${idiomas[this.idioma].usuariodetalle.btnEdit}</button>
                 <button id="btnCobertura" btn3 @click=${this.clickCobertura}>
                 ${idiomas[this.idioma].usuariodetalle.btnCobertura}</button>
@@ -306,7 +306,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
 
     abreFoto() {
         store.dispatch(llamador("usuario"))
-        store.dispatch(modoPantalla("fotos", "usuariodetalle"))
+        store.dispatch(goTo("fotos"))
     }
 
     activar() {

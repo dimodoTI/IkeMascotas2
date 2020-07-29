@@ -225,7 +225,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-vacuna-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-vacuna-vacunaMascota-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }

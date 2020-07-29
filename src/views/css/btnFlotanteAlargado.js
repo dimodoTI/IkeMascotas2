@@ -7,8 +7,8 @@ export const btnFlotanteAlargado = css `
     position:absolute;
     height: 2rem;
     width: 7.5rem;
-    right: 2rem;
-    bottom:2rem;
+    right: 1rem;
+    bottom:1rem;
     background-color: var(--color-azul-oscuro); 
     border-radius:1.25rem;
     display: grid;
