@@ -308,6 +308,7 @@ export const idiomas = {
             raza: "¿De qué raza es?",
             btn1: "Agregar foto",
             btn2: "Agregar mascota",
+            btn3: "Modificar mascota",
             btnCamara: "Camara",
             btnImagen: "Libreria de Fotos",
             btnCancelar: "Cancelar",
@@ -394,10 +395,40 @@ export const idiomas = {
             veterinario: "Veterinario: ",
 
         },
+
+        diagnosticoDetallesM: {
+            titulo: "Detalle de consulta",
+            subTitulo: "Acá vas a encontrar el expediente correspondiente a una consulta.",
+            lblDiagnostico: "Diagnóstico",
+            tituloconsulta: "Detalle de consulta",
+            expediente: "Reserva #",
+            paciente: "Paciente: ",
+            motivo: "Motivo: ",
+            fecha: "Fecha: ",
+            hora: "Hora: ",
+            veterinario: "Veterinario: ",
+
+        },
         listaReserva: {
             verDetalle: "Ver detalle",
             agendarReserva: "AgendarReserva"
 
-        }
+        },
+        consultaMascota: {
+            titulo: "Agendá una consulta",
+            subTitulo: "Completá los datos de tu mascota y sus síntomas.",
+            btn1: "Adjuntar un archivo",
+            btn2: "Seleccionar fecha y hora",
+            para: "¿Para qué mascota es la consulta?",
+            motivo: "¿Cuál es el motivo de la consulta?",
+            sintoma: "¿Qué síntomas tiene? (opcional)",
+            elegimascota: "Elegí tu mascota"
+        },
+        consultaTurnosMascota: {
+            titulo: "Agendá una consulta",
+            subTitulo: "Ahora seleccioná un día y horario para la consulta.",
+            proximo: "Próximos turnos disponibles",
+            btn1: "Confirmar turno"
+        },
     }
 }

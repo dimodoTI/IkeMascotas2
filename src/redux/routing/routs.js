@@ -39,8 +39,14 @@ export const largeRoute = [
 
     "6 -principal",
 
-    "8 -mascota",
-    "9/1 -mascotaver",
+    "7 -mascota",
+    "8/1 -mascotaver",
+
+    "8/1/1 -consultaMascota",
+    "8/1/2 -consultaTurnosMascota",
+    "8/2 -diagnosticoDetallesM",
+
+    /*     "9/1 -mascotaver",*/
     "9/1/1 -videoMasocotaVer",
     "9/1/3 -vacunaMsgMascota",
     "9/2 -mascotaeditar",
@@ -61,14 +67,14 @@ export const largeRoute = [
 
     "16/1 -diagnosticoDetalles",
     "17/1 -videoConsulta",
-
+    "12 -vacunaMascota",
 
     "13 -usuarioregistro",
     "14 -calendario",
     "14/1 -vacuna",
     "14/2 -vacunaMsg",
 
-    "12 -vacunaMascota"
+
 
 
 

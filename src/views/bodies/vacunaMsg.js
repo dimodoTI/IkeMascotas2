@@ -41,6 +41,7 @@ export class pantallaVacunaMsg extends connect(store, SCREEN, MEDIA_CHANGE)(LitE
         this.hidden = true
         this.idioma = "ES"
         this.area = "body"
+        this.current = "vacunaMsg"
     }
 
     static get styles() {
@@ -170,7 +171,12 @@ export class pantallaVacunaMsg extends connect(store, SCREEN, MEDIA_CHANGE)(LitE
     }
 
     volver() {
-        store.dispatch(goPrev())
+        if (this.current == "vacunaMsg") {
+            store.dispatch(goTo("calendario"))
+        } else {
+            store.dispatch(goTo("mascotaver"))
+        }
+
     }
     clickBoton2() {
         store.dispatch(goTo("principal"))
@@ -183,6 +189,7 @@ export class pantallaVacunaMsg extends connect(store, SCREEN, MEDIA_CHANGE)(LitE
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-vacunaMsg-vacunaMsgMascota-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
+                this.current = state.screen.name
                 this.hidden = false
             }
             this.update();
@@ -206,6 +213,9 @@ export class pantallaVacunaMsg extends connect(store, SCREEN, MEDIA_CHANGE)(LitE
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
         }

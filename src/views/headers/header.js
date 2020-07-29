@@ -85,7 +85,9 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             :host([current="diagnosticoDetalles"]) #divImg, 
             :host([current="diagnosticoDetallesM"]) #divImg ,
             :host([current="vacuna"]) #divImg ,
-            :host([current="vacunaMascota"]) #divImg 
+            :host([current="vacunaMascota"]) #divImg ,
+            :host([current="consultaMascota"]) #divImg ,
+            :host([current="consultaTurnosMascota"]) #divImg 
 
             {
                 display:grid;
@@ -135,7 +137,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-videos-consultaTurnos-diagnosticoDetalles-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo

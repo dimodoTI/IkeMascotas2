@@ -16,7 +16,10 @@ import {
     REMOVE_ERROR,
     GETEDIT,
     GETEDIT_ERROR,
-    GETEDIT_SUCCESS
+    GETEDIT_SUCCESS,
+    GET_CANTIDAD,
+    GET_CANTIDAD_ERROR,
+    GET_CANTIDAD_SUCCESS
 } from "./actions";
 
 import {
@@ -42,6 +45,9 @@ export const get = ({
     next(action);
     if (action.type === GET) {
         dispatch(apiRequest(ikeMascotasQuery, action.options, GET_SUCCESS, GET_ERROR))
+    }
+    if (action.type === GET_CANTIDAD) {
+        dispatch(apiRequest(ikeMascotasQuery, action.options, GET_CANTIDAD_SUCCESS, GET_CANTIDAD_ERROR))
     }
 };
 
@@ -104,7 +110,7 @@ export const processComand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS || action.type == GET_CANTIDAD_SUCCESS) {
 
     }
 };
@@ -115,7 +121,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || GETEDIT_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || GETEDIT_ERROR || GET_CANTIDAD_ERROR) {
 
     }
 };

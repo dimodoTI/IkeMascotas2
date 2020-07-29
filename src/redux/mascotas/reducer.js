@@ -10,7 +10,9 @@ import {
     REMOVE_SUCCESS,
     REMOVE_ERROR,
     EDIT,
-    GETEDIT_SUCCESS
+    GETEDIT_SUCCESS,
+    GET_CANTIDAD_SUCCESS,
+    GET_CANTIDAD_ERROR
 } from "./actions";
 
 
@@ -23,7 +25,8 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
-    getEditTimeStamp: null
+    getEditTimeStamp: null,
+    cantidad: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -63,6 +66,10 @@ export const reducer = (state = initialState, action) => {
             newState.getEditTimeStamp = (new Date()).getTime();
 
             newState.entities.currentEdit = action.payload.receive
+        case GET_CANTIDAD_SUCCESS:
+            newState.getCantidadTimeStamp = (new Date()).getTime();
+
+            newState.cantidad = action.payload.receive.length
 
 
     }

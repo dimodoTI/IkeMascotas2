@@ -36,6 +36,7 @@ import {
 
 
 
+
 store.dispatch(captureMedia())
 store.dispatch(showScreen("splash", ""))
 

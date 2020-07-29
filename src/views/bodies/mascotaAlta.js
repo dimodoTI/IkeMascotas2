@@ -62,6 +62,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         super();
         this.hidden = true
         this.area = "body"
+        this.current = "mascotaalta"
         this.idioma = "ES"
         this.item = {
             Foto: ""
@@ -284,7 +285,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
    
                 <button style="width:95%;height:2rem;justify-self: center;" id="btn-recuperar" btn1 @click=${this.clickGrabar}>
-                    ${ idiomas[this.idioma][this.current].btn2}
+                    ${idiomas[this.idioma][this.current].btn2}
                 </button>
                 <div style="height:1rem"></div>
             </div>
@@ -350,7 +351,10 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         item.FechaNacimiento = this.shadowRoot.querySelector("#txtFecha").value
         item.idRaza = this.shadowRoot.querySelector("#selectRaza").value
         item.idUsuario = store.getState().cliente.datos.id
-        item.Foto = store.getState().fotos.foto
+        if (store.getState().fotos.foto) {
+            item.Foto = store.getState().fotos.foto
+        }
+
         item.Castrada = this.shadowRoot.querySelector("#castrada").checked
         item.Activo = true
 
@@ -363,6 +367,10 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
     generaPathch(olditem) {
         let item = {
             ...olditem
+        }
+
+        if (store.getState().fotos.foto) {
+            item.Foto = store.getState().fotos.foto
         }
 
         let datosPatch = [{
@@ -383,7 +391,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             {
                 "op": "replace",
                 "path": "/Foto",
-                "value": store.getState().fotos.foto
+                "value": item.Foto // store.getState().fotos.foto
             },
             {
                 "op": "replace",
@@ -417,9 +425,11 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
+
             const haveBodyArea = isInLayout(state, this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-mascotaalta-mascotaeditar-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
+                this.current = state.screen.name
                 this.hidden = false
             }
             this.update();
@@ -478,6 +488,9 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
         }

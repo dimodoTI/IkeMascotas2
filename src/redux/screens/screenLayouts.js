@@ -101,6 +101,11 @@ export const screenLayuts = {
         medium: ALL_BODY,
         large: ALL_BODY
     },
+    vacunaMsgMascota: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
     mascotaalta: {
         small: HEADER_BODY,
         medium: HEADER_BODY,
@@ -173,7 +178,18 @@ export const screenLayuts = {
         small: HEADER_BODY,
         medium: HEADER_BODY,
         large: HEADER_BODY
-    }
+    },
+    consultaMascota: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    consultaTurnosMascota: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+
 
 }
 

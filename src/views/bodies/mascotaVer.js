@@ -53,6 +53,9 @@ import {
 import {
     pantallaListaReserva
 } from "./listaReserva"
+import {
+    limpiarFoto
+} from "../../redux/fotos/actions";
 
 
 
@@ -328,10 +331,11 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
 
     clickEdit() {
         store.dispatch(mascotasEdit("M", this.items))
+        store.dispatch(limpiarFoto())
         store.dispatch(goTo("mascotaeditar"))
     }
     clickConsulta() {
-        store.dispatch(goTo("consulta"))
+        store.dispatch(goTo("consultaMascota"))
     }
     clickVacunas() {
         store.dispatch(mascotasEdit("M", this.items))
@@ -363,7 +367,11 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+
                 this.items = state.mascotas.entities.currentItem
+                if (!this.items.Foto) {
+                    this.items.Foto = ""
+                }
 
             }
             this.update();

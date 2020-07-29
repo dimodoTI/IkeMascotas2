@@ -57,6 +57,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
         this.idioma = "ES"
         this.libres = []
         this.item = []
+        this.current = "consultaTurnos"
 
         this.reserva = []
 
@@ -207,9 +208,10 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-consultaTurnos-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-consultaTurnos-consultaTurnosMascota-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.current = state.screen.name
             }
             this.update();
         }
@@ -219,12 +221,24 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             this.update()
         }
         if (name == RESERVASADD_TIMESTAMP) {
-            store.dispatch(getReservas({
-                token: state.cliente.datos.token,
-                expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
-                orderby: "FechaAtencion desc"
-            }))
-            store.dispatch(goTo("misconsultas"))
+
+            if (this.current == "consultaTurnos") {
+                store.dispatch(getReservas({
+                    token: state.cliente.datos.token,
+                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
+                    orderby: "FechaAtencion desc"
+                }))
+                store.dispatch(goTo("misConsultas"))
+            } else {
+                store.dispatch(getReservas({
+                    token: state.cliente.datos.token,
+                    filter: "MascotaId eq " + state.mascotas.entities.currentItem.Id,
+                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
+                    orderby: "FechaAtencion desc"
+                }))
+                store.dispatch(goTo("mascotaver"))
+            }
+
         }
     }
 
@@ -270,6 +284,9 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
 

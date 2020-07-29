@@ -1,7 +1,8 @@
 import {
 
     CAPTURA,
-    LLAMADOR
+    LLAMADOR,
+    LIMPIAR
 } from "../fotos/actions";
 
 
@@ -11,6 +12,8 @@ const initialState = {
     quien: null,
     errorTimeStamp: null,
     llamadorTimeStamp: null,
+    limpiarTimeStamp: null,
+
 
 };
 
@@ -29,6 +32,10 @@ export const reducer = (state = initialState, action) => {
             newState.quien = action.quien
             newState.llamadorTimeStamp = (new Date()).getTime();
             break;
+        case LIMPIAR:
+            newState.quien = "";
+            newState.foto = null;
+            newState.limpiarTimeStamp = (new Date()).getTime();
 
 
     }

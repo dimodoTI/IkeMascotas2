@@ -57,6 +57,10 @@ import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 
+import {
+    get as getMascotas
+} from "../../redux/mascotas/actions"
+
 /* const RESERVAS_TIMESTAMP = "reservas.timeStamp"
 
 const RESERVASADD_TIMESTAMP = "reservas.addTimeStamp" */
@@ -71,6 +75,7 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(L
         this.hidden = true
         this.area = "body"
         this.idioma = "ES"
+        this.current = "misConsultas"
         this.items = []
         this.hayReserva = "N";
     }
@@ -206,6 +211,7 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(L
             const haveBodyArea = isInLayout(state, this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-misConsultas-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
+                this.current = state.screen.name
                 this.hidden = false
             }
             this.update();
@@ -239,6 +245,9 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(L
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
         }

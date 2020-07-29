@@ -65,6 +65,9 @@ import {
 import {
     showScreen
 } from "../../redux/screens/actions";
+import {
+    limpiarFoto
+} from "../../redux/fotos/actions";
 
 
 
@@ -168,6 +171,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
     }
     clickAgregarMascota() {
         store.dispatch(editMascotas("A"))
+        store.dispatch(limpiarFoto())
         store.dispatch(goTo("mascotaalta"))
     }
 

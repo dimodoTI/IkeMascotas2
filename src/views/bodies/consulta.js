@@ -67,6 +67,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         this.hidden = true
         this.idioma = "ES"
         this.area = "body"
+        this.current = "consulta"
         this.item = []
         //this.item = { para: "", motivo: "", sintoma: "" }
         this.mascotas = []
@@ -229,7 +230,12 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         const mascota = this.shadowRoot.querySelector("#txtMascota").value
         const motivo = this.shadowRoot.querySelector("#txtSintoma").value
         store.dispatch((reservar(mascota, motivo)))
-        store.dispatch(goTo("consultaTurnos"))
+        if (this.current == "consulta") {
+            store.dispatch(goTo("consultaTurnos"))
+        } else {
+            store.dispatch(goTo("consultaTurnosMascota"))
+        }
+
 
     }
     stateChanged(state, name) {
@@ -237,10 +243,12 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
+
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-consulta-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-consulta-consultaMascota-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.current = state.screen.name
                 this.mascotas = state.mascotas.entities
 
             }
@@ -272,6 +280,9 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
 

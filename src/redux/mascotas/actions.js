@@ -21,10 +21,19 @@ export const UPDATE_ERROR = "[mascotas] UPDATE error";
 export const REMOVE_ERROR = "[mascotas] REMOVE error";
 export const GETEDIT_ERROR = "[mascotas] GETEDIT error";
 
+export const GET_CANTIDAD = "[mascotas] GETCANTIDAD"
+export const GET_CANTIDAD_SUCCESS = "[mascotas] GETCANTIDAD success";
+
+export const GET_CANTIDAD_ERROR = "[mascotas] GETCANTIDAD error";
 
 
 export const get = (options) => ({
     type: GET,
+    options: options
+});
+
+export const getCantidad = (options) => ({
+    type: GET_CANTIDAD,
     options: options
 });
 

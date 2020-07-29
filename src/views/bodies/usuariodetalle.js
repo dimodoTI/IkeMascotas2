@@ -44,6 +44,9 @@ import {
 import {
     showScreen
 } from "../../redux/screens/actions";
+import {
+    getCantidad
+} from "../../redux/mascotas/actions";
 
 
 const CLIENTE_LOGUEADO = "cliente.logueadoTimeStamp"
@@ -54,8 +57,10 @@ const FOTOS_TIMESTAMP = "fotos.timeStamp"
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
+const GETCANTIDAD_TIMESTAMP = "mascotas.getCantidadTimeStamp"
 
-export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP, FOTOS_TIMESTAMP)(LitElement) {
+
+export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP, FOTOS_TIMESTAMP, GETCANTIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -346,12 +351,22 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
                 this.hidden = false
                 this.item = store.getState().cliente.datos
                 this.mascotas = store.getState().mascotas.entities
-                this.cuantasMascotas = this.mascotas ? this.mascotas.length : 0
+                //this.cuantasMascotas = this.mascotas ? this.mascotas.length : 0
                 this.vacunas = store.getState().mascotasvacunas.entities
                 this.item.consultas = 12
                 this.item.vacunas = this.vacunas ? this.vacunas.length : 0
             }
             this.update();
+        }
+
+        if (name == CLIENTE_LOGUEADO) {
+            this.cuantasMascotas = state.mascotas.cantidad
+            this.update()
+        }
+
+        if (name == GETCANTIDAD_TIMESTAMP) {
+            this.cuantasMascotas = state.mascotas.cantidad
+            this.update()
         }
 
 

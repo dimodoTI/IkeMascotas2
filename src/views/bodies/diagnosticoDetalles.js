@@ -50,6 +50,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         this.idioma = "ES"
         this.reservas = null
         this.area = "body"
+        this.current = "diagnosticoDetalles"
         this.reservaEnAtencion = {
             Id: 0,
             Atencion: {
@@ -229,8 +230,9 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
+            this.current = state.screen.name
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-diagnosticoDetalles-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-diagnosticoDetalles-diagnosticoDetallesM-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }
@@ -280,6 +282,9 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
         }

@@ -62,6 +62,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
         this.mascotasTipo = []
         this.mascotas = []
         this.mascota = 0
+        this.current = "vacuna"
 
         this.item = {
             Id: 0,
@@ -216,7 +217,12 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
         if (this.valido()) {
             store.dispatch(addMascotasvacunas(this.asignarValores(this.item), store.getState().cliente.datos.token))
         }
-        store.dispatch(goTo("vacunaMsg"))
+        if (this.current == "vacuna") {
+            store.dispatch(goTo("vacunaMsg"))
+        } else {
+            store.dispatch(goTo("vacunaMsgMascota"))
+        }
+
 
     }
     stateChanged(state, name) {
@@ -228,6 +234,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
             const SeMuestraEnUnasDeEstasPantallas = "-vacuna-vacunaMascota-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.current = state.screen.name
             }
             this.update();
         }
@@ -271,6 +278,9 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
         }

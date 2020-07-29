@@ -32,7 +32,9 @@ import {
 import {
     get as getReservas
 } from "../../redux/reservas/actions"
-
+import {
+    get as getMascotas
+} from "../../redux/mascotas/actions"
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -248,6 +250,10 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
         this.opcion = 'uno'
     }
     clickBoton2() {
+        store.dispatch(getMascotas({
+            token: store.getState().cliente.datos.token,
+            expand: "Raza($expand=MascotasTipo),Reservas"
+        }))
         store.dispatch(goTo("mascota"))
         this.opcion = 'dos'
     }
@@ -259,6 +265,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             token: store.getState().cliente.datos.token,
             orderby: "FechaAtencion desc"
         }))
+
     }
 
     clickBoton4() {

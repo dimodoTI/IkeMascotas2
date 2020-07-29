@@ -40,6 +40,7 @@ const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 const RESERVAS_TIMESTAMP = "reservas.timeStamp"
 
+
 export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, RESERVAS_TIMESTAMP)(LitElement) {
     constructor() {
         super();
@@ -149,12 +150,24 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
         store.dispatch(getEnAtencion({
             registro: e.currentTarget.item
         }))
-        store.dispatch(goTo("diagnosticoDetalles"))
+        if (this.current == "mascotaver") {
+            store.dispatch(goTo("diagnosticoDetallesM"))
+        }
+        if (this.current == "misConsultas") {
+            store.dispatch(goTo("diagnosticoDetalles"))
+        }
+        // store.dispatch(goTo("diagnosticoDetalles"))
     }
 
     atencion(e) {
         if (e.currentTarget.item.Atencion) {
-            store.dispatch(goTo("diagnosticoDetalles"))
+            if (this.current == "mascotaver") {
+                store.dispatch(goTo("diagnosticoDetallesM"))
+            }
+            if (this.current == "misConsultas") {
+                store.dispatch(goTo("diagnosticoDetalles"))
+            }
+
         } else {
             if (this.current == "mascotaver") {
                 store.dispatch(goTo("videoMasocotaVer"))
@@ -181,7 +194,13 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     }
 
     clickConsulta(e) {
-        store.dispatch(goTo("consulta"))
+
+        if (this.current == "mascotaver") {
+            store.dispatch(goTo("consultaMascota"))
+        } else {
+            store.dispatch(goTo("consulta"))
+        }
+
     }
 
     formateoHora(hora) {
@@ -194,12 +213,13 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     stateChanged(state, name) {
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
-            this.current = state.screen.name
+
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-listaReserva-mascotaver-misConsultas-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.current = state.screen.name
             }
             this.update();
         }

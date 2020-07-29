@@ -35,7 +35,8 @@ import {
 } from "../cliente/actions";
 
 import {
-    get as getMascotas
+    get as getMascotas,
+    getCantidad
 }
 from "../mascotas/actions"
 
@@ -134,22 +135,20 @@ export const processLogin = ({
             dispatch(setDatos(action.payload.receive))
 
 
+            dispatch(getCantidad({
+                select: "Id",
+                token: getState().cliente.datos.token
 
-            dispatch(getReservas({
-                token: getState().cliente.datos.token,
-                expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
-                orderby: "FechaAtencion desc"
             }))
-
 
             dispatch(getMascotasVacunas({
                 token: getState().cliente.datos.token
             }))
 
-            dispatch(getMascotas({
-                token: getState().cliente.datos.token,
-                expand: "Raza($expand=MascotasTipo),Reservas"
-            }))
+            /*             dispatch(getMascotas({
+                            token: getState().cliente.datos.token,
+                            expand: "Raza($expand=MascotasTipo),Reservas"
+                        })) */
             dispatch(goTo("principal"))
         }
     }
