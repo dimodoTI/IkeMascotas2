@@ -5,6 +5,7 @@ export const UPDATE = "[mascotas] UPDATE";
 export const REMOVE = "[mascotas] REMOVE";
 export const EDIT = "[mascotas] EDIT"
 export const GETEDIT = "[mascotas] GETEDIT"
+export const GET_COMBO = "[mascotas] GETCOMBO"
 
 
 export const GET_SUCCESS = "[mascotas] GET success";
@@ -20,6 +21,8 @@ export const PATCH_ERROR = "[mascotas] PATCH error";
 export const UPDATE_ERROR = "[mascotas] UPDATE error";
 export const REMOVE_ERROR = "[mascotas] REMOVE error";
 export const GETEDIT_ERROR = "[mascotas] GETEDIT error";
+export const GET_COMBO_SUCCESS = "[mascotas] GETCOMBO success"
+export const GET_COMBO_ERROR = "[mascotas] GETCOMBO error"
 
 export const GET_CANTIDAD = "[mascotas] GETCANTIDAD"
 export const GET_CANTIDAD_SUCCESS = "[mascotas] GETCANTIDAD success";
@@ -106,3 +109,8 @@ export const edit = (modo, item) => ({
     },
     modo: modo,
 })
+
+export const getCombo = (options) => ({
+    type: GET_COMBO,
+    options: options
+});

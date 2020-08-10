@@ -14,9 +14,12 @@ const publicacionesDomain = "https://apis.publicaciones.dimodo.ga"
 
 const webApiUsuarios = "https://apis.usuarios.dimodo.ga/api"
 
+const chatDomain = "http://localhost:5000"
 
 
 const webApiMascotas = mascotasDomain + "/api"
+const webApiChat = chatDomain + "/api"
+
 const OdataMascotas = ODataFetchFactory({
   fetch: fetch,
   domain: mascotasDomain
@@ -25,6 +28,11 @@ const OdataPublicaciones = ODataFetchFactory({
   fetch: fetch,
   domain: publicacionesDomain
 })
+const OdataChat = ODataFetchFactory({
+  fetch: fetch,
+  domain: chatDomain
+})
+
 
 
 export const ikeUsuarioFetch = fetchFactory(webApiUsuarios, "Usuario")
@@ -42,6 +50,9 @@ export const ikeReservas = fetchFactory(webApiMascotas, "Reservas")
 export const ikeAtenciones = fetchFactory(webApiMascotas, "Atenciones")
 export const ikeMascotasVacunas = fetchFactory(webApiMascotas, "MascotasVacunas")
 export const ikeTurnosDisponibles = fetchFactory(webApiMascotas, "TurnosDisponibles")
+export const ikeAdjuntos = fetchFactory(webApiMascotas, "Adjutos")
+
+export const ikeChat = fetchFactory(webApiChat, "Chat")
 
 export const ikeMascotasQuery = ODataEntity(OdataMascotas, "MascotasQuery")
 export const ikeMascotasTipoQuery = ODataEntity(OdataMascotas, "MascotasTipoQuery")
@@ -54,5 +65,7 @@ export const ikeAtencionesQuery = ODataEntity(OdataMascotas, "AtencionesQuery")
 export const ikeCalendarioQuery = ODataEntity(OdataMascotas, "CalendarioQuery")
 export const ikeVacunasQuery = ODataEntity(OdataMascotas, "VacunasQuery")
 export const ikeMascotasVacunasQuery = ODataEntity(OdataMascotas, "MascotasVacunasQuery")
+export const ikeAdjuntosQuery = ODataEntity(OdataMascotas, "AdjuntosQuery")
+export const ikeChatQuery = ODataEntity(OdataChat, "ChatQuery")
 
 export const ikeOdataPublicaciones = ODataEntity(OdataPublicaciones, "PublicacionesQuery")

@@ -31,7 +31,8 @@ import {
 
 
 import {
-    edit as mascotasEdit
+    edit as mascotasEdit,
+    getCombo
 } from "../../redux/mascotas/actions"
 
 
@@ -65,8 +66,8 @@ const SCREEN = "screen.timeStamp"
 const VACUNAS_MASCOTAS_TIMESTAMP = "mascotasvacunas.timeStamp"
 
 const CALENDARIO_TIMESTAMP = "calendario.timeStamp"
-
-export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VACUNAS_MASCOTAS_TIMESTAMP, CALENDARIO_TIMESTAMP)(LitElement) {
+const COMBO_MASCOTAS = "mascotas.getComboTimeStamp"
+export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VACUNAS_MASCOTAS_TIMESTAMP, CALENDARIO_TIMESTAMP, COMBO_MASCOTAS)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -253,6 +254,9 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
                 <label class="subTitulo" >${idiomas[this.idioma].mascotaver.consulta}</label>
                     <pantalla-listareserva class="body"></pantalla-listareserva>
                 </div>
+                <button style="margin-top:1rem" id="btn-edit" btn3 @click=${ this.clickConsulta}>
+                ${ idiomas[this.idioma].listaReserva.agendarReserva}
+            </button >
                 
                 <div style="padding:.5rem 0 .5rem 0">
                     <label class="subTitulo" >${idiomas[this.idioma].mascotaver.vacuna}</label>
@@ -335,7 +339,13 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
         store.dispatch(goTo("mascotaeditar"))
     }
     clickConsulta() {
-        store.dispatch(goTo("consultaMascota"))
+
+        store.dispatch(getCombo({
+            orderby: "Nombre",
+            select: "Id,Nombre",
+            token: store.getState().cliente.datos.token
+        }))
+
     }
     clickVacunas() {
         store.dispatch(mascotasEdit("M", this.items))
@@ -366,6 +376,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
+                this.current = state.screen.name
                 this.hidden = false
 
                 this.items = state.mascotas.entities.currentItem
@@ -387,6 +398,10 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
         if (name == CALENDARIO_TIMESTAMP) {
             this.calendario = state.calendario.entities
 
+        }
+
+        if (name == COMBO_MASCOTAS && this.current == state.screen.name) {
+            store.dispatch(goTo("consultaMascota"))
         }
 
 
@@ -413,6 +428,9 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
                 reflect: true,
             },
             area: {
+                type: String
+            },
+            current: {
                 type: String
             }
 

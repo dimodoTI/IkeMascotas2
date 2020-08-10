@@ -68,6 +68,14 @@ import {
   middleware as vacunas
 } from "./vacunas/middleware"
 
+import {
+  middleware as adjuntos
+} from "./adjuntos/middleware"
+
+import {
+  middleware as chat
+} from "./chat/middleware"
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let mdw = [
@@ -89,8 +97,9 @@ let mdw = [
   ...tramos,
   ...turnosdisponibles,
   ...usuario,
-  ...vacunas
-
+  ...vacunas,
+  ...adjuntos,
+  ...chat,
 ]
 
 if (process.env.NODE_ENV !== 'production') {

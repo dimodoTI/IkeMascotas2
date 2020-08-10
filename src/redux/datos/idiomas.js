@@ -430,5 +430,10 @@ export const idiomas = {
             proximo: "Próximos turnos disponibles",
             btn1: "Confirmar turno"
         },
+        notificacionReservas: {
+            titulo: "Notificaciones",
+            verDetalle: "Ver Detalle"
+
+        }
     }
 }

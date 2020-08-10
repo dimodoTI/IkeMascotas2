@@ -58,7 +58,8 @@ import {
 } from "../../redux/screens/screenLayouts";
 
 import {
-    get as getMascotas
+    get as getMascotas,
+    getCombo
 } from "../../redux/mascotas/actions"
 
 /* const RESERVAS_TIMESTAMP = "reservas.timeStamp"
@@ -68,8 +69,9 @@ const RESERVASADD_TIMESTAMP = "reservas.addTimeStamp" */
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
+const COMBO_MASCOTAS = "mascotas.getComboTimeStamp"
 
-export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, COMBO_MASCOTAS)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -200,7 +202,14 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(L
 
     consulta() {
 
-        store.dispatch(goTo("consulta"))
+        store.dispatch(getCombo({
+            orderby: "Nombre",
+            select: "Id,Nombre",
+            token: store.getState().cliente.datos.token
+        }))
+
+
+
     }
 
     stateChanged(state, name) {
@@ -215,6 +224,10 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN)(L
                 this.hidden = false
             }
             this.update();
+        }
+
+        if (name == COMBO_MASCOTAS && this.current == state.screen.name) {
+            store.dispatch(goTo("consulta"))
         }
 
 

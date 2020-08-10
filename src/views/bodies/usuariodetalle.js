@@ -336,7 +336,11 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
         item.nombre = this.shadowRoot.querySelector("#txtNombre").value
         item.apellido = this.shadowRoot.querySelector("#txtApellido").value
         item.telefono = this.shadowRoot.querySelector("#txtCelular").value
-        item.foto = store.getState().fotos.foto
+
+        if (!store.getState().fotos.foto) {
+            item.foto = store.getState().fotos.foto
+        }
+
         return item
     }
 
@@ -400,7 +404,11 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
                 const nombre = this.shadowRoot.querySelector("#txtNombre").value
                 const apellido = this.shadowRoot.querySelector("#txtApellido").value
                 const documento = this.item.documento
-                const foto = this.item.foto
+                let foto = this.item.foto
+                if (!store.geteState().fotos.foto) {
+                    foto = store.geteState().fotos.foto
+                }
+
                 const telefono = this.shadowRoot.querySelector("#txtCelular").value
                 store.dispatch(updateProfile(nombre, apellido, documento, foto, telefono, store.getState().cliente.datos.token))
             }

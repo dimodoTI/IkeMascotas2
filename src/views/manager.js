@@ -148,6 +148,10 @@ import {
     pantallaMascotaAltaMsg
 } from "./bodies/mascotaAltaMsg"
 
+import {
+    pantallaNotificacionReservas
+} from "./bodies/notificacionReservas"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -207,6 +211,8 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <dimodo-spinner  type="spinner2"></dimodo-spinner>
             <fotos-componente class="body"></fotos-componente>
             <pantalla-mascotaaltamsg class="body"></pantalla-mascotaaltamsg>
+            <pantalla-notificacionreservas class="body"></pantalla-notificacionreservas>
+
             `
 
     }

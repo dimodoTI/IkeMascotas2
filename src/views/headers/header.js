@@ -10,7 +10,9 @@ import {
     connect
 } from "@brunomon/helpers";
 import {
-    ATRAS
+    ATRAS,
+    CAMPANA,
+    CAMPANA_CONMARCA
 } from "../../../assets/icons/icons";
 import {
     idiomas
@@ -26,7 +28,8 @@ import {
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+const RECIBIR_MENSAJETIMESTAMP = "ui.recibirMensajetimeStamp"
+export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIBIR_MENSAJETIMESTAMP)(LitElement) {
 
     constructor() {
         super();
@@ -38,6 +41,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         this.current = "principal"
         this.titulo = ""
         this.subTitulo = ""
+        this.mensaje = false
     }
 
 
@@ -87,8 +91,8 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             :host([current="vacuna"]) #divImg ,
             :host([current="vacunaMascota"]) #divImg ,
             :host([current="consultaMascota"]) #divImg ,
-            :host([current="consultaTurnosMascota"]) #divImg 
-
+            :host([current="consultaTurnosMascota"]) #divImg ,
+            :host([current="notificacionReservas"]) #divImg
             {
                 display:grid;
             }
@@ -112,6 +116,37 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             :host(:not([media-size="small"])) #lblLeyenda {
                 justify-content: center;
             }
+            #divTxt{
+            display:grid;
+            grid-template-columns: 11fr 1fr;;
+            align-items: center;
+        }
+
+
+        :host([current="mascotaeditar"]) #campana,  
+            :host([current="consulta"]) #campana, 
+             
+            :host([current="diagnosticoDetalles"]) #campana, 
+            :host([current="mascota"]) #campana, 
+            :host([current="mascotaVer"]) #campana, 
+            :host([current="vacuna"]) #campana ,
+            :host([current="vacunaMascota"]) #campana ,
+            :host([current="consultaMascota"]) #campana ,
+          
+            :host([current=misConsultas]) #campana
+            {
+                display:grid;
+            }
+
+        #campana{
+            position:relative;
+            display:none;
+           align-items:center
+
+        }
+
+
+
         `
     }
 
@@ -123,7 +158,9 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 </div>
                 <div id="divTxt">
                     <label id="lblTitulo">${this.titulo}</label>
+                    <div id="campana"  @click=${this.clickBotonNotificacion}>${this.mensaje?CAMPANA_CONMARCA:CAMPANA}</div>
                 </div>
+              
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
@@ -137,13 +174,18 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo
                 this.subTitulo = idiomas[this.idioma][this.current].subTitulo
             }
             this.update();
+        }
+
+        if (name == RECIBIR_MENSAJETIMESTAMP) {
+            this.mensaje = true
+            this.update()
         }
     }
 
@@ -159,6 +201,9 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 store.dispatch(goTo("mascota"))
                 break;
             case "usuariodetalle":
+                store.dispatch(goTo("principal"))
+                break;
+            case "notificacionReservas":
                 store.dispatch(goTo("principal"))
                 break;
                 /*             case "mascotaalta":
@@ -202,6 +247,10 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             },
             current: {
                 type: String,
+                reflect: true,
+            },
+            mensaje: {
+                type: Boolean,
                 reflect: true,
             }
         }

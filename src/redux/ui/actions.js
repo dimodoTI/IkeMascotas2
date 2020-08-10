@@ -19,6 +19,8 @@ export const CANCELAR_TIMER = "[ui] CANCELAR_TIMER"
 export const SET_TIMER = "[ui] SET_TIMER"
 export const SET_CONTADOR = "[ui] SET_CONTADOR"
 
+export const RECIBIR_MENSAJE = "[ui] RECIBIR_MENSAJE"
+
 
 
 export const showSpinner = () => ({
@@ -69,4 +71,8 @@ export const cancelarTimer = () => ({
 export const setContador = (tiempo) => ({
   type: SET_CONTADOR,
   tiempo: tiempo
+});
+
+export const recibirMensaje = () => ({
+  type: RECIBIR_MENSAJE
 });

@@ -19,7 +19,10 @@ import {
     GETEDIT_SUCCESS,
     GET_CANTIDAD,
     GET_CANTIDAD_ERROR,
-    GET_CANTIDAD_SUCCESS
+    GET_CANTIDAD_SUCCESS,
+    GET_COMBO,
+    GET_COMBO_SUCCESS,
+    GET_COMBO_ERROR
 } from "./actions";
 
 import {
@@ -48,6 +51,9 @@ export const get = ({
     }
     if (action.type === GET_CANTIDAD) {
         dispatch(apiRequest(ikeMascotasQuery, action.options, GET_CANTIDAD_SUCCESS, GET_CANTIDAD_ERROR))
+    }
+    if (action.type === GET_COMBO) {
+        dispatch(apiRequest(ikeMascotasQuery, action.options, GET_COMBO_SUCCESS, GET_COMBO_ERROR))
     }
 };
 
@@ -101,7 +107,7 @@ export const processGet = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_SUCCESS) {
+    if (action.type === GET_SUCCESS || action.type == GET_COMBO_SUCCESS || action.type == GET_CANTIDAD_SUCCESS) {
 
     }
 };
@@ -110,7 +116,7 @@ export const processComand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS || action.type == GET_CANTIDAD_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS) {
 
     }
 };
@@ -121,7 +127,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || GETEDIT_ERROR || GET_CANTIDAD_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === GETEDIT_ERROR || action.type === GET_CANTIDAD_ERROR || action.type === GET_COMBO_ERROR) {
 
     }
 };

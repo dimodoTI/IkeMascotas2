@@ -21,7 +21,8 @@ import {
     ikeRecuperoFetch,
     ikeRenovacionFetch,
     ikeLogonFetch,
-    ikeUpdateProfileFetch
+    ikeUpdateProfileFetch,
+    ikeChatQuery
 } from "../fetchs"
 
 import {
@@ -51,11 +52,19 @@ import {
 import {
     showSpinner,
     hideSpinner,
-    showError
+    showError,
+    recibirMensaje
 } from "../ui/actions";
 import {
     goTo
 } from "../routing/actions";
+
+import {
+    get as getChat
+} from "../chat/actions"
+
+const NEW_CONNECTION = "new-connection"
+let connection = null
 
 export const login = ({
     dispatch
@@ -134,6 +143,23 @@ export const processLogin = ({
 
             dispatch(setDatos(action.payload.receive))
 
+            dispatch(getChat({
+                top: "50",
+                expand: "Reserva",
+                filter: "Reserva/UsuarioId eq " + action.payload.receive.id + " and Respondido gt 0 and Leido eq 0",
+                orderby: "ReservaId desc ,Id desc"
+
+
+
+            }))
+
+
+            /*             dispatch(getChat({
+
+                            filter: "UsuarioId eq " + action.payload.receive.id + " and Leido eq 0",
+                            token: getState().cliente.datos.token
+                        })) */
+
 
             dispatch(getCantidad({
                 select: "Id",
@@ -145,10 +171,29 @@ export const processLogin = ({
                 token: getState().cliente.datos.token
             }))
 
-            /*             dispatch(getMascotas({
-                            token: getState().cliente.datos.token,
-                            expand: "Raza($expand=MascotasTipo),Reservas"
-                        })) */
+            connection = new WebSocket('wss://ws.chat.dimodo.ga:9080');
+
+            connection.onopen = () => {
+                connection.send(JSON.stringify({
+                    type: NEW_CONNECTION,
+                    id: action.payload.receive.id,
+                    rol: "cli",
+                    name: action.payload.receive.nombre
+                }));
+            };
+
+            connection.onmessage = (msg) => {
+
+                let data = JSON.parse(msg.data);
+
+                dispatch(recibirMensaje())
+
+
+            };
+
+            connection.onerror = (err) => {
+                console.log("Got error", err);
+            };
             dispatch(goTo("principal"))
         }
     }

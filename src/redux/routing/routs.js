@@ -30,6 +30,7 @@ export const largeRoute = [
     "3/4 -vercobertura",
     "3/5 -usuariodetalle",
     "3/5/1 -fotos",
+    "3/6 -notificacionReservas",
 
 
     "4 -crearclave",

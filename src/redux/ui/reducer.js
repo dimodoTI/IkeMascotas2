@@ -5,6 +5,7 @@ import {
     HIDE_ERROR,
     SET_MEDIA,
     SET_MEDIA_ORIENTATION,
+    RECIBIR_MENSAJE
 
 } from "./actions";
 
@@ -20,7 +21,10 @@ const initialState = {
         size: "large",
         orientation: "landscape",
         timeStamp: null
-    }
+
+    },
+
+    recibirMensajetimeStamp: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -51,7 +55,9 @@ export const reducer = (state = initialState, action) => {
             newState.media.orientation = action.orientation
             newState.media.timeStamp = (new Date()).getTime()
             break;
-
+        case RECIBIR_MENSAJE:
+            newState.recibirMensajetimeStamp = (new Date()).getTime()
+            break;
     }
     return newState;
 };

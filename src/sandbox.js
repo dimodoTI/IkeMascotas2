@@ -34,11 +34,27 @@ import {
     get as getRazas
 } from "./redux/razas/actions"
 
+import {
+    getParameterByName
+} from "./libs/helpers";
+
+
+
+
+
 
 
 
 store.dispatch(captureMedia())
-store.dispatch(showScreen("splash", ""))
+if (getParameterByName("ticket")) {
+    store.dispatch(goTo("crearclave"))
+} else {
+    store.dispatch(showScreen("splash"))
+}
+
+
+
+
 
 store.dispatch(getCalendario({
     expand: "MascotasTipo, Vacuna"
@@ -55,6 +71,11 @@ store.dispatch(getRazas({
 
 
 store.dispatch(getVacunas({}))
+
+
+
+
+
 
 /* 
 

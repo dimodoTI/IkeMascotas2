@@ -10,10 +10,8 @@ import {
     REMOVE_SUCCESS,
     REMOVE_ERROR,
     EDIT,
-    GETEDIT_SUCCESS,
-    GET_CANTIDAD_SUCCESS,
-    GET_CANTIDAD_ERROR,
-    GET_COMBO_SUCCESS
+    SIN_CONTESTAR_SUCCESS,
+    SIN_CONTESTAR_ERROR
 } from "./actions";
 
 
@@ -26,8 +24,8 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
-    getEditTimeStamp: null,
-    cantidad: null,
+    sinContestarTimeStamp: null,
+    entitySinContestar: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -60,22 +58,19 @@ export const reducer = (state = initialState, action) => {
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
             break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
+        case UPDATE_ERROR:
+        case REMOVE_ERROR:
+        case PATCH_ERROR:
+        case ADD_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
-        case GETEDIT_SUCCESS:
-            newState.getEditTimeStamp = (new Date()).getTime();
-
-            newState.entities.currentEdit = action.payload.receive
-        case GET_CANTIDAD_SUCCESS:
-            newState.getCantidadTimeStamp = (new Date()).getTime();
-            newState.cantidad = action.payload.receive.length
+        case SIN_CONTESTAR_ERROR:
+            newState.sinContestarErrorTimeStamp = (new Date()).getTime();
             break;
-        case GET_COMBO_SUCCESS:
-            newState.getComboTimeStamp = (new Date()).getTime();
-            newState.combo = action.payload.receive
-            break
-
+        case SIN_CONTESTAR_SUCCESS:
+            newState.entitySinContestar = action.payload.receive
+            newState.sinContestarTimeStamp = (new Date()).getTime();
+            break;
     }
     return newState;
 };

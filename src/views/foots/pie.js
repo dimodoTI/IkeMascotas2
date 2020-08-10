@@ -193,7 +193,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             <div id="pieCabecera">
             </div>
             <div id="pieMenu">
-                <div id="img-home" sele ct=${this.opcion == 'uno' ? 'SI' : 'NO'} @click="${this.clickBoton1}" class="img">
+                <div id="img-home" select=${this.opcion == 'uno' ? 'SI' : 'NO'} @click="${this.clickBoton1}" class="img">
                     ${HOME}
                 </div>
                 <div id="img-mascota" select=${this.opcion == 'dos' ? 'SI' : 'NO'}  @click="${this.clickBoton2}" class="img">
@@ -263,7 +263,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
         store.dispatch(getReservas({
             expand: "Atencion,Mascota",
             token: store.getState().cliente.datos.token,
-            orderby: "FechaAtencion desc"
+            orderby: "FechaAtencion,HoraAtencion desc"
         }))
 
     }

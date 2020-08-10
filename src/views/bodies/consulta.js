@@ -174,7 +174,9 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                         <div id="ciDivDelete">${BASURA}</div>
                     </div>
                 `)}              
-                <button id="btn-recuperar" btn3 @click=${this.clickBoton2}>
+
+                <input type="file" id="fileUpload" style="display:none" accept=".pdf,.jpg,.png" />
+                <button id="btn-adjuntar" btn3 @click=${this.adjuntar}>
                     ${idiomas[this.idioma].consulta.btn1}
                 </button>
                 <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
@@ -224,6 +226,31 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
     clickBoton1() {
         store.dispatch(goPrev())
     }
+    firstUpdated(changedProperties) {
+        let a = 1
+        this.shadowRoot.querySelector("#fileUpload").addEventListener('change', (e) => {
+            if (e.currentTarget.files.length == 1) this.uploadFile(e.currentTarget.files[0]);
+        }, false)
+    }
+
+
+    uploadFile(file) {
+        let reader = new FileReader();
+        let tipo = file.name.indexOf(".pdf") != -1 ? "pdf" : "otro"
+        let imagen = ""
+        let archivo = ""
+        reader.onload = (e) => {
+
+            archivo = e.currentTarget.result
+
+
+        };
+        reader.readAsDataURL(file)
+    }
+
+    adjuntar(e) {
+        this.shadowRoot.querySelector("#fileUpload").click()
+    }
 
     clickBoton2() {
         store.dispatch(getTurnosDisponibles())
@@ -249,7 +276,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.current = state.screen.name
-                this.mascotas = state.mascotas.entities
+                this.mascotas = state.mascotas.combo
 
             }
             this.update();
@@ -262,7 +289,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
     }
 
 
-    firstUpdated() {}
+
 
     static get properties() {
         return {

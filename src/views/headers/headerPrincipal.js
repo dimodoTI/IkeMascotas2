@@ -10,6 +10,7 @@ import {
     connect
 } from "@brunomon/helpers";
 import {
+    CAMPANA,
     CAMPANA_CONMARCA,
     FLECHA_ABAJO
 } from "../../../assets/icons/icons";
@@ -24,12 +25,23 @@ import {
     goPrev,
     goTo
 } from "../../redux/routing/actions"
+import {
+    limpiarFoto
+} from "../../redux/fotos/actions";
+import {
+    sinContestar
+} from "../../redux/chat/actions";
+
+
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 const CLIENTE_TIMESTAMP = "cliente.timestamp"
-export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENTE_TIMESTAMP)(LitElement) {
+const RECIBIR_MENSAJETIMESTAMP = "ui.recibirMensajetimeStamp"
+const SIN_CONTESTAR_TIMESTAMP = "chat.sinContestarTimeStamp"
+const SIN_CONTESTAR_ERRORTIMESTAMP = "chat.sinContestarErrorTimeStamp"
+export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENTE_TIMESTAMP, RECIBIR_MENSAJETIMESTAMP, SIN_CONTESTAR_TIMESTAMP, SIN_CONTESTAR_ERRORTIMESTAMP)(LitElement) {
 
     constructor() {
         super();
@@ -40,6 +52,7 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
         this.pagina = store.getState().screen.name
         this.titulo = ""
         this.subTitulo = ""
+        this.mensaje = false
     }
 
 
@@ -108,11 +121,13 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
             opacity:.4;
         }
 
+  
+        
+
        
         #campana{
-
+            position:relative;
             display:grid;
-
            align-items:center
 
         }
@@ -140,12 +155,18 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
                     <label id="lblTitulo">${this.titulo+" "+ store.getState().cliente.datos.nombre}</label>
                     <div class="flecha" @click=${this.clickBotonUsuario} style="display:${store.getState().cliente.logueado?"":"none"}">${FLECHA_ABAJO}</div>
                 </div>
-                <div id="campana" @click=${this.clickBotonNotificacion}>${CAMPANA_CONMARCA}</div>
+                <div id="campana"  @click=${this. notificaciones}>${this.mensaje?CAMPANA_CONMARCA:CAMPANA}</div>
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
             </div>
+            
             `
+    }
+
+    notificaciones(e) {
+        store.dispatch(sinContestar(store.getState().cliente.datos.id))
+
     }
 
     stateChanged(state, name) {
@@ -165,9 +186,17 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
         if (name == CLIENTE_TIMESTAMP) {
             this.update()
         }
+        if (name == RECIBIR_MENSAJETIMESTAMP) {
+            this.mensaje = true
+            this.update()
+        }
+        if (name == SIN_CONTESTAR_TIMESTAMP) {
+            store.dispatch(goTo("notificacionReservas"))
+        }
     }
 
     clickBotonUsuario() {
+        store.dispatch(limpiarFoto())
         store.dispatch(goTo("usuariodetalle"))
     }
     static get properties() {
@@ -190,6 +219,10 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
             },
             current: {
                 type: String,
+                reflect: true,
+            },
+            mensaje: {
+                type: Boolean,
                 reflect: true,
             }
         }

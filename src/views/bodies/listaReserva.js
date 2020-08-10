@@ -134,9 +134,9 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
                     </div>
                     `)}
             </div>
-            <button style="margin-top:1rem" id="btn-edit" btn3 @click=${ this.clickConsulta}>
+<!--             <button style="margin-top:1rem" id="btn-edit" btn3 @click=${ this.clickConsulta}>
                 ${ idiomas[this.idioma].listaReserva.agendarReserva}
-            </button >
+            </button > -->
 
         `
     }
@@ -160,7 +160,11 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     }
 
     atencion(e) {
+        store.dispatch(getEnAtencion({
+            registro: e.currentTarget.item
+        }))
         if (e.currentTarget.item.Atencion) {
+
             if (this.current == "mascotaver") {
                 store.dispatch(goTo("diagnosticoDetallesM"))
             }
