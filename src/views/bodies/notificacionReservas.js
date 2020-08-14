@@ -36,9 +36,13 @@ import {
     enAtencion as getEnAtencion
 } from "../../redux/reservas/actions"
 
+import {
+    chatReserva
+} from "../../redux/chat/actions"
+
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-
 
 
 export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -108,6 +112,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             justify-self:center;
         }
 
+        
+
         #cchatDivEtiqueta{
             display: grid; 
             position: relative;
@@ -123,18 +129,33 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             padding: .2vh 0 .2vh 0;
         }
 
+
+         #cchatDivEtiqueta[pregunta="1"]{
+            background-color:var(--color-celeste-claro);
+        }
+        
+        
+
+        
+
         #cchatDivNombre{
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);            
             padding-left: .2rem;
             text-align: left;
-            color: var(--color-gris);   
+            color: var(--color-azul);   
         }         
+
+         #cchatDivNombre[tipo="0"]{
+            color: var(--color-rojo); 
+        } 
+
+    
 
         #cchatDivFecha{
             font-size: var(--font-label-size);
             font-weight: var(--font-label-weight);            
-            color: var(--color-gris);
+            color: var(--color-gris-oscuro);
             text-align: right;
             padding-right:.3rem;
         }
@@ -160,12 +181,13 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 
          }
 
+         
+
          #pregunta{
              z-index:100;
              background-color:  var(--color-celeste-muy-claro);;
              position:absolute;
-             display:none;
-             
+             display:none;            
              grid-gap:2vh;
              padding:1rem;
              top:10vh;
@@ -178,27 +200,63 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
          }
          #cchatAccion{
             display:grid;
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 1fr 1fr 1fr ;
+            font-size:var(--font-label-size);
+            font-weight:var(--font-label-weight);
+            color: var(--color-azul-oscuro);
          }
 
+         
 
-
-
-
+         #cchatDivVerDetalle{
+            padding-left: .5rem;
+            text-align:left;
         
+  
+         }
+
+         
+
+
+         #cchatLblVerDetalle{
+            justify-self:left;
+            text-decoration: underline;
+            cursor:pointer;
+            
+         }
+
+         #cchatLblNuevaPregunta{
+            justify-self:center;
+            text-decoration: underline;
+            cursor:pointer;
+         }
+
+         #cchatLblNuevaPregunta[tipo="0"] {
+            display:none;
+         }
+
+         #cchatLblElimar{
+            justify-self: right;
+            text-decoration: underline;
+            cursor:pointer;
+         }
+
     `
+
     }
     render() {
         return html `
             <div id="grilla">
-                ${this.item.map(dato => html`
-                   <div id="cchatDivEtiqueta" >
+                ${this.item.map(dato =>{
+                    this.tipo = dato.Tipo
+                   return html`
+                   <div id="cchatDivEtiqueta">
                         <div id="cchatFechaNombre">
-                            <div id="cchatDivNombre">
+                            <div id="cchatDivNombre" tipo="${dato.Tipo}">
                                 ${dato.Reserva.Mascota.Nombre}
                             </div>
                             <div id="cchatDivFecha">
-                                ${dato.Fecha.substring(8,10)+"/"+dato.Fecha.substring(5,7)+"/"+dato.Fecha.substring(0,4)}
+                                ${this.formateoFecha(dato.Fecha)}
                             </div>
                         </div>
                         <div id="cchatDivDiagnostico">
@@ -209,17 +267,22 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                             ${dato.Texto.substring(0,80)}
                         </div>
                         <div id="cchatAccion">
-                            <div id="cmhDivVerDetalle">
-                                <button id="verDetalle" btn2 .item=${dato} @click=${this.verDetalle} style="padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].notificacionReservas.verDetalle}</button>                    
+                            <div id="cmhDivVerDetalle" style="justify-self:left;padding-left:.3rem" .item="${dato}" @click="${this.verDetalle}">
+                            <label id="cchatLblVerDetalle">${idiomas[this.idioma].notificacionReservas.verDetalle}</label>
+                               
                             </div>
-                            <div id="cmhDivVerDetalle">
-                                <button id="btnNuevaPregunta" btn2 .item=${dato} @click=${this.verDetalle} style="padding:0;text-align:rigth;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">Nueva Pregunta</button>                    
+                            <div id="cmhDivNuevaPregunta"  style="justify-self:center" >
+                                <label id="cchatLblNuevaPregunta" tipo="${dato.Tipo}">${idiomas[this.idioma].notificacionReservas.nuevaPregunta}</label>
+                               
                             </div>
+                            <div id="cmhDivEliminar" style="justify-self:right;padding-right:.3rem">
+                                <label id="cchatLblElimar">${idiomas[this.idioma].notificacionReservas.eliminar}</label>
+                            </div>
+
                         </div>
                         </div>
-                    </div>
-                    
-                    `)}
+                    </div>                
+                    `})}
                     
                     
             </div>
@@ -243,7 +306,16 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
         `
     }
 
+    formateoFecha(fecha) {
+        return fecha.substring(8, 10) + "/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4)
+    }
+
     verDetalle(e) {
+        store.dispatch(chatReserva(e.currentTarget.item.ReservaId))
+
+    }
+
+    verDetalle1(e) {
         const textoPregunta = this.shadowRoot.querySelector("#textoPregunta")
         const nuevaPregunta = this.shadowRoot.querySelector("#nuevaPregunta")
         const pregunta = this.shadowRoot.querySelector("#pregunta")
@@ -331,7 +403,6 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
     stateChanged(state, name) {
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
-
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-notificacionReservas-".indexOf("-" + state.screen.name + "-") != -1
@@ -343,7 +414,10 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             this.update();
         }
 
+
+
     }
+
     firstUpdated() {}
 
     static get properties() {
@@ -366,6 +440,10 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             },
             current: {
                 type: String
+            },
+            tipo: {
+                type: String,
+                reflect: true
             }
         }
     }

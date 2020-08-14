@@ -432,8 +432,14 @@ export const idiomas = {
         },
         notificacionReservas: {
             titulo: "Notificaciones",
-            verDetalle: "Ver Detalle"
+            verDetalle: "Ver Detalle",
+            nuevaPregunta: "Nueva Pregunta",
+            eliminar: "Eliminar"
 
+        },
+        chatApp: {
+            titulo: "Notificación",
+            subTitulo: ""
         }
     }
 }

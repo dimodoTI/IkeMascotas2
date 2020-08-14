@@ -32,16 +32,22 @@ import {
     sinContestar
 } from "../../redux/chat/actions";
 
+import {
+    campanaNotificaciones
+} from "../componentes/campanaNotificaciones"
+
 
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 const CLIENTE_TIMESTAMP = "cliente.timestamp"
-const RECIBIR_MENSAJETIMESTAMP = "ui.recibirMensajetimeStamp"
+/* const RECIBIR_MENSAJETIMESTAMP = "ui.recibirMensajetimeStamp"
 const SIN_CONTESTAR_TIMESTAMP = "chat.sinContestarTimeStamp"
-const SIN_CONTESTAR_ERRORTIMESTAMP = "chat.sinContestarErrorTimeStamp"
-export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENTE_TIMESTAMP, RECIBIR_MENSAJETIMESTAMP, SIN_CONTESTAR_TIMESTAMP, SIN_CONTESTAR_ERRORTIMESTAMP)(LitElement) {
+const SIN_CONTESTAR_ERRORTIMESTAMP = "chat.sinContestarErrorTimeStamp" 
+, RECIBIR_MENSAJETIMESTAMP, SIN_CONTESTAR_TIMESTAMP, SIN_CONTESTAR_ERRORTIMESTAMP*/
+
+export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENTE_TIMESTAMP)(LitElement) {
 
     constructor() {
         super();
@@ -122,9 +128,6 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
         }
 
   
-        
-
-       
         #campana{
             position:relative;
             display:grid;
@@ -155,7 +158,8 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
                     <label id="lblTitulo">${this.titulo+" "+ store.getState().cliente.datos.nombre}</label>
                     <div class="flecha" @click=${this.clickBotonUsuario} style="display:${store.getState().cliente.logueado?"":"none"}">${FLECHA_ABAJO}</div>
                 </div>
-                <div id="campana"  @click=${this. notificaciones}>${this.mensaje?CAMPANA_CONMARCA:CAMPANA}</div>
+                
+                <campana-notificaciones id="campana"></campana-notificaciones>
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
@@ -186,13 +190,13 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
         if (name == CLIENTE_TIMESTAMP) {
             this.update()
         }
-        if (name == RECIBIR_MENSAJETIMESTAMP) {
-            this.mensaje = true
-            this.update()
-        }
-        if (name == SIN_CONTESTAR_TIMESTAMP) {
-            store.dispatch(goTo("notificacionReservas"))
-        }
+        /*         if (name == RECIBIR_MENSAJETIMESTAMP) {
+                    this.mensaje = true
+                    this.update()
+                }
+                if (name == SIN_CONTESTAR_TIMESTAMP) {
+                    store.dispatch(goTo("notificacionReservas"))
+                } */
     }
 
     clickBotonUsuario() {

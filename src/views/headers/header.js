@@ -92,7 +92,8 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             :host([current="vacunaMascota"]) #divImg ,
             :host([current="consultaMascota"]) #divImg ,
             :host([current="consultaTurnosMascota"]) #divImg ,
-            :host([current="notificacionReservas"]) #divImg
+            :host([current="notificacionReservas"]) #divImg,
+            :host([current="chatApp"]) #divImg
             {
                 display:grid;
             }
@@ -174,12 +175,13 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-chatApp-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo
                 this.subTitulo = idiomas[this.idioma][this.current].subTitulo
             }
+
             this.update();
         }
 

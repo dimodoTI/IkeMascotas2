@@ -11,7 +11,10 @@ import {
     REMOVE_ERROR,
     EDIT,
     SIN_CONTESTAR_SUCCESS,
-    SIN_CONTESTAR_ERROR
+    SIN_CONTESTAR_ERROR,
+    RECIBIR_MENSAJE,
+    CHAT_RESERVA_SUCCESS,
+    SET_CAMPANA_SUCCESS
 } from "./actions";
 
 
@@ -26,6 +29,10 @@ const initialState = {
     editTimeStamp: null,
     sinContestarTimeStamp: null,
     entitySinContestar: null,
+    entityChatReserva: null,
+    chatReservaTimeStamp: null,
+    recibirMensajetimeStamp: null,
+    setCampanaTimeStamp: null
 };
 
 export const reducer = (state = initialState, action) => {
@@ -70,6 +77,18 @@ export const reducer = (state = initialState, action) => {
         case SIN_CONTESTAR_SUCCESS:
             newState.entitySinContestar = action.payload.receive
             newState.sinContestarTimeStamp = (new Date()).getTime();
+            break;
+        case RECIBIR_MENSAJE:
+            newState.recibirMensajetimeStamp = (new Date()).getTime()
+            break;
+        case CHAT_RESERVA_SUCCESS:
+            newState.entityChatReserva = action.payload.receive
+            newState.chatReservaTimeStamp = (new Date()).getTime();
+            break;
+        case SET_CAMPANA_SUCCESS:
+            if (action.payload.receive.length > 0) {
+                newState.setCampanaTimeStamp = (new Date()).getTime()
+            }
             break;
     }
     return newState;

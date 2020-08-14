@@ -53,14 +53,18 @@ import {
     showSpinner,
     hideSpinner,
     showError,
-    recibirMensaje
+
 } from "../ui/actions";
+
 import {
     goTo
 } from "../routing/actions";
 
 import {
-    get as getChat
+    get as getChat,
+    recibirMensaje,
+    sinContestar,
+    setCampana
 } from "../chat/actions"
 
 const NEW_CONNECTION = "new-connection"
@@ -143,15 +147,7 @@ export const processLogin = ({
 
             dispatch(setDatos(action.payload.receive))
 
-            dispatch(getChat({
-                top: "50",
-                expand: "Reserva",
-                filter: "Reserva/UsuarioId eq " + action.payload.receive.id + " and Respondido gt 0 and Leido eq 0",
-                orderby: "ReservaId desc ,Id desc"
-
-
-
-            }))
+            dispatch(setCampana(getState().cliente.datos.id))
 
 
             /*             dispatch(getChat({
