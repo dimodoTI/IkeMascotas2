@@ -440,6 +440,14 @@ export const idiomas = {
         chatApp: {
             titulo: "Notificación",
             subTitulo: ""
+        },
+        chatAppM: {
+            titulo: "Notificación",
+            subTitulo: ""
+        },
+        chatAppR: {
+            titulo: "Notificación",
+            subTitulo: ""
         }
     }
 }

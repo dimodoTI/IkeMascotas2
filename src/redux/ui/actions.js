@@ -19,7 +19,8 @@ export const CANCELAR_TIMER = "[ui] CANCELAR_TIMER"
 export const SET_TIMER = "[ui] SET_TIMER"
 export const SET_CONTADOR = "[ui] SET_CONTADOR"
 
-
+export const HEADER_MUESTRA_TAPA = "[ui] header muestra tapa"
+export const FOOTHER_MUESTRA_TAPA = "[ui] foother muestra tapa"
 
 
 
@@ -71,4 +72,14 @@ export const cancelarTimer = () => ({
 export const setContador = (tiempo) => ({
   type: SET_CONTADOR,
   tiempo: tiempo
+});
+
+export const headerMuestraTapa = (mostrar) => ({
+  type: HEADER_MUESTRA_TAPA,
+  mostrar: mostrar
+});
+
+export const footherMuestraTapa = (mostrar) => ({
+  type: FOOTHER_MUESTRA_TAPA,
+  mostrar: mostrar
 });

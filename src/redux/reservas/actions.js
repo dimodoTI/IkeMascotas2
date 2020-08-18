@@ -23,12 +23,16 @@ export const UPDATE_ERROR = "[reservas] UPDATE error";
 export const REMOVE_ERROR = "[reservas] REMOVE error";
 export const ENATENCION_ERROR = "[reservas] ENATENCION error";
 
+export const RESERVA_PARA_CHAT = "[reservas] RESERVA_PARA_CHAT"
 
 
 
-export const get = (options) => ({
+
+export const get = (options, onSuccess = GET_SUCCESS, onError = GET_ERROR) => ({
     type: GET,
-    options: options
+    options: options,
+    onSuccess: onSuccess,
+    onError: onError
 });
 
 export const add = (body, token) => ({
@@ -90,4 +94,10 @@ export const reservarFecha = (fecha, hora, tramoId) => ({
 export const enAtencion = (registro) => ({
     type: ENATENCION,
     registro: registro
+})
+
+export const reservaParaChat = (registro) => ({
+    type: RESERVA_PARA_CHAT,
+    registro: registro
+
 })

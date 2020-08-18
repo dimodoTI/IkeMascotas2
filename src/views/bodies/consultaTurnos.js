@@ -225,7 +225,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             if (this.current == "consultaTurnos") {
                 store.dispatch(getReservas({
                     token: state.cliente.datos.token,
-                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
+                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true,$select=Id)",
                     orderby: "FechaAtencion desc"
                 }))
                 store.dispatch(goTo("misConsultas"))
@@ -233,7 +233,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
                 store.dispatch(getReservas({
                     token: state.cliente.datos.token,
                     filter: "MascotaId eq " + state.mascotas.entities.currentItem.Id,
-                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion",
+                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true,$select=Id)",
                     orderby: "FechaAtencion desc"
                 }))
                 store.dispatch(goTo("mascotaver"))

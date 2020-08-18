@@ -33,12 +33,15 @@ import {
 } from "../../redux/screens/screenLayouts";
 
 import {
-    enAtencion as getEnAtencion
+    enAtencion as getEnAtencion,
+    reservaParaChat
 } from "../../redux/reservas/actions"
 
 import {
-    chatReserva
+    chatReserva,
+    patch as patchChat
 } from "../../redux/chat/actions"
+
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
@@ -247,9 +250,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
     render() {
         return html `
             <div id="grilla">
-                ${this.item.map(dato =>{
-                    this.tipo = dato.Tipo
-                   return html`
+                ${this.item.map(dato => html`
                    <div id="cchatDivEtiqueta">
                         <div id="cchatFechaNombre">
                             <div id="cchatDivNombre" tipo="${dato.Tipo}">
@@ -282,7 +283,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                         </div>
                         </div>
                     </div>                
-                    `})}
+                    `)}
                     
                     
             </div>
@@ -312,7 +313,24 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 
     verDetalle(e) {
         store.dispatch(chatReserva(e.currentTarget.item.ReservaId))
+        if (e.currentTarget.item.Tipo == 1) {
+            const datosPatch = [{
+                "op": "replace",
+                "path": "/Leido",
+                "value": (new Date()).getTime()
+            }]
+            store.dispatch(patchChat(e.currentTarget.item.Id, datosPatch, store.getState().cliente.datos.token))
+        }
 
+        const registro = {
+            Id: e.currentTarget.item.ReservaId,
+            Fecha: e.currentTarget.item.Reserva.FechaAtencion,
+            Mascota: e.currentTarget.item.Reserva.Mascota.Nombre,
+            Motivo: e.currentTarget.item.Reserva.Motivo,
+            /*             Diagnostico: e.currentTarget.item.Reserva.Atencion.Diagnostico,
+                        InicioAtencion: e.currentTarget.item.Reserva.Atencion.InicioAtencion */
+        }
+        store.dispatch(reservaParaChat(registro))
     }
 
     verDetalle1(e) {

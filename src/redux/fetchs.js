@@ -15,6 +15,8 @@ const publicacionesDomain = "https://apis.publicaciones.dimodo.ga"
 const webApiUsuarios = "https://apis.usuarios.dimodo.ga/api"
 
 const chatDomain = "https://apis.chat.dimodo.ga"
+//const chatDomain = "http://localhost:5000"
+
 
 
 const webApiMascotas = mascotasDomain + "/api"

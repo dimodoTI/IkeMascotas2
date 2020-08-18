@@ -26,10 +26,19 @@ import {
     goTo
 } from "../../redux/routing/actions"
 
+import {
+    campanaNotificaciones
+} from "../componentes/campanaNotificaciones"
+
+import {
+    headerMuestraTapa
+} from "../../redux/ui/actions"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 const RECIBIR_MENSAJETIMESTAMP = "ui.recibirMensajetimeStamp"
-export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIBIR_MENSAJETIMESTAMP)(LitElement) {
+const HEADER_TAPA = "ui.headerMuestraTapa"
+export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIBIR_MENSAJETIMESTAMP, HEADER_TAPA)(LitElement) {
 
     constructor() {
         super();
@@ -48,23 +57,22 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
     static get styles() {
         return css `
         
-            :host(){
+            :host{
                 position: relative;
-                display:grid;
-                height: 100%;
-                width: 100%;
                 display:grid;
                 grid-template-rows: 50% 50%;
                 background-color: transparent;
             }
+
             :host([hidden]){
                 display:none ;
             }
-            #divTitulo{                    
+            #divTitulo{            
+                position:relative;        
                 height: 50%;
                 display:flex;
                 flex-flow: row;
-                align-items: flex-end;
+                align-self: end;
             }
             :host(:not([media-size="small"])) #divTitulo {
                 justify-content: center;
@@ -72,12 +80,20 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             #divImg{
                 display:none;
                 padding-right: .4rem;
-                align-self: flex-end;
+                align-self: end;
             }
             #divImg svg{
                 height: 1.5rem;
                 width: 1.5rem;
             }
+
+            #divTxt   {
+                display:grid;
+                grid-template-columns: 11fr 1fr;;
+                align-items: center; 
+            }
+     
+
             :host([current="recuperaclave"]) #divImg, 
             :host([current="crearclave"]) #divImg, 
             :host([current="usuarioregistro"]) #divImg,
@@ -93,7 +109,9 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             :host([current="consultaMascota"]) #divImg ,
             :host([current="consultaTurnosMascota"]) #divImg ,
             :host([current="notificacionReservas"]) #divImg,
-            :host([current="chatApp"]) #divImg
+            :host([current="chatAppM"]) #divImg,
+            :host([current="chatAppR"]) #divImg
+            
             {
                 display:grid;
             }
@@ -117,11 +135,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             :host(:not([media-size="small"])) #lblLeyenda {
                 justify-content: center;
             }
-            #divTxt{
-            display:grid;
-            grid-template-columns: 11fr 1fr;;
-            align-items: center;
-        }
+
 
 
         :host([current="mascotaeditar"]) #campana,  
@@ -133,18 +147,38 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             :host([current="vacuna"]) #campana ,
             :host([current="vacunaMascota"]) #campana ,
             :host([current="consultaMascota"]) #campana ,
-          
+            :host([current="chatApp"]) #campana ,
             :host([current=misConsultas]) #campana
             {
                 display:grid;
             }
 
-        #campana{
+   
+  
+            #campana{
             position:relative;
             display:none;
-           align-items:center
+            align-items:center
+            
+           
 
         }
+
+        #divTapa{
+                position:absolute;
+                display: none;
+                top:0;
+                left:0;
+                bottom: 0;
+                right: 0;        
+                z-index:1020;            
+                background-color: var(--color-gris);
+                opacity:.4;
+            }
+
+            :host([header-muestra-tapa]) #divTapa{
+                display: grid;           
+            }
 
 
 
@@ -159,23 +193,26 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 </div>
                 <div id="divTxt">
                     <label id="lblTitulo">${this.titulo}</label>
-                    <div id="campana"  @click=${this.clickBotonNotificacion}>${this.mensaje?CAMPANA_CONMARCA:CAMPANA}</div>
+                    <campana-notificaciones id="campana"></campana-notificaciones>
+
                 </div>
               
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
             </div>
+            <div id="divTapa"></div>
             `
     }
 
     stateChanged(state, name) {
-        if ((name == SCREEN || name == MEDIA_CHANGE)) {
+        if ((name == SCREEN || name == MEDIA_CHANGE || name == HEADER_TAPA)) {
+            this.headerMuestraTapa = state.ui.headerMuestraTapa
             this.current = state.screen.name
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaver-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-chatApp-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-chatApp-chatAppM-chatAppR-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo
@@ -207,6 +244,12 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 break;
             case "notificacionReservas":
                 store.dispatch(goTo("principal"))
+                break;
+            case "chatAppM":
+                store.dispatch(goTo("mascotaver"))
+                break;
+            case "chatAppR":
+                store.dispatch(goTo("misConsultas"))
                 break;
                 /*             case "mascotaalta":
                                 store.dispatch(goPrev())
@@ -254,6 +297,11 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             mensaje: {
                 type: Boolean,
                 reflect: true,
+            },
+            headerMuestraTapa: {
+                type: Boolean,
+                reflect: true,
+                attribute: 'header-muestra-tapa'
             }
         }
     }

@@ -33,8 +33,17 @@ import {
 } from "../../redux/screens/screenLayouts";
 
 import {
-    enAtencion as getEnAtencion
+    enAtencion as getEnAtencion,
+
 } from "../../redux/reservas/actions"
+
+import {
+    chatReserva,
+    CHAT_RESERVAM_SUCCESS,
+    CHAT_RESERVAR_SUCCESS
+} from "../../redux/chat/actions"
+
+
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
@@ -106,6 +115,20 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
             width: 90%;
             justify-self:center;
         }
+        .chat{
+            height: 1rem;
+    width: 100%;
+    justify-items: center;
+        }
+
+        .chat svg {
+            
+            fill:var(--color-azul-oscuro);
+            align-self:start
+            }
+
+  
+
     `
     }
     render() {
@@ -126,10 +149,12 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
 
                             <div></div>
                             <div id="cmhDivVerDetalle">
-                                <button btn2 .item=${dato} @click=${this.verDetalle} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].listaReserva.verDetalle}</button>                    
+                                
+                                <div id="cmhDivChat1" class="chat" .item="${dato}" @click="${this.chat}">${dato.Chats.length>0?CHAT:""}</div>
                             </div>
                             
-                            <div id="cmhDivChat" .item="${dato}" @click="${this.atencion}">${!dato.Atencion?VIDEO:ARCHIVO}</div>              
+                            <div id="cmhDivChat" .item="${dato}" @click="${this.atencion}">${!dato.Atencion?VIDEO:ARCHIVO}</div>  
+                                        
                         </div>
                     </div>
                     `)}
@@ -141,6 +166,14 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
         `
     }
 
+    chat(e) {
+        if (this.current == "mascotaver") {
+            store.dispatch(chatReserva(e.currentTarget.item.Id, CHAT_RESERVAM_SUCCESS))
+        }
+        if (this.current == "misConsultas") {
+            store.dispatch(chatReserva(e.currentTarget.item.Id, CHAT_RESERVAR_SUCCESS))
+        }
+    }
     verDetalle(e) {
         /*         store.dispatch(getEnAtencion({
                     filter: "Id eq " + e.currentTarget.item.Id,

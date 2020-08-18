@@ -31,7 +31,10 @@ export const SET_CAMPANA_ERROR = "[chat] SET_CAMPANA_ERROR"
 export const SIN_CONTESTAR_ERROR = "[chat] SIN_CONTESTAR_ERROR"
 export const RECIBIR_MENSAJE = "[chat] RECIBIR_MENSAJE"
 
+export const ADD_PREGUNTA_SUCCESS = "[chat] ADD_PREGUNTA_SUCCESS"
 
+export const CHAT_RESERVAM_SUCCESS = "[chat] CHAT_RESERVAM success";
+export const CHAT_RESERVAR_SUCCESS = "[chat] CHAT_RESERVAR success";
 
 
 
@@ -42,10 +45,12 @@ export const get = (options, onSuccess = GET_SUCCESS, onError = GET_ERROR) => ({
     onError: onError
 });
 
-export const add = (body, token) => ({
+export const add = (body, token, onSuccess = ADD_SUCCESS, onError = ADD_ERROR) => ({
     type: ADD,
     body: body,
-    token: token
+    token: token,
+    onSuccess: onSuccess,
+    onError: onError
 });
 
 export const update = (id, body, token) => ({
@@ -92,7 +97,8 @@ export const chatReserva = (reservaId, onSuccess = CHAT_RESERVA_SUCCESS, onError
         orderby: "Id desc"
     },
     onSuccess: onSuccess,
-    onError: onError
+    onError: onError,
+
 })
 
 export const setCampana = (usuarioId, onSuccess = SET_CAMPANA_SUCCESS, onError = SET_CAMPANA_ERROR) => ({
@@ -101,7 +107,7 @@ export const setCampana = (usuarioId, onSuccess = SET_CAMPANA_SUCCESS, onError =
         top: 1,
         expand: "Usuario,Reserva",
         select: "Id",
-        filter: "((Respondido eq 0 and  Tipo eq 0 ) or (Leido eq 0 and  Tipo eq 1 ))  and Reserva/UsuarioId eq " + usuarioId,
+        filter: "( (Leido eq 0 and  Tipo eq 1 ) or (Leido eq 0 and Tipo eq 3))  and Reserva/UsuarioId eq " + usuarioId,
         orderby: "Id desc"
     },
     onSuccess: onSuccess,

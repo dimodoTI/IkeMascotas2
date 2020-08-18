@@ -30,6 +30,17 @@ import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 
+import {
+    btnFlotanteRedondo
+} from "../css/btnFlotanteRedondo"
+
+import {
+    add as addChat,
+    ADD_PREGUNTA_SUCCESS
+} from "../../redux/chat/actions"
+import {
+    headerMuestraTapa
+} from "../../redux/ui/actions"
 
 
 
@@ -42,6 +53,9 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
         this.area = "body"
         this.hidden = true
         this.idioma = "ES"
+        this.esPregunta = false
+        this.reserva = null
+
 
         this.accion = ""
         this.chat = {
@@ -52,11 +66,12 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             fecha: ""
         }
         this.activo = false;
-        this.chates = [];
+        this.items = [];
     }
     static get styles() {
         return css `
         ${button}
+        ${btnFlotanteRedondo}
         :host{
             display: grid;
             position:relative; 
@@ -164,15 +179,55 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
         .classHora{
             justify-self: right;
         }
-  
+
+        #pregunta{
+             z-index:100;
+             background-color:  var(--color-celeste-muy-claro);;
+             position:absolute;
+             display:none;            
+             grid-gap:2vh;
+             padding:1rem;
+             top:10vh;
+             height:30vh;
+             left:5vw;
+             right:5vw;
+             border: solid 1px var(--color-gris);
+             border-radius: 1rem;
+
+         }
+
+         #bfrDivMas{
+            color:white;
+            font-size:1rem;
+
+    bottom:8vh;
+             right:2vw
+         }
+
+         :host(:not([media-size="small"])) #bfrDivMas
+
+         {
+            top: 80%;
+    left: 90%;
+         }
+
+
+
+
+         #bfrDivMas:not([es-pregunta]){
+             display:grid;
+             color:green
+         }
+         
         `
     }
 
     render() {
         return html `
+
             <div id=divRegistros>
                 <div id="divChat">
-                    ${this.chates.map(dato => html`
+                    ${this.items.map(dato => html`
                         <div id="chatCuerpo" class="classCuerpo${dato.Tipo==0?'yo':'otro'}">   
                             <div id="chatQuien" class="classQuien${dato.Tipo==0?'yo':'otro'}">${dato.Tipo==0?dato.Reserva.Mascota.Nombre:"Veterinario"}</div>
                             <div id="chatTexto">${dato.Texto}</div>
@@ -182,7 +237,65 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
                 </div>
               
             </div>
+            <div id="bfrDivMas" media-size="${this.mediaSize}" es-pregunta=${this.esPregunta}  @click="${this.preguntar}">?</div>
+
+
+            
+            <div id="pregunta">
+                
+                    
+                    <textarea id="nuevaPregunta" style="padding:.5rem;font-family:var(--font-label-family);
+            font-size:var(--font-label-size);
+            font-weight:var(--font-label-weight);" placeholder="Escriba su pregunta"></textarea>
+            
+                <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
+                    <button style="height:7vh" id="grabar" btn1 @click="${this.grabar}" >Grabar</button>
+                    <button  id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
+                </div>  
+            </div>
+
+
         `
+    }
+
+    preguntar(e) {
+
+        store.dispatch(headerMuestraTapa(true))
+
+        const pregunta = this.shadowRoot.querySelector("#pregunta")
+        pregunta.style.display = "grid"
+        this.update()
+    }
+
+    cancelar(e) {
+
+        store.dispatch(headerMuestraTapa(false))
+        const pregunta = this.shadowRoot.querySelector("#pregunta")
+        pregunta.style.display = "none"
+        this.update()
+    }
+
+    grabar(e) {
+        const pregunta = this.shadowRoot.querySelector("#pregunta")
+        const nuevaPregunta = this.shadowRoot.querySelector("#nuevaPregunta")
+
+        const reg = {
+            Chat: {
+                Fecha: new Date(),
+                ReservaId: this.reserva.Id,
+                UsuarioId: store.getState().cliente.datos.id,
+                Texto: nuevaPregunta.value,
+                Leido: 0,
+                Respondido: 0,
+                Tipo: 0
+            },
+            PreguntaId: 0
+        }
+        nuevaPregunta.innerHTML = ""
+        pregunta.style.display = "none"
+        store.dispatch(headerMuestraTapa(false))
+
+        store.dispatch(addChat(reg, store.getState().cliente.datos.token, ADD_PREGUNTA_SUCCESS))
     }
 
     formateoFecha(fecha) {
@@ -196,11 +309,16 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-chatApp-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-chatApp-chatAppM-chatAppR-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.current = state.screen.name
-                this.chates = state.chat.entityChatReserva
+                this.items = state.chat.entityChatReserva
+                this.reserva = state.reservas.entityReservaParaChat
+                if (this.items.length > 0) {
+                    this.esPregunta = this.items[0].Tipo == 0 ? true : false
+
+                }
             }
             this.update();
         }
@@ -245,6 +363,11 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             },
             current: {
                 type: String
+            },
+            esPregunta: {
+                type: Boolean,
+                reflect: true,
+                attribute: "es-pregunta"
             }
         }
     }

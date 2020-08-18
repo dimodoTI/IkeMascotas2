@@ -86,6 +86,7 @@ export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS
                 text-align: left;
                 font-size: var(--font-header-h1-size);
                 font-weight: var(--font-header-h1-weight);
+     
 
             }
             #lblLeyenda{           
@@ -130,7 +131,7 @@ export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS
                 </div>
                 <div id="divTxt">
 
-                    <label id="lblTitulo">${this.item.Nombre}</label>
+                    <label id="lblTitulo">${this.titulo}</label>
                   
                 </div>
                 
@@ -151,14 +152,17 @@ export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS
             const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.titulo = state.mascotas.entities.currentItem.Nombre
 
                 this.subTitulo = idiomas[this.idioma][this.current].subTitulo
             }
             this.update();
         }
         if (name == MASCOTASEDIT_TIMESTAMP) {
-            this.item = state.mascotas.entities.currentItem
 
+            this.item = state.mascotas.entities.currentItem
+            const labelTitulo = this.shadowRoot.querySelector("#lblTitulo")
+            labelTitulo.innerHTML = this.item.Nombre
             this.update()
         }
     }

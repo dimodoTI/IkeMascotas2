@@ -14,7 +14,9 @@ import {
     SIN_CONTESTAR_ERROR,
     RECIBIR_MENSAJE,
     CHAT_RESERVA_SUCCESS,
-    SET_CAMPANA_SUCCESS
+    SET_CAMPANA_SUCCESS,
+    CHAT_RESERVAM_SUCCESS,
+    CHAT_RESERVAR_SUCCESS
 } from "./actions";
 
 
@@ -32,7 +34,7 @@ const initialState = {
     entityChatReserva: null,
     chatReservaTimeStamp: null,
     recibirMensajetimeStamp: null,
-    setCampanaTimeStamp: null
+    setCampana: false
 };
 
 export const reducer = (state = initialState, action) => {
@@ -79,15 +81,20 @@ export const reducer = (state = initialState, action) => {
             newState.sinContestarTimeStamp = (new Date()).getTime();
             break;
         case RECIBIR_MENSAJE:
-            newState.recibirMensajetimeStamp = (new Date()).getTime()
+            //newState.recibirMensajetimeStamp = (new Date()).getTime()
+            newState.setCampana = true
             break;
         case CHAT_RESERVA_SUCCESS:
+        case CHAT_RESERVAM_SUCCESS:
+        case CHAT_RESERVAR_SUCCESS:
             newState.entityChatReserva = action.payload.receive
             newState.chatReservaTimeStamp = (new Date()).getTime();
             break;
         case SET_CAMPANA_SUCCESS:
             if (action.payload.receive.length > 0) {
-                newState.setCampanaTimeStamp = (new Date()).getTime()
+                newState.setCampana = true
+            } else {
+                newState.setCampana = false
             }
             break;
     }

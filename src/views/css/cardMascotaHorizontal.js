@@ -54,6 +54,7 @@ export const cardMascotaHorizontal = css `
 } 
 #cmhDivVerDetalle{
     padding-left: .5rem;
+   
 } 
 #cmhDivChat{
     height:1rem;

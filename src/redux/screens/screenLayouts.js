@@ -198,8 +198,17 @@ export const screenLayuts = {
         small: HEADER_BODY,
         medium: HEADER_BODY,
         large: HEADER_BODY
+    },
+    chatAppM: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    chatAppR: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
     }
-
 
 }
 

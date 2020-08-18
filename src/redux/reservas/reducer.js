@@ -12,7 +12,8 @@ import {
     EDIT,
     RESERVAR,
     RESERVARFECHA,
-    ENATENCION
+    ENATENCION,
+    RESERVA_PARA_CHAT
 } from "./actions";
 
 
@@ -25,6 +26,8 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
+    entityReservaParaChat: null,
+    reservaParaChatTimeStamp: null,
     reserva: {
         TramoId: 0,
         MascotaId: 0,
@@ -89,6 +92,10 @@ export const reducer = (state = initialState, action) => {
         case ENATENCION:
             newState.enAtencionTimeStamp = (new Date()).getTime();
             newState.entities.enAtencion = action.registro
+            break;
+        case RESERVA_PARA_CHAT:
+            newState.entityReservaParaChat = action.registro
+            newState.reservaParaChatTimeStamp = (new Date()).getTime();
             break;
 
     }

@@ -6,7 +6,8 @@ import {
     SET_MEDIA,
     SET_MEDIA_ORIENTATION,
 
-
+    HEADER_MUESTRA_TAPA,
+    FOOTHER_MUESTRA_TAPA
 } from "./actions";
 
 const initialState = {
@@ -20,11 +21,12 @@ const initialState = {
     media: {
         size: "large",
         orientation: "landscape",
-        timeStamp: null
+        timeStamp: null,
 
     },
+    headerMuestraTapa: false,
+    footherMuestraTapa: false,
 
-    recibirMensajetimeStamp: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -54,6 +56,12 @@ export const reducer = (state = initialState, action) => {
         case SET_MEDIA_ORIENTATION:
             newState.media.orientation = action.orientation
             newState.media.timeStamp = (new Date()).getTime()
+            break;
+        case HEADER_MUESTRA_TAPA:
+            newState.headerMuestraTapa = action.mostrar
+            break;
+        case FOOTHER_MUESTRA_TAPA:
+            newState.footherMuestraTapa = action.mostrar
             break;
 
     }

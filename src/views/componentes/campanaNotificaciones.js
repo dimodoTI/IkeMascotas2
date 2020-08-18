@@ -26,11 +26,11 @@ import {
 } from "../../redux/routing/actions"
 
 
-const RECIBIR_MENSAJETIMESTAMP = "chat.recibirMensajetimeStamp"
-const SET_CAMPANA_TIMESTAMP = "chat.setCampanaTimeStamp"
+
+const SET_CAMPANA = "chat.setCampana"
 
 
-export class campanaNotificaciones extends connect(store, RECIBIR_MENSAJETIMESTAMP, SET_CAMPANA_TIMESTAMP)(LitElement) {
+export class campanaNotificaciones extends connect(store, SET_CAMPANA)(LitElement) {
     constructor() {
         super();
         this.hidden = false
@@ -76,8 +76,8 @@ export class campanaNotificaciones extends connect(store, RECIBIR_MENSAJETIMESTA
                     store.dispatch(goTo("notificacionReservas"))
                 } */
 
-        if (name == RECIBIR_MENSAJETIMESTAMP || name == SET_CAMPANA_TIMESTAMP) {
-            this.mensaje = true
+        if (name == SET_CAMPANA) {
+            this.mensaje = store.getState().chat.setCampana
             this.update()
         }
     }

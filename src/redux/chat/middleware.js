@@ -24,6 +24,11 @@ import {
     SET_CAMPANA_SUCCESS,
     SET_CAMPANA_ERROR,
     recibirMensaje,
+    ADD_PREGUNTA_SUCCESS,
+    sinContestar,
+    setCampana,
+    CHAT_RESERVAM_SUCCESS,
+    CHAT_RESERVAR_SUCCESS
 } from "./actions";
 
 import {
@@ -48,6 +53,9 @@ import {
 import {
     goTo
 } from "../../redux/routing/actions"
+import {
+    reservaParaChat
+} from "../reservas/actions";
 
 export const get = ({
     dispatch
@@ -65,7 +73,7 @@ export const add = ({
 }) => next => action => {
     next(action);
     if (action.type === ADD) {
-        dispatch(RESTAdd(ikeChat, action.body, ADD_SUCCESS, ADD_ERROR, action.token))
+        dispatch(RESTAdd(ikeChat, action.body, action.onSuccess, action.onError, action.token))
     }
 };
 
@@ -114,17 +122,29 @@ export const processGet = ({
         dispatch(goTo("chatApp"))
     }
 
+    if (action.type === CHAT_RESERVAM_SUCCESS) {
+        dispatch(goTo("chatAppM"))
+    }
+    if (action.type === CHAT_RESERVAR_SUCCESS) {
+        dispatch(goTo("chatAppR"))
+    }
+
     if (action.type === SET_CAMPANA_SUCCESS) {
-        dispatch(recibirMensaje())
+        //dispatch(recibirMensaje())
     }
 };
 
 export const processComand = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
     if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
 
+    }
+    if (action.type === ADD_PREGUNTA_SUCCESS) {
+        dispatch(sinContestar(getState().cliente.datos.id))
+        dispatch(setCampana(getState().cliente.datos.id))
     }
 };
 

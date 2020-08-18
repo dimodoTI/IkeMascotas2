@@ -53,9 +53,8 @@ export const layoutsCSS = css `
 
     .header{
         grid-area:header;
-        padding: 0 1rem 0 1rem; 
         background-color: var(--color-blanco);
-        border-radius: 0 0 .5rem  .5rem;   
+        padding: 0 1rem 0 1rem;        
     }
     .body{
         grid-area:body;

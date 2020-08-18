@@ -261,7 +261,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
         this.opcion = "tres"
         store.dispatch(goTo("misConsultas"))
         store.dispatch(getReservas({
-            expand: "Atencion,Mascota",
+            expand: "Atencion,Mascota,Chats($top=1;$select=Id)",
             token: store.getState().cliente.datos.token,
             orderby: "FechaAtencion,HoraAtencion desc"
         }))

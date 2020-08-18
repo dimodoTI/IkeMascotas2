@@ -15,6 +15,7 @@ import {
     REMOVE_SUCCESS,
     REMOVE_ERROR,
 
+
     /*     ENATENCION_SUCCESS,
         ENATENCION_ERROR */
 
@@ -42,7 +43,7 @@ export const get = ({
 }) => next => action => {
     next(action);
     if (action.type === GET) {
-        dispatch(apiRequest(ikeReservasQuery, action.options, GET_SUCCESS, GET_ERROR))
+        dispatch(apiRequest(ikeReservasQuery, action.options, action.onSuccess, action.onError))
     }
 };
 /* 
