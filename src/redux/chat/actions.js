@@ -98,7 +98,6 @@ export const chatReserva = (reservaId, onSuccess = CHAT_RESERVA_SUCCESS, onError
     },
     onSuccess: onSuccess,
     onError: onError,
-
 })
 
 export const setCampana = (usuarioId, onSuccess = SET_CAMPANA_SUCCESS, onError = SET_CAMPANA_ERROR) => ({

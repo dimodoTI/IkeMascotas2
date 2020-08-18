@@ -214,6 +214,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
          #cchatDivVerDetalle{
             padding-left: .5rem;
             text-align:left;
+            
         
   
          }
@@ -225,7 +226,9 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             justify-self:left;
             text-decoration: underline;
             cursor:pointer;
-            
+            color:var(--color-celeste);
+            font-size: var(--font-label-size);
+            font-weight: bold;
          }
 
          #cchatLblNuevaPregunta{
@@ -277,7 +280,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                                
                             </div>
                             <div id="cmhDivEliminar" style="justify-self:right;padding-right:.3rem">
-                                <label id="cchatLblElimar">${idiomas[this.idioma].notificacionReservas.eliminar}</label>
+                                <!-- <label id="cchatLblElimar">${idiomas[this.idioma].notificacionReservas.eliminar}</label> -->
                             </div>
 
                         </div>

@@ -34,7 +34,7 @@ import {
 
 import {
     enAtencion as getEnAtencion,
-
+    reservaParaChat
 } from "../../redux/reservas/actions"
 
 import {
@@ -167,7 +167,18 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     }
 
     chat(e) {
+
+        const registro = {
+            Id: e.currentTarget.item.Id,
+            Fecha: e.currentTarget.item.FechaAtencion,
+            Mascota: e.currentTarget.item.Mascota.Nombre,
+            Motivo: e.currentTarget.item.Motivo,
+            /*             Diagnostico: e.currentTarget.item.Reserva.Atencion.Diagnostico,
+                        InicioAtencion: e.currentTarget.item.Reserva.Atencion.InicioAtencion */
+        }
+        store.dispatch(reservaParaChat(registro))
         if (this.current == "mascotaver") {
+
             store.dispatch(chatReserva(e.currentTarget.item.Id, CHAT_RESERVAM_SUCCESS))
         }
         if (this.current == "misConsultas") {

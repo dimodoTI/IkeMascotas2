@@ -114,9 +114,9 @@ export const processGet = ({
     }
 
     if (action.type === SIN_CONTESTAR_SUCCESS) {
-        if (action.payload.receive.length > 0) {
-            dispatch(goTo("notificacionReservas"))
-        }
+        // if (action.payload.receive.length > 0) {
+        dispatch(goTo("notificacionReservas"))
+        // }
     }
     if (action.type === CHAT_RESERVA_SUCCESS) {
         dispatch(goTo("chatApp"))
@@ -139,11 +139,14 @@ export const processComand = ({
     getState
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS) {
 
     }
     if (action.type === ADD_PREGUNTA_SUCCESS) {
         dispatch(sinContestar(getState().cliente.datos.id))
+        dispatch(setCampana(getState().cliente.datos.id))
+    }
+    if (action.type === PATCH_SUCCESS) {
         dispatch(setCampana(getState().cliente.datos.id))
     }
 };

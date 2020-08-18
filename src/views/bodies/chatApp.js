@@ -261,7 +261,8 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     preguntar(e) {
 
         store.dispatch(headerMuestraTapa(true))
-
+        const nuevaPregunta = this.shadowRoot.querySelector("#nuevaPregunta")
+        nuevaPregunta.value = ""
         const pregunta = this.shadowRoot.querySelector("#pregunta")
         pregunta.style.display = "grid"
         this.update()
@@ -299,7 +300,10 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     }
 
     formateoFecha(fecha) {
-        return fecha.substring(8, 10) + "/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4)
+
+        let d = new Date(fecha);
+        return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + "    " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()
+        // return fecha.substring(8, 10) + "/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4) + "    " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds()
     }
 
     stateChanged(state, name) {
@@ -317,6 +321,7 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
                 this.reserva = state.reservas.entityReservaParaChat
                 if (this.items.length > 0) {
                     this.esPregunta = this.items[0].Tipo == 0 ? true : false
+                    this.rese
 
                 }
             }

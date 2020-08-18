@@ -573,7 +573,7 @@ export class fotosComponente extends connect(store, SCREEN, MEDIA_CHANGE, LLAMAD
         this.cropper.destroy()
         this.salvar(base64data);
       }
-    } /*, 'image/png' */ );
+    }, 'image/jpeg', .8)
   }
 
 
