@@ -24,8 +24,10 @@ export const fetchFactory = (url, entity) => {
 
         },
 
-        post: (body, token) => {
-            return fetch(url, {
+        post: (body, token, id) => {
+            let newUrl = url
+            if (id) newUrl = url + "(" + id + ")"
+            return fetch(newUrl, {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers: _getHeaders(token)

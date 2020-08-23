@@ -51,7 +51,7 @@ export const RESTDelete = (RESTfetch, id, onSuccess, onError, token) => ({
     }
 });
 
-export const RESTAdd = (RESTfetch, body, onSuccess, onError, token) => ({
+export const RESTAdd = (RESTfetch, body, onSuccess, onError, token, id) => ({
     type: REST_ADD,
     payload: {},
     meta: {
@@ -59,6 +59,7 @@ export const RESTAdd = (RESTfetch, body, onSuccess, onError, token) => ({
         body,
         onSuccess,
         onError,
-        token
+        token,
+        id
     }
 });

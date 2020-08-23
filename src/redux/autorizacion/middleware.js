@@ -66,6 +66,9 @@ import {
     sinContestar,
     setCampana
 } from "../chat/actions"
+import {
+    getNotificacionChatPendientes
+} from "../notificacion/actions";
 
 const NEW_CONNECTION = "new-connection"
 let connection = null
@@ -148,13 +151,6 @@ export const processLogin = ({
             dispatch(setDatos(action.payload.receive))
 
             dispatch(setCampana(getState().cliente.datos.id))
-
-
-            /*             dispatch(getChat({
-
-                            filter: "UsuarioId eq " + action.payload.receive.id + " and Leido eq 0",
-                            token: getState().cliente.datos.token
-                        })) */
 
 
             dispatch(getCantidad({

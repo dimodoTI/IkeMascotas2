@@ -76,6 +76,10 @@ import {
   middleware as chat
 } from "./chat/middleware"
 
+import {
+  middleware as notificacion
+} from "./notificacion/middleware";
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let mdw = [
@@ -100,6 +104,7 @@ let mdw = [
   ...vacunas,
   ...adjuntos,
   ...chat,
+  ...notificacion
 ]
 
 if (process.env.NODE_ENV !== 'production') {

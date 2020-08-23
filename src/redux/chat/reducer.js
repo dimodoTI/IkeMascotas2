@@ -91,11 +91,9 @@ export const reducer = (state = initialState, action) => {
             newState.chatReservaTimeStamp = (new Date()).getTime();
             break;
         case SET_CAMPANA_SUCCESS:
-            if (action.payload.receive.length > 0) {
-                newState.setCampana = true
-            } else {
-                newState.setCampana = false
-            }
+
+            newState.setCampana = action.payload.receive
+
             break;
     }
     return newState;

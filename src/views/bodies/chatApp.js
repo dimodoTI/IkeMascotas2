@@ -53,7 +53,7 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
         this.area = "body"
         this.hidden = true
         this.idioma = "ES"
-        this.esPregunta = false
+
         this.reserva = null
 
 
@@ -193,31 +193,33 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
              right:5vw;
              border: solid 1px var(--color-gris);
              border-radius: 1rem;
-
          }
 
          #bfrDivMas{
             color:white;
             font-size:1rem;
-
-    bottom:8vh;
+            bottom:8vh;
              right:2vw
          }
 
-         :host(:not([media-size="small"])) #bfrDivMas
+         #bfrDivMas[tipo="0"]{
+             display:none;
+         }
 
+         :host(:not([media-size="small"])) #bfrDivMas
          {
             top: 80%;
-    left: 90%;
+            left: 90%;
+         }
+
+         #nuevaPregunta{
+            padding:.5rem;
+            font-family:var(--font-label-family);
+            font-size:var(--font-label-size);
+            font-weight:var(--font-label-weight);
          }
 
 
-
-
-         #bfrDivMas:not([es-pregunta]){
-             display:grid;
-             color:green
-         }
          
         `
     }
@@ -237,22 +239,19 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
                 </div>
               
             </div>
-            <div id="bfrDivMas" media-size="${this.mediaSize}" es-pregunta=${this.esPregunta}  @click="${this.preguntar}">?</div>
+            <div id="bfrDivMas" media-size="${this.mediaSize}" tipo=${this.tipo}  @click="${this.preguntar}">?</div>
 
 
             
             <div id="pregunta">
-                
-                    
-                    <textarea id="nuevaPregunta" style="padding:.5rem;font-family:var(--font-label-family);
-            font-size:var(--font-label-size);
-            font-weight:var(--font-label-weight);" placeholder="Escriba su pregunta"></textarea>
-            
+                <textarea id="nuevaPregunta" placeholder="Escriba su pregunta">
+                </textarea>
                 <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
                     <button style="height:7vh" id="grabar" btn1 @click="${this.grabar}" >Grabar</button>
                     <button  id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
                 </div>  
             </div>
+
 
 
         `
@@ -320,8 +319,8 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
                 this.items = state.chat.entityChatReserva
                 this.reserva = state.reservas.entityReservaParaChat
                 if (this.items.length > 0) {
-                    this.esPregunta = this.items[0].Tipo == 0 ? true : false
-                    this.rese
+                    this.tipo = this.items[0].Tipo
+
 
                 }
             }
@@ -369,10 +368,9 @@ export class chatApp extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             current: {
                 type: String
             },
-            esPregunta: {
-                type: Boolean,
-                reflect: true,
-                attribute: "es-pregunta"
+            tipo: {
+                type: String,
+                reflect: true
             }
         }
     }

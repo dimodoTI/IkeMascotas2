@@ -24,16 +24,17 @@ import {
     SET_CAMPANA_SUCCESS,
     SET_CAMPANA_ERROR,
     recibirMensaje,
+    setCampana as setCampanaAction,
     ADD_PREGUNTA_SUCCESS,
     sinContestar,
-    setCampana,
     CHAT_RESERVAM_SUCCESS,
     CHAT_RESERVAR_SUCCESS
 } from "./actions";
 
 import {
     ikeChatQuery,
-    ikeChat
+    ikeChat,
+    ikeNotificacionDetalleQuery
 } from "../fetchs"
 
 import {
@@ -44,7 +45,10 @@ import {
     RESTPatch
 } from "../rest/actions"
 
-
+import {
+    showSpinner,
+    hideSpinner
+} from "../api/actions"
 
 import {
     apiRequest
@@ -56,16 +60,73 @@ import {
 import {
     reservaParaChat
 } from "../reservas/actions";
+import {
+    getNotificacionPendientes
+} from "../notificacion/actions";
 
 export const get = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
-    if (action.type === GET || action.type == CHAT_RESERVA || action.type == SIN_CONTESTAR || action.type == SET_CAMPANA) {
+    if (action.type === GET || action.type == CHAT_RESERVA || action.type == SIN_CONTESTAR) {
         dispatch(apiRequest(ikeChatQuery, action.options, action.onSuccess, action.onError))
     }
 
+}
 
+export const setCampana = ({
+    dispatch,
+    getState
+}) => next => action => {
+    next(action);
+    if (action.type === SET_CAMPANA) {
+        const optionsChat = {}
+        optionsChat.top = 1
+        optionsChat.expand = "Usuario,Reserva($expand=Mascota($select=Nombre))"
+        optionsChat.filter = "Tipo eq 1 and Leido eq 0"
+        const optionsNotif = {}
+        optionsNotif.top = 1
+        optionsNotif.expand = "Cabecera"
+        optionsNotif.filter = "Leido eq 0 and ClienteId eq " + action.clienteId
+        var dataChat = null
+        var dataNotif = null
+        dispatch(showSpinner(ikeChatQuery))
+        Promise.all([
+            ikeChatQuery.get(optionsChat).then((data) => {
+                dataChat = data
+            }).catch((err) => {
+                throw err
+            }),
+            ikeNotificacionDetalleQuery.get(optionsNotif).then((data) => {
+                dataNotif = data
+            }).catch((err) => {
+                throw err
+            })
+        ]).then((value) => {
+            var estado = false
+            if (dataChat.length > 0 || dataNotif.length > 0) {
+                //dispatch(showCampana());
+                estado = true
+            } else {
+                // dispatch(hiddeCampana());
+            }
+            dispatch({
+                type: SET_CAMPANA_SUCCESS,
+                payload: {
+                    send: null,
+                    receive: estado
+                }
+            })
+            dispatch(hideSpinner(ikeChatQuery))
+        }).catch(() => {
+            dispatch({
+                type: SET_CAMPANA_ERROR
+            })
+            dispatch(hideSpinner(ikeChatQuery))
+            //dispatch(showWarning())
+        })
+    }
 };
 
 export const add = ({
@@ -144,10 +205,10 @@ export const processComand = ({
     }
     if (action.type === ADD_PREGUNTA_SUCCESS) {
         dispatch(sinContestar(getState().cliente.datos.id))
-        dispatch(setCampana(getState().cliente.datos.id))
+        dispatch(setCampanaAction(getState().cliente.datos.id))
     }
     if (action.type === PATCH_SUCCESS) {
-        dispatch(setCampana(getState().cliente.datos.id))
+        dispatch(setCampanaAction(getState().cliente.datos.id))
     }
 };
 
@@ -162,4 +223,4 @@ export const processError = ({
     }
 };
 
-export const middleware = [get, add, update, patch, remove, processGet, processComand, processError];
+export const middleware = [get, add, setCampana, update, patch, remove, processGet, processComand, processError];

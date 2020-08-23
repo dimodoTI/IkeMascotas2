@@ -100,15 +100,9 @@ export const chatReserva = (reservaId, onSuccess = CHAT_RESERVA_SUCCESS, onError
     onError: onError,
 })
 
-export const setCampana = (usuarioId, onSuccess = SET_CAMPANA_SUCCESS, onError = SET_CAMPANA_ERROR) => ({
+export const setCampana = (clienteId, onSuccess = SET_CAMPANA_SUCCESS, onError = SET_CAMPANA_ERROR) => ({
     type: SET_CAMPANA,
-    options: {
-        top: 1,
-        expand: "Usuario,Reserva",
-        select: "Id",
-        filter: "( (Leido eq 0 and  Tipo eq 1 ) or (Leido eq 0 and Tipo eq 3))  and Reserva/UsuarioId eq " + usuarioId,
-        orderby: "Id desc"
-    },
+    clienteId: clienteId,
     onSuccess: onSuccess,
     onError: onError
 })

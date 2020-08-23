@@ -47,6 +47,10 @@ export const setMedia = (size) => ({
   size: size
 });
 
+export const SHOW_WARNING = "[ui] show warning";
+export const HIDE_WARNING = "[ui] hide warning";
+
+
 export const setMediaOrientation = (orientation) => ({
   type: SET_MEDIA_ORIENTATION,
   orientation: orientation
@@ -82,4 +86,15 @@ export const headerMuestraTapa = (mostrar) => ({
 export const footherMuestraTapa = (mostrar) => ({
   type: FOOTHER_MUESTRA_TAPA,
   mostrar: mostrar
+});
+
+
+
+export const showWarning = (pagina = "", nroWarning = -1) => ({
+  type: SHOW_WARNING,
+  pagina: pagina,
+  nroWarning: nroWarning
+});
+export const hideWarning = () => ({
+  type: HIDE_WARNING
 });

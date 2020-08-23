@@ -42,10 +42,20 @@ import {
     patch as patchChat
 } from "../../redux/chat/actions"
 
+import {
+    headerMuestraTapa
+} from "../../redux/ui/actions"
 
+import {
+    leido,
+
+    getNotificacionChatPendientes
+} from "../../redux/notificacion/actions"
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
+
+const LEIDO_TIMESTAMP = "notificacion.updateTimeStamp"
 
 
 export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -110,36 +120,60 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
         #grilla::-webkit-scrollbar {
             display: none;
         }
+
+
         #cmhDivEtiqueta{
             width: 90%;
             justify-self:center;
         }
 
         
+        #cchatDivContenedorEtiqueta{
+            display: grid; 
+            position: relative;
+            height:20vh;
+            
+            border-radius:.4rem ;           
+            grid-template-columns:4% 96%;
+            box-shadow: var(--shadow-elevation-4-box);
+            width: 97%;
+            background-color:var(--color-blanco);
+            padding: 0;
+            margin-left: .3rem;
+        }
+
+        #tipoNotificacion{
+            
+            border-radius:.4rem 0 0 .4rem; 
+            padding:0
+        }
+
+        #tipoNotificacion[tipo="0"]{
+            background-color:var(--color-gris)
+        }
+
+        #tipoNotificacion[tipo="1"]{
+            background-color:var(--color-verde)
+        }
+
+        #tipoNotificacion[tipo="2"]{
+            background-color:var(--color-celeste)
+        }       
+
+
 
         #cchatDivEtiqueta{
             display: grid; 
             position: relative;
-            height:20vh;
-            width:100%;
+            border-radius: 0 .4rem .4rem 0;
             background-color:var(--color-blanco);
-            grid-template-columns: 100%;
+            padding-left:   2vw;
+            
             grid-template-rows: 15% 35% 35% 15%;
             grid-gap:.1vh;
-            border-radius:.4rem ;           
-            
-            box-shadow: var(--shadow-elevation-4-box);
-            padding: .2vh 0 .2vh 0;
+
         }
-
-
-         #cchatDivEtiqueta[pregunta="1"]{
-            background-color:var(--color-celeste-claro);
-        }
-        
-        
-
-        
+      
 
         #cchatDivNombre{
             font-size: var(--font-bajada-size);
@@ -149,7 +183,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             color: var(--color-azul);   
         }         
 
-         #cchatDivNombre[tipo="0"]{
+         #cchatDivNombre[tipo=0]{
             color: var(--color-rojo); 
         } 
 
@@ -184,9 +218,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 
          }
 
-         
-
-         #pregunta{
+            
+         #pregunta, #notificacion{
              z-index:100;
              background-color:  var(--color-celeste-muy-claro);;
              position:absolute;
@@ -197,10 +230,11 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
              height:50vh;
              left:5vw;
              right:5vw;
-             border: solid 1px var(--color-gris);
-             border-radius: 1rem;
-
+             border: solid 1px var(--color-gris-oscuro);
+             border-radius: .5rem;
+             box-shadow: var(--shadow-elevation-4-box);
          }
+
          #cchatAccion{
             display:grid;
             grid-template-columns: 1fr 1fr 1fr ;
@@ -214,9 +248,6 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
          #cchatDivVerDetalle{
             padding-left: .5rem;
             text-align:left;
-            
-        
-  
          }
 
          
@@ -247,67 +278,118 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             cursor:pointer;
          }
 
+         #nuevaPregunta{
+            padding:.5rem;
+            font-family:var(--font-label-family);
+            font-size:var(--font-label-size);
+            font-weight:var(--font-label-weight);
+         }
+
     `
 
     }
     render() {
         return html `
             <div id="grilla">
-                ${this.item.map(dato => html`
-                   <div id="cchatDivEtiqueta">
+                ${this.item.map(dato => this.renderGrilla(dato))}                  
+            </div>
+
+            <div id="pregunta">
+                <textarea id="nuevaPregunta" placeholder="Escriba su pregunta">
+                </textarea>
+                <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
+                    <button style="height:7vh" id="grabar" btn1 @click="${this.grabar}" >Grabar</button>
+                    <button  id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
+                </div>  
+            </div>
+
+            <div id="notificacion">
+                <div id="tituloNotificacion">
+                </div>
+                <textarea id="cuerpo" readonly >
+                </textarea>
+                <div id="linkNotificacion"  @click="${this.irLink}" style="font-size:var(--font-label-size)"></div>
+                <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
+                    <button style="height:7vh" id="leer"  btn1 @click="${this.leer}" >Leer</button>
+                    <button  id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
+                </div>  
+            </div>
+                    
+        `
+    }
+
+
+    renderGrilla(dato) {
+        if (dato.tipo == 0 || dato.tipo == 1) {
+            return html `
+                 <div id="cchatDivContenedorEtiqueta">
+                    <div id="tipoNotificacion" tipo=${dato.tipo}>
+                    </div>
+                    <div id="cchatDivEtiqueta">
                         <div id="cchatFechaNombre">
-                            <div id="cchatDivNombre" tipo="${dato.Tipo}">
-                                ${dato.Reserva.Mascota.Nombre}
+                            <div id="cchatDivNombre" tipo=${dato.tipo}>
+                                ${dato.item.mascota}
                             </div>
                             <div id="cchatDivFecha">
-                                ${this.formateoFecha(dato.Fecha)}
+                                ${this.formateoFecha(dato.fecha)}
                             </div>
                         </div>
                         <div id="cchatDivDiagnostico">
-                            ${dato.Reserva.Motivo.substring(0,80)}
+                            ${dato.item.motivo.substring(0,80)}
                         </div>                        
 
                         <div id="cchatDivTexto">
-                            ${dato.Texto.substring(0,80)}
+                            ${dato.item.texto.substring(0,80)}
                         </div>
                         <div id="cchatAccion">
                             <div id="cmhDivVerDetalle" style="justify-self:left;padding-left:.3rem" .item="${dato}" @click="${this.verDetalle}">
-                            <label id="cchatLblVerDetalle">${idiomas[this.idioma].notificacionReservas.verDetalle}</label>
-                               
+                                <label id="cchatLblVerDetalle">${idiomas[this.idioma].notificacionReservas.verDetalle}</label>            
                             </div>
                             <div id="cmhDivNuevaPregunta"  style="justify-self:center" >
-                                <label id="cchatLblNuevaPregunta" tipo="${dato.Tipo}">${idiomas[this.idioma].notificacionReservas.nuevaPregunta}</label>
-                               
+                                <label id="cchatLblNuevaPregunta" @click="${this.preguntar}" tipo="${dato.tipo}">${idiomas[this.idioma].notificacionReservas.nuevaPregunta}</label>                          
                             </div>
                             <div id="cmhDivEliminar" style="justify-self:right;padding-right:.3rem">
                                 <!-- <label id="cchatLblElimar">${idiomas[this.idioma].notificacionReservas.eliminar}</label> -->
                             </div>
 
                         </div>
-                        </div>
-                    </div>                
-                    `)}
-                    
-                    
-            </div>
+                    </div>
+                </div>      
+            </div>`
 
-            <div id="pregunta">
-                
-                    <label style="background-color:white;color:black;padding:.5rem" id="textoPregunta"></label>
-                
-    
-                    <textarea id="nuevaPregunta" style="padding:.5rem;font-family:var(--font-label-family);
-            font-size:var(--font-label-size);
-            font-weight:var(--font-label-weight);" placeholder="Escriba su pregunta"></textarea>
-            
-                <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
-                    <button style="height:7vh" id="grabar" btn1 @click="${this.grabar}" >Grabar</button>
-                    <button  id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
-                </div>  
-            </div>
-            
-        
-        `
+        } else {
+            return html `
+                <div id="cchatDivContenedorEtiqueta">    
+                    <div id="tipoNotificacion" tipo=${dato.tipo}>
+                    </div>
+                    <div id="cchatDivEtiqueta">
+                        <div id="cchatFechaNombre">
+                            <div id="cchatDivNombre" tipo=${dato.tipo}>
+                            </div>
+                            <div id="cchatDivFecha">
+                                ${this.formateoFecha(dato.fecha)}
+                            </div>
+                        </div>
+                        <div id="cchatDivDiagnostico">
+                            ${dato.item.titulo.substring(0,80)}
+                        </div> 
+                        <div id="cchatDivTexto">
+                            ${dato.item.texto.substring(0,80)}
+                        </div>
+                        <div id="cchatAccion">
+                            <div id="cmhDivVerDetalle" style="justify-self:left;padding-left:.3rem" .item="${dato}" @click="${this.verNotificacion}">
+                                <label id="cchatLblVerDetalle">${idiomas[this.idioma].notificacionReservas.verDetalle}</label>            
+                            </div>
+                            <label id="cnotiLblLink">${dato.item.link}</label>
+                        </div>
+
+                    </div>
+                </div>
+            `
+
+        }
+
+
     }
 
     formateoFecha(fecha) {
@@ -315,8 +397,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
     }
 
     verDetalle(e) {
-        store.dispatch(chatReserva(e.currentTarget.item.ReservaId))
-        if (e.currentTarget.item.Tipo == 1) {
+        store.dispatch(chatReserva(e.currentTarget.item.item.reservaId))
+        if (e.currentTarget.item.tipo == 1) {
             const datosPatch = [{
                 "op": "replace",
                 "path": "/Leido",
@@ -324,46 +406,55 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             }]
             store.dispatch(patchChat(e.currentTarget.item.Id, datosPatch, store.getState().cliente.datos.token))
         }
-
-        const registro = {
-            Id: e.currentTarget.item.ReservaId,
-            Fecha: e.currentTarget.item.Reserva.FechaAtencion,
-            Mascota: e.currentTarget.item.Reserva.Mascota.Nombre,
-            Motivo: e.currentTarget.item.Reserva.Motivo,
-            /*             Diagnostico: e.currentTarget.item.Reserva.Atencion.Diagnostico,
-                        InicioAtencion: e.currentTarget.item.Reserva.Atencion.InicioAtencion */
-        }
-        store.dispatch(reservaParaChat(registro))
+        this.update()
     }
 
-    verDetalle1(e) {
-        const textoPregunta = this.shadowRoot.querySelector("#textoPregunta")
+
+    preguntar(e) {
+        store.dispatch(headerMuestraTapa(true))
         const nuevaPregunta = this.shadowRoot.querySelector("#nuevaPregunta")
+        nuevaPregunta.value = ""
         const pregunta = this.shadowRoot.querySelector("#pregunta")
-        const grabar = this.shadowRoot.querySelector("#grabar")
         pregunta.style.display = "grid"
-        textoPregunta.innerHTML = e.currentTarget.item.Texto
-        if (e.currentTarget.id != "btnNuevaPregunta") {
-            nuevaPregunta.style.display = "none"
-            grabar.style.display = "none"
-            pregunta.style.gridTemplateRows = "8fr 1f"
-        } else {
-            textoPregunta.style.display = "grid"
-            nuevaPregunta.style.display = "grid"
-            grabar.style.display = ""
-            pregunta.style.gridTemplateRows = "4fr 4fr 1f"
-        }
+        this.update()
+    }
+
+    verNotificacion(e) {
+        store.dispatch(headerMuestraTapa(true))
+        const notificacion = this.shadowRoot.querySelector("#notificacion")
+        const tituloNotificacion = this.shadowRoot.querySelector("#tituloNotificacion")
+        const cuerpo = this.shadowRoot.querySelector("#cuerpo")
+        const link = this.shadowRoot.querySelector("#linkNotificacion")
+        const leer = this.shadowRoot.querySelector("#leer")
+        cuerpo.value = e.currentTarget.item.item.texto
+        tituloNotificacion.innerHTML = e.currentTarget.item.item.titulo
+        link.innerHTML = e.currentTarget.item.item.link
+        link.link = e.currentTarget.item.item.link
+        leer.value = e.currentTarget.item.item.detalleId
+        notificacion.style.display = "grid"
+        this.update()
+    }
+
+    irLink(e) {
+        window.open(e.currentTarget.link)
+    }
+
+    leer(e) {
+        store.dispatch(headerMuestraTapa(false))
+        store.dispatch(leido(e.currentTarget.value, null, store.getState().cliente.datos.token))
+        const notificacion = this.shadowRoot.querySelector("#notificacion")
+        notificacion.style.display = "none"
 
         this.update()
-
-
     }
 
-    cancelar() {
+    cancelar(e) {
+        store.dispatch(headerMuestraTapa(false))
         const pregunta = this.shadowRoot.querySelector("#pregunta")
-        const textoPregunta = this.shadowRoot.querySelector("#textoPregunta")
-        textoPregunta.innerHTML = ""
+        const notificacion = this.shadowRoot.querySelector("#notificacion")
         pregunta.style.display = "none"
+        notificacion.style.display = "none"
+        this.update()
     }
 
     atencion(e) {
@@ -385,23 +476,17 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             } else {
                 store.dispatch(goTo("videoConsulta"))
             }
-
         }
 
     }
     verReserva(fecha) {
-
-
-
-
         let hoy = new Date();
         let atencion = new Date(fecha);
         return hoy.getTime() === atencion.getTime();
-
     }
+
     clickAtencion(e) {
         let arr = e.currentTarget.item;
-
     }
 
     clickConsulta(e) {
@@ -430,12 +515,32 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.current = state.screen.name
-                this.item = state.chat.entitySinContestar
+                //this.item = state.chat.entitySinContestar
+                this.item = state.notificacion.entityNotificacionChatPendiente
             }
+
             this.update();
         }
 
+        /*         <div id="cnotiDivEtiqueta" >
+                <div id="cnotiBarra" fondo=${dato.tipo == 0 ? 'gris' : 'celeste'}>
+                </div>
+                <div id= "cnotiContenido">
+                    <div id="cnotiDivFecha">
+                        ${dato.fecha.substring(8, 10) + "/" + dato.fecha.substring(5, 7) + "/" + dato.fecha.substring(0, 4)}
+                    </div>
+                    <div id="cnotiDivTitulo">
+                        ${dato.item.titulo.substring(0, 80)}
+                    </div>                        
+                    <div id="cnotiDivTexto">
+                        ${dato.item.texto.substring(0, 80)}
+                    </div>
+                    <div id="cnotiDivVerDetalle">
+                        <label id="cnotiLblLink" @click=${this.verAtencion} .item=${dato}>${dato.item.link}</label>                 
+                    </div>
+                </div>
 
+            </div> */
 
     }
 

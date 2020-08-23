@@ -55,6 +55,7 @@ export const ikeTurnosDisponibles = fetchFactory(webApiMascotas, "TurnosDisponib
 export const ikeAdjuntos = fetchFactory(webApiMascotas, "Adjutos")
 
 export const ikeChat = fetchFactory(webApiChat, "Chat")
+export const ikeNotificacionDetalle = fetchFactory(webApiChat, "Notificaciones/Leido")
 
 export const ikeMascotasQuery = ODataEntity(OdataMascotas, "MascotasQuery")
 export const ikeMascotasTipoQuery = ODataEntity(OdataMascotas, "MascotasTipoQuery")
@@ -69,5 +70,6 @@ export const ikeVacunasQuery = ODataEntity(OdataMascotas, "VacunasQuery")
 export const ikeMascotasVacunasQuery = ODataEntity(OdataMascotas, "MascotasVacunasQuery")
 export const ikeAdjuntosQuery = ODataEntity(OdataMascotas, "AdjuntosQuery")
 export const ikeChatQuery = ODataEntity(OdataChat, "ChatQuery")
+export const ikeNotificacionDetalleQuery = ODataEntity(OdataChat, "NotificacionDetalleQuery")
 
 export const ikeOdataPublicaciones = ODataEntity(OdataPublicaciones, "PublicacionesQuery")

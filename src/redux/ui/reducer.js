@@ -5,7 +5,8 @@ import {
     HIDE_ERROR,
     SET_MEDIA,
     SET_MEDIA_ORIENTATION,
-
+    SHOW_WARNING,
+    HIDE_WARNING,
     HEADER_MUESTRA_TAPA,
     FOOTHER_MUESTRA_TAPA
 } from "./actions";
@@ -17,6 +18,12 @@ const initialState = {
     error: {
         message: "",
         timestamp: null
+    },
+    warning: {
+        pagina: "",
+        nroWarning: -1,
+        timeStamp: null,
+        hidden: true
     },
     media: {
         size: "large",
@@ -48,6 +55,18 @@ export const reducer = (state = initialState, action) => {
         case HIDE_ERROR:
             newState.error.timeStamp = (new Date()).getTime()
             newState.error.messages = null
+            break;
+        case SHOW_WARNING:
+            newState.warning.timeStamp = (new Date()).getTime()
+            newState.warning.pagina = action.pagina
+            newState.warning.nroWarning = action.nroWarning
+            newState.warning.hidden = false
+            break;
+        case HIDE_WARNING:
+            newState.warning.timeStamp = (new Date()).getTime()
+            newState.warning.pagina = ""
+            newState.warning.nroWarning = -1
+            newState.warning.hidden = true
             break;
         case SET_MEDIA:
             newState.media.size = action.size

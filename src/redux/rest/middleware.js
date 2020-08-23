@@ -159,10 +159,11 @@ export const middleware = ({
       body,
       onSuccess,
       onError,
-      token
+      token,
+      id
     } = action.meta;
 
-    RESTfetch.post(body, token)
+    RESTfetch.post(body, token, id)
       .then(data => {
 
         dispatch({
@@ -184,5 +185,5 @@ export const middleware = ({
         })
       });
   }
-  return next(action);
-};
+  return next(action)
+}

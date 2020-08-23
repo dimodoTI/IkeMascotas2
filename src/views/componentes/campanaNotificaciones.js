@@ -25,12 +25,15 @@ import {
     goTo
 } from "../../redux/routing/actions"
 
+import {
+    getNotificacionChatPendientes
+} from "../../redux/notificacion/actions"
+
 
 
 const SET_CAMPANA = "chat.setCampana"
-
-
-export class campanaNotificaciones extends connect(store, SET_CAMPANA)(LitElement) {
+const GET_NOTIFICACION_CHAT_PENDIENTES_SUCCESS = "notificaciones.entityNotificacionChatPendienteTimeStamp"
+export class campanaNotificaciones extends connect(store, SET_CAMPANA, GET_NOTIFICACION_CHAT_PENDIENTES_SUCCESS)(LitElement) {
     constructor() {
         super();
         this.hidden = false
@@ -66,7 +69,9 @@ export class campanaNotificaciones extends connect(store, SET_CAMPANA)(LitElemen
     }
 
     notificaciones(e) {
-        store.dispatch(sinContestar(store.getState().cliente.datos.id))
+        //store.dispatch(sinContestar(store.getState().cliente.datos.id))
+
+        store.dispatch(getNotificacionChatPendientes(store.getState().cliente.datos.id))
 
     }
 
@@ -76,10 +81,15 @@ export class campanaNotificaciones extends connect(store, SET_CAMPANA)(LitElemen
                     store.dispatch(goTo("notificacionReservas"))
                 } */
 
+        if (name == GET_NOTIFICACION_CHAT_PENDIENTES_SUCCESS) {
+            store.dispatch(goTo("notificacionReservas"))
+        }
+
         if (name == SET_CAMPANA) {
-            this.mensaje = store.getState().chat.setCampana
+            this.mensaje = (store.getState().chat.setCampana)
             this.update()
         }
+
     }
 
     static get properties() {

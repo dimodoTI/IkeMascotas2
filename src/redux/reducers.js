@@ -72,6 +72,10 @@ import {
   reducer as chatReducer
 } from "./chat/reducer"
 
+import {
+  reducer as notificacionesReducer
+} from "./notificacion/reducer"
+
 export const rootReducer = (state = {}, action) => {
   return {
     api: apiReducer(state.reducer, action),
@@ -97,5 +101,6 @@ export const rootReducer = (state = {}, action) => {
     fotos: fotosReducer(state.fotos, action),
     adjuntos: adjuntosReducer(state.adjuntos, action),
     chat: chatReducer(state.chat, action),
+    notificacion: notificacionesReducer(state.notificacion, action)
   }
 }
