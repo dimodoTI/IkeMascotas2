@@ -43,7 +43,7 @@ export class campanaNotificaciones extends connect(store, SET_CAMPANA, GET_NOTIF
     static get styles() {
         return css `
             :host{
-                position: relative;
+                position: absolute;
                 display: block;
                 border:none;
                 background-color:transparent;

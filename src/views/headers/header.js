@@ -77,6 +77,17 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             :host(:not([media-size="small"])) #divTitulo {
                 justify-content: center;
             }
+/*             #divImg{
+                display:none;
+                padding-right: .4rem;
+                align-self: end;
+            }
+            #divImg svg{
+                height: 1.5rem;
+                width: 1.5rem;
+            } */
+
+
             #divImg{
                 display:none;
                 padding-right: .4rem;
@@ -87,11 +98,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 width: 1.5rem;
             }
 
-            #divTxt   {
-                display:grid;
-                grid-template-columns: 11fr 1fr;;
-                align-items: center; 
-            }
+
      
 
             :host([current="recuperaclave"]) #divImg, 
@@ -115,7 +122,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             {
                 display:grid;
             }
-            #lblTitulo{               
+/*             #lblTitulo{               
                 background-color: transparent;
                 display: flex;
                 align-items:center; 
@@ -124,7 +131,21 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 font-size: var(--font-header-h1-size);
                 font-weight: var(--font-header-h1-weight);
 
+            } */
+
+
+            #divTitulo{        
+                position:relative;            
+                height: 50%;
+                display:flex;
+                flex-flow: row;
+                align-self: end;
             }
+
+            :host(:not([media-size="small"])) #divTitulo {
+                justify-content: center;
+            }
+
             #lblLeyenda{           
                 display: flex;
                 justify-content:left;
@@ -156,9 +177,13 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
    
   
             #campana{
-            position:relative;
+            position:absolute;
             display:none;
-            align-items:center
+            align-items:center;
+            top:0;
+            right:0;
+            width:6vh;
+            height:6vh
             
            
 
@@ -193,7 +218,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 </div>
                 <div id="divTxt">
                     <label id="lblTitulo">${this.titulo}</label>
-                    <campana-notificaciones id="campana"></campana-notificaciones>
+                    
 
                 </div>
               
@@ -202,6 +227,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 <label id="lblLeyenda">${this.subTitulo}</label>
             </div>
             <div id="divTapa"></div>
+            <campana-notificaciones id="campana"></campana-notificaciones>
             `
     }
 
