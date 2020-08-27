@@ -111,10 +111,7 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
         #grilla::-webkit-scrollbar {
             display: none;
         }
-        #cmhDivEtiqueta{
-            width: 90%;
-            justify-self:center;
-        }
+
         .chat{
             height: 1rem;
     width: 100%;
@@ -127,6 +124,12 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
             align-self:start
             }
 
+
+            .acciones{
+                display:grid;
+                grid-template-columns:4fr 1fr 1fr
+            }
+
   
 
     `
@@ -134,36 +137,37 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
     render() {
         return html `
             <div id="grilla">
-                ${this.item.map(dato => html`
-                   <div id="cmhDivEtiqueta" >
-                        <div id="cmhDivImagen" style="background-position:center;background:url(${dato.Mascota.Foto});background-repeat: no-repeat;background-position: center center;"></div>
-                            <div id="cmhDivNombre">
-                                ${dato.Mascota.Nombre}
-                            </div>
+                ${this.item.map(dato =>  html`
+                   <div id="cmhDivEtiqueta" .item="${dato}" @click="${this.mostrarIcono}">
+                        
+                        <div id="cmhDivImagen" style="background-image:url(${dato.Mascota.Foto});grid-row-start:1;grid-row-end:4;"></div>
+                        <div id="cmhDivNombre">${dato.Mascota.Nombre}</div>
                             <div id="cmhDivFecha">
                                 ${dato.FechaAtencion.substring(8,10)+"/"+dato.FechaAtencion.substring(5,7)+"/"+dato.FechaAtencion.substring(0,4)+" "+ this.formateoHora( dato.HoraAtencion)}
                             </div>
                             <div id="cmhDivDiagnostico">
                                 ${dato.Motivo}
                             </div>
-
-                            <div></div>
                             <div id="cmhDivVerDetalle">
-                                
-                                <div id="cmhDivChat1" class="chat" .item="${dato}" @click="${this.chat}">${dato.Chats.length>0?CHAT:""}</div>
+                                <button btn2  @click=${this.verDetalle} .item=${dato} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].listaReserva.verDetalle}</button>                    
                             </div>
-                            
-                            <div id="cmhDivChat" .item="${dato}" @click="${this.atencion}">${!dato.Atencion?VIDEO:ARCHIVO}</div>  
-                                        
+                            <div id="cmhDivChat" @click=${this.chat} .item=${dato} hiddechat=${dato.Chats.length == 0 ? true : false}>${CHAT}</div>                    
                         </div>
                     </div>
                     `)}
             </div>
-<!--             <button style="margin-top:1rem" id="btn-edit" btn3 @click=${ this.clickConsulta}>
-                ${ idiomas[this.idioma].listaReserva.agendarReserva}
-            </button > -->
+
 
         `
+    }
+
+    mostrarIcono(e) {
+        const d = new Date()
+        const fechaAtencion = e.currentTarget.item.FechaAtencion.substring(0, 10)
+        const horaAtencion = this.formateoHora(e.currentTarget.item.HoraAtencion) + ":00"
+        const fechaHoraAtencion = new Date(fechaAtencion + "T" + horaAtencion)
+        let dif = d - fechaHoraAtencion
+
     }
 
     chat(e) {
@@ -185,12 +189,10 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
             store.dispatch(chatReserva(e.currentTarget.item.Id, CHAT_RESERVAR_SUCCESS))
         }
     }
+
+
     verDetalle(e) {
-        /*         store.dispatch(getEnAtencion({
-                    filter: "Id eq " + e.currentTarget.item.Id,
-                    expand: "Atencion,Mascota",
-                    token: store.getState().cliente.datos.token
-                })) */
+
         store.dispatch(getEnAtencion({
             registro: e.currentTarget.item
         }))
@@ -200,7 +202,7 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
         if (this.current == "misConsultas") {
             store.dispatch(goTo("diagnosticoDetalles"))
         }
-        // store.dispatch(goTo("diagnosticoDetalles"))
+
     }
 
     atencion(e) {
@@ -299,6 +301,10 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
             },
             current: {
                 type: String
+            },
+            hide: {
+                type: Boolean,
+                reflect: true
             }
         }
     }

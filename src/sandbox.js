@@ -37,6 +37,11 @@ import {
 import {
     getParameterByName
 } from "./libs/helpers";
+import {
+    goNext,
+    goTo,
+    goPrev
+} from "./redux/routing/actions"
 
 
 

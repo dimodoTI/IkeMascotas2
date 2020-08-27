@@ -84,7 +84,7 @@ export const setCampana = ({
         const optionsChat = {}
         optionsChat.top = 1
         optionsChat.expand = "Usuario,Reserva($expand=Mascota($select=Nombre))"
-        optionsChat.filter = "Tipo eq 1 and Leido eq 0"
+        optionsChat.filter = "Tipo eq 1 and Leido eq 0 and Reserva/UsuarioId eq " + action.clienteId
         const optionsNotif = {}
         optionsNotif.top = 1
         optionsNotif.expand = "Cabecera"

@@ -355,12 +355,11 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
                 this.hidden = false
                 this.item = store.getState().cliente.datos
                 this.mascotas = store.getState().mascotas.entities
-                //this.cuantasMascotas = this.mascotas ? this.mascotas.length : 0
                 this.vacunas = store.getState().mascotasvacunas.entities
-                this.item.consultas = 12
+                this.item.consultas = store.getState().reservas.reservaCantidad
                 this.item.vacunas = this.vacunas ? this.vacunas.length : 0
+                this.update();
             }
-            this.update();
         }
 
         if (name == CLIENTE_LOGUEADO) {
@@ -405,8 +404,8 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
                 const apellido = this.shadowRoot.querySelector("#txtApellido").value
                 const documento = this.item.documento
                 let foto = this.item.foto
-                if (!store.geteState().fotos.foto) {
-                    foto = store.geteState().fotos.foto
+                if (!store.getState().fotos.foto) {
+                    foto = store.getState().fotos.foto
                 }
 
                 const telefono = this.shadowRoot.querySelector("#txtCelular").value

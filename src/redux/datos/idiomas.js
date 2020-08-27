@@ -249,6 +249,12 @@ export const idiomas = {
             subTitulo: "Tu contraseña ya fue modificada.",
             btn1: "Volver a mi perfil"
         },
+
+        crearClaveMsg: {
+            titulo: "¡Genial!",
+            subTitulo: "Tu contraseña fue creada con éxito.",
+            btn1: "Ingresar a mi cuenta"
+        },
         plancontrata: {
             titulo: "¡Contratá tu Plan Iké Mascotas!",
             subTitulo: "Accedé a esta y otras funcionalidades contratando tu plan.",
@@ -434,7 +440,8 @@ export const idiomas = {
             titulo: "Notificaciones",
             verDetalle: "Ver Detalle",
             nuevaPregunta: "Nueva Pregunta",
-            eliminar: "Eliminar"
+            eliminar: "Eliminar",
+            verMas: "Ver más"
 
         },
         chatApp: {

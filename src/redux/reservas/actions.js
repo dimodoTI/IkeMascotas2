@@ -25,6 +25,10 @@ export const ENATENCION_ERROR = "[reservas] ENATENCION error";
 
 export const RESERVA_PARA_CHAT = "[reservas] RESERVA_PARA_CHAT"
 
+export const RESERVA_CANTIDAD = "[reservas] RESERVA_CANTIDAD"
+export const RESERVA_CANTIDAD_SUCCESS = "[reservas] RESERVA_CANTIDAD_SUCCESS"
+export const RESERVA_CANTIDAD_ERROR = "[reservas] RESERVA_CANTIDAD_ERROR"
+
 
 
 
@@ -99,5 +103,13 @@ export const enAtencion = (registro) => ({
 export const reservaParaChat = (registro) => ({
     type: RESERVA_PARA_CHAT,
     registro: registro
+
+})
+
+export const reservaCantidad = (options, onSuccess = RESERVA_CANTIDAD_SUCCESS, onError = RESERVA_CANTIDAD_ERROR) => ({
+    type: RESERVA_CANTIDAD,
+    options: options,
+    onSuccess: onSuccess,
+    onError: onError
 
 })

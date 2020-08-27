@@ -35,6 +35,7 @@ export const largeRoute = [
 
 
     "4 -crearclave",
+    "4/1 -crearClaveMsg",
     "5 -inicioSesion",
     "5/1 -recuperaclave",
     "5/1/1 -recuperaclavemsg",

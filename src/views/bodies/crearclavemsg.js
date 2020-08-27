@@ -16,110 +16,112 @@ import {
     label
 } from "../css/label"
 import {
+    button
+} from "../css/button"
+import {
     goTo
-} from "../../redux/routing/actions";
-
+} from "../../redux/routing/actions"
+import {
+    isInLayout
+} from "../../redux/screens/screenLayouts";
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
-const SCREEN = "screen.timeStamp"
-
-export class pantallaRecuperaClaveMsg extends connect(store, SCREEN, MEDIA_CHANGE)(LitElement) {
+const SCREEN = "screen.timeStamp";
+export class pantallaCrearClaveMsg extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     constructor() {
         super();
         this.hidden = true
-        this.idioma = "ES"
         this.area = "body"
+        this.idioma = "ES"
     }
 
     static get styles() {
         return css `
         ${label}
- 
+        ${button}
         :host{
-            position: absolute;
+            position: relative;
             display:grid;
-            top: 0rem;
-            left: 0rem;  
-            height:100vh;
-            width: 100vw;
-            background-color:var(--color-gris-fondo);
-            grid-template-rows:5fr 5fr;
-            grid-gap:.4rem;
-            justify-items:center;
+            grid-template-rows: 10% 30% 20% 40%;
+            grid-gap:0.5rem;
+            background-color:var(--color-gris-fondo) !important;
+            justify-content:center;
+            align-items:center; 
         }
         :host([hidden]){
             display: none; 
         }
+        :host(:not([media-size="small"])){
+            max-width: fit-content;
+            min-width: 18rem;
+            justify-self: center;
+            max-height: fit-content;
+            min-height: 18rem;
+            align-self: center;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-elevation-3-box);
+        }
         #x{
-            position: fixed;
-            top: .5rem;
-            right: .5rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            background-color: transparent;
-            background-image:var(--icon-cerrar);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 100%;
-            cursor: pointer;
-            z-index:10;
+            position: relative;
+            align-self: flex-start;
+            justify-self: flex-end;
         }
         #titulo{
             position:relative;
-            display:flex;
-            width:90%;
-            align-items: flex-end;
-            justify-content:center;
             text-align:center;
+            align-self: flex-end;
             font-size: var(--font-header-h1-size);
             font-weight: var(--font-header-h1-weight);
         }
         #leyenda{
             position:relative;
-            display:flex;
-            width:90%;
-            align-items: flex-start;
-            justify-content:center;
             text-align:center;
+            align-self: flex-start;
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
         }
+        #btn-ingresar {
+            height: 7vh;
+            font-size: var(--font-bajada-size);
+            font-weight: var(--font-bajada-weight);
+       }
         `
     }
     render() {
         return html `
             <div id="x" @click=${this.clickBoton1}>
             </div>               
-            <div id="titulo">
-            ${idiomas[this.idioma].recuperaclavemsg.titulo}
-            </div>
-            <label id="leyenda">
-            ${idiomas[this.idioma].recuperaclavemsg.leyenda}
+            <label id="titulo">
+            ${idiomas[this.idioma].crearClaveMsg.titulo}
             </label>
+            <label id="leyenda">
+            ${idiomas[this.idioma].crearClaveMsg.subTitulo}
+            </label>
+            <button id="btn-ingresar" btn1 @click=${this.clickBoton1}>
+            ${idiomas[this.idioma].crearClaveMsg.btn1}
+            </button>
+
+
         `
     }
 
     clickBoton1() {
         store.dispatch(goTo("inicioSesion"))
-        //store.dispatch(modoPantalla("crearclave", "crearclavemsg"))
     }
 
     stateChanged(state, name) {
-
-
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
-            const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-recuperaclavemsg-".indexOf("-" + state.screen.name + "-") != -1
+            const haveBodyArea = isInLayout(state, this.area)
+            const SeMuestraEnUnasDeEstasPantallas = "-crearClaveMsg-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }
             this.update();
         }
-
     }
-
+    firstUpdated() {}
 
     static get properties() {
         return {
@@ -128,19 +130,19 @@ export class pantallaRecuperaClaveMsg extends connect(store, SCREEN, MEDIA_CHANG
                 reflect: true,
                 attribute: 'media-size'
             },
-            hidden: {
-                type: Boolean,
-                reflect: true
-            },
             layout: {
                 type: String,
                 reflect: true,
             },
+            hidden: {
+                type: Boolean,
+                reflect: true,
+            },
             area: {
                 type: String
-            },
+            }
         }
     }
 }
 
-window.customElements.define("pantalla-recuperaclavemsg", pantallaRecuperaClaveMsg);
+window.customElements.define("pantalla-crearclavemsg", pantallaCrearClaveMsg);

@@ -46,7 +46,8 @@ import {
 } from "../mascotasvacunas/actions"
 
 import {
-    get as getReservas
+    get as getReservas,
+    reservaCantidad
 } from "../reservas/actions"
 
 import {
@@ -157,6 +158,11 @@ export const processLogin = ({
                 select: "Id",
                 token: getState().cliente.datos.token
 
+            }))
+
+            dispatch(reservaCantidad({
+                select: "Id",
+                token: getState().cliente.datos.token,
             }))
 
             dispatch(getMascotasVacunas({

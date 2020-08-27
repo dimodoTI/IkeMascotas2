@@ -155,9 +155,7 @@ export class pantallaCrearClave extends connect(store, SCREEN, MEDIA_CHANGE, REN
         this.update()
         return valido
     }
-    clickBoton1() {
-        store.dispatch(goTo("iniciosesion"))
-    }
+
     clickBoton2() {
         if (this.activo) {
             if (this.valido()) {
@@ -183,7 +181,7 @@ export class pantallaCrearClave extends connect(store, SCREEN, MEDIA_CHANGE, REN
 
         if (name == RENOVACION_OK_ERROR) {
             if (state.cliente.renovado) {
-                store.dispatch(goTo("crearclavemsg"));
+                store.dispatch(goTo("crearClaveMsg"));
             } else {
                 alert("Enlace vencido. Vuelva a solicitar el recupero de clave")
             }

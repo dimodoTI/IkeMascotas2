@@ -208,6 +208,11 @@ export const screenLayuts = {
         small: HEADER_BODY,
         medium: HEADER_BODY,
         large: HEADER_BODY
+    },
+    crearClaveMsg: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
     }
 
 }

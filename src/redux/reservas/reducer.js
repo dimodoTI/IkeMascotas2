@@ -13,7 +13,9 @@ import {
     RESERVAR,
     RESERVARFECHA,
     ENATENCION,
-    RESERVA_PARA_CHAT
+    RESERVA_PARA_CHAT,
+    RESERVA_CANTIDAD_SUCCESS,
+    RESERVA_CANTIDAD_ERROR
 } from "./actions";
 
 
@@ -71,7 +73,7 @@ export const reducer = (state = initialState, action) => {
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
             break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
+        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR || RESERVA_CANTIDAD_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
         case RESERVAR:
@@ -86,7 +88,6 @@ export const reducer = (state = initialState, action) => {
             newState.reserva.FechaAtencion = action.fecha;
             newState.reserva.HoraAtencion = action.hora
             newState.reserva.TramoId = action.tramoId
-
             break;
 
         case ENATENCION:
@@ -97,7 +98,10 @@ export const reducer = (state = initialState, action) => {
             newState.entityReservaParaChat = action.registro
             newState.reservaParaChatTimeStamp = (new Date()).getTime();
             break;
-
+        case RESERVA_CANTIDAD_SUCCESS:
+            newState.reservaCantidad = action.payload.receive.length
+            newState.reservaCantidadTimeStamp = (new Date()).getTime();
+            break;
     }
     return newState;
 };

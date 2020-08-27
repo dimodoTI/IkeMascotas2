@@ -55,7 +55,6 @@ import {
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 
-const LEIDO_TIMESTAMP = "notificacion.updateTimeStamp"
 
 
 export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -253,7 +252,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
          
 
 
-         #cchatLblVerDetalle{
+         #cchatLblVerDetalle,
+         #cnotiLblLink{
             justify-self:left;
             text-decoration: underline;
             cursor:pointer;
@@ -261,6 +261,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
             font-size: var(--font-label-size);
             font-weight: bold;
          }
+
+
 
          #cchatLblNuevaPregunta{
             justify-self:center;
@@ -308,7 +310,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                 </div>
                 <textarea id="cuerpo" readonly >
                 </textarea>
-                <div id="linkNotificacion"  @click="${this.irLink}" style="font-size:var(--font-label-size)"></div>
+                <div id="linkNotificacion"  @click="${this.goToLink}" style="font-size:var(--font-label-size)"></div>
                 <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
                     <button style="height:7vh" id="leer"  btn1 @click="${this.leer}" >Leer</button>
                     <button  id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
@@ -380,7 +382,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                             <div id="cmhDivVerDetalle" style="justify-self:left;padding-left:.3rem" .item="${dato}" @click="${this.verNotificacion}">
                                 <label id="cchatLblVerDetalle">${idiomas[this.idioma].notificacionReservas.verDetalle}</label>            
                             </div>
-                            <label id="cnotiLblLink">${dato.item.link}</label>
+                            <label id="cnotiLblLink" .link="${dato.item.link}"  @click="${this.goToLink}">${idiomas[this.idioma].notificacionReservas.verMas}</label>
                         </div>
 
                     </div>
@@ -396,6 +398,10 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
         return fecha.substring(8, 10) + "/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4)
     }
 
+    goToLink(e) {
+        window.open(e.currentTarget.link)
+    }
+
     verDetalle(e) {
         store.dispatch(chatReserva(e.currentTarget.item.item.reservaId))
         if (e.currentTarget.item.tipo == 1) {
@@ -404,7 +410,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                 "path": "/Leido",
                 "value": (new Date()).getTime()
             }]
-            store.dispatch(patchChat(e.currentTarget.item.Id, datosPatch, store.getState().cliente.datos.token))
+            store.dispatch(patchChat(e.currentTarget.item.item.chatId, datosPatch, store.getState().cliente.datos.token))
         }
         this.update()
     }
@@ -516,31 +522,14 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                 this.hidden = false
                 this.current = state.screen.name
                 //this.item = state.chat.entitySinContestar
-                this.item = state.notificacion.entityNotificacionChatPendiente
+                this.item = state.notificacion.entityNotificacionChatPendiente ? state.notificacion.entityNotificacionChatPendiente : []
+                this.update();
             }
 
-            this.update();
+
         }
 
-        /*         <div id="cnotiDivEtiqueta" >
-                <div id="cnotiBarra" fondo=${dato.tipo == 0 ? 'gris' : 'celeste'}>
-                </div>
-                <div id= "cnotiContenido">
-                    <div id="cnotiDivFecha">
-                        ${dato.fecha.substring(8, 10) + "/" + dato.fecha.substring(5, 7) + "/" + dato.fecha.substring(0, 4)}
-                    </div>
-                    <div id="cnotiDivTitulo">
-                        ${dato.item.titulo.substring(0, 80)}
-                    </div>                        
-                    <div id="cnotiDivTexto">
-                        ${dato.item.texto.substring(0, 80)}
-                    </div>
-                    <div id="cnotiDivVerDetalle">
-                        <label id="cnotiLblLink" @click=${this.verAtencion} .item=${dato}>${dato.item.link}</label>                 
-                    </div>
-                </div>
 
-            </div> */
 
     }
 
