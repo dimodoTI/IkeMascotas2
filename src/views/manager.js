@@ -160,6 +160,10 @@ import {
     pantallaCrearClaveMsg
 } from "./bodies/crearclavemsg"
 
+import {
+    pantallaEstrellitas
+} from "../views/bodies/estrellitas"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -222,6 +226,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <pantalla-notificacionreservas class="body"></pantalla-notificacionreservas>
             <chat-app class="body"></chat-app>
             <pantalla-crearclavemsg class="body"></pantalla-crearclavemsg>
+            <pantalla-estrellitas class="body"></pantalla-estrellitas>
             `
 
     }

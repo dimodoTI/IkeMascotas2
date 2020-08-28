@@ -45,7 +45,8 @@ export const idiomas = {
         },
         recuperaclavemsg: {
             titulo: "¡Todo listo para recuperar tu contraseña!",
-            subTitulo: "Ingresá a tu casilla de mail y seguí los pasos para recuperar tu contraseña."
+            subTitulo: "Ingresá a tu casilla de mail y seguí los pasos para recuperar tu contraseña.",
+            detalle: "No olvider verificar en la carpeta de correos no deseados."
         },
         crearclave: {
             titulo: "Creá tu contraseña",
@@ -246,13 +247,13 @@ export const idiomas = {
         },
         clavemodificarmsg: {
             titulo: "¡Listo!",
-            subTitulo: "Tu contraseña ya fue modificada.",
+            subTitulo: "Tu contraseña ya fue modificada. Verificá tu casilla de correo. No te olvides de verificar en la bandeja de correo no deseado",
             btn1: "Volver a mi perfil"
         },
 
         crearClaveMsg: {
             titulo: "¡Genial!",
-            subTitulo: "Tu contraseña fue creada con éxito.",
+            subTitulo: "Tu contraseña fue creada con éxito. Verificá tu casilla de correo. No te olvides de verificar en la bandeja de correo no deseado",
             btn1: "Ingresar a mi cuenta"
         },
         plancontrata: {

@@ -48,7 +48,7 @@ export class pantallaRecuperaClaveMsg extends connect(store, SCREEN, MEDIA_CHANG
             justify-items:center;
         }
         :host([hidden]){
-            display: none; 
+            display: none;  
         }
         #x{
             position: fixed;
@@ -67,12 +67,16 @@ export class pantallaRecuperaClaveMsg extends connect(store, SCREEN, MEDIA_CHANG
         #titulo{
             position:relative;
             display:flex;
-            width:90%;
+            padding-bottom:2rem;
             align-items: flex-end;
             justify-content:center;
             text-align:center;
             font-size: var(--font-header-h1-size);
             font-weight: var(--font-header-h1-weight);
+        }
+        #subtitulo{
+            width: 90%;
+    justify-items: center;
         }
         #leyenda{
             position:relative;
@@ -84,6 +88,17 @@ export class pantallaRecuperaClaveMsg extends connect(store, SCREEN, MEDIA_CHANG
             font-size: var(--font-header-h2-size);
             font-weight: var(--font-header-h2-weight);
         }
+        #detalle{
+            position:relative;
+            display:flex;
+            width:90%;
+            align-items: flex-start;
+            justify-content:center;
+            text-align:center;
+            font-size: var(--font-label-size);
+            font-weight: var(--font-label-weight);
+            padding-top:1rem;
+        }
         `
     }
     render() {
@@ -93,9 +108,14 @@ export class pantallaRecuperaClaveMsg extends connect(store, SCREEN, MEDIA_CHANG
             <div id="titulo">
             ${idiomas[this.idioma].recuperaclavemsg.titulo}
             </div>
+            <div id="subtitulo">
             <label id="leyenda">
-            ${idiomas[this.idioma].recuperaclavemsg.leyenda}
+                ${idiomas[this.idioma].recuperaclavemsg.subTitulo}
             </label>
+            <label id="detalle">
+                ${idiomas[this.idioma].recuperaclavemsg.detalle}
+            </label>
+            </div>
         `
     }
 

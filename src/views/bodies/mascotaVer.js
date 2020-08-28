@@ -240,7 +240,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
     render() {
         return html `
 
-            <div id="cuerpo">
+            <div id="cuerpo" media-size="${this.mediaSize}">
                 <div id="foto" style="background-image:url(${this.items.Foto})">
                 </div>
                 <label class="subTitulo">${idiomas[this.idioma].mascotaver.informacion}</label>

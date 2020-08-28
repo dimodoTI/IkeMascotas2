@@ -99,11 +99,7 @@ export class pantallaRecuperaClave extends connect(store, SCREEN, MEDIA_CHANGE, 
                 <label id="lblErrorMail" error oculto>${idiomas[this.idioma].recuperaclave.errorMail.err1}</label>
             </div>
 
-            <div class="ikeInput">
-                <label id="lblDocumento">${idiomas[this.idioma].recuperaclave.documento}</label>
-                <input id="txtDocumento" @input=${this.activar} type="number" placeholder=${idiomas[this.idioma].recuperaclave.documento_ph}>
-                <label id="lblErrorDocumento" error oculto>${idiomas[this.idioma].recuperaclave.errorDocumento.err1}</label>
-            </div>
+
             <button id="btn-recuperar" btn1 apagado @click=${this.clickBoton2}>
                 ${idiomas[this.idioma].recuperaclave.btn1}
             </button>
@@ -113,10 +109,7 @@ export class pantallaRecuperaClave extends connect(store, SCREEN, MEDIA_CHANGE, 
     activar() {
         this.activo = true
         const email = this.shadowRoot.querySelector("#txtMail")
-        const documento = this.shadowRoot.querySelector("#txtDocumento")
-        if (documento.value.length < 4) {
-            this.activo = false
-        }
+
         if (email.value.length < 4) {
             this.activo = false
         }
@@ -132,12 +125,9 @@ export class pantallaRecuperaClave extends connect(store, SCREEN, MEDIA_CHANGE, 
             element.setAttribute("oculto", "")
         })
         let valido = true
-        const documento = this.shadowRoot.querySelector("#txtDocumento")
+
         const email = this.shadowRoot.querySelector("#txtMail")
-        if (documento.value.length < 8) {
-            valido = false
-            this.shadowRoot.querySelector("#lblErrorDocumento").removeAttribute("oculto");
-        }
+
         if (!validaMail(email.value)) {
             valido = false
             this.shadowRoot.querySelector("#lblErrorMail").removeAttribute("oculto");

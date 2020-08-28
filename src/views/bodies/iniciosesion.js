@@ -41,6 +41,8 @@ import {
     validaMail
 } from "../../libs/funciones"
 
+
+
 const LOGIN_OK_ERROR = "cliente.logueadoTimeStamp"
 const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
 
@@ -117,6 +119,8 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN, L
             <button id="btn-sinregistro" btn2 @click=${this.clickBoton3}>
             ${idiomas[this.idioma].inicioSesion.btn3}
             </button>
+            
+           
         `
     }
 

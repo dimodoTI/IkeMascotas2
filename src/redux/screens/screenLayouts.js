@@ -213,6 +213,11 @@ export const screenLayuts = {
         small: ALL_BODY,
         medium: ALL_BODY,
         large: ALL_BODY
+    },
+    estrellitas: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
     }
 
 }

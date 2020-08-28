@@ -78,8 +78,8 @@ export const largeRoute = [
     "14/2 -vacunaMsg",
 
     "18 -chatAppM",
-    "19 -chatAppR"
-
+    "19 -chatAppR",
+    "33 -estrellitas"
 
 
 ]

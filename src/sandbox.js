@@ -55,6 +55,7 @@ if (getParameterByName("ticket")) {
     store.dispatch(goTo("crearclave"))
 } else {
     store.dispatch(showScreen("splash"))
+    //store.dispatch(showScreen("estrellitas"))
 }
 
 
