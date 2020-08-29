@@ -59,69 +59,69 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN, L
 
     static get styles() {
         return css `
-        ${button}
-        ${ikeInput}
-        :host{ 
-            position: relative;
-            display:grid;
-            background-color: var(--color-gris-fondo) !important;
-            grid-auto-flow:row;
-            grid-gap:.8rem;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 1rem
-        }   
-        :host::-webkit-scrollbar{
-            display: none;
-        }   
-        :host([hidden]){
-            display: none; 
-        }
-        :host(:not([media-size="small"])){
-            max-width: fit-content;
-            min-width: 18rem;
-            justify-self: center;
-            max-height: fit-content;
-            min-height: 20rem;
-            align-self: center;
-            border-radius: 1rem;
-            box-shadow: var(--shadow-elevation-3-box);
-        }
-        #chk{
-            font-size: var(--font-header-h2-size);
-            font-weight: var(--font-header-h2-weight);
-        }
-        `
+            ${button}
+            ${ikeInput}
+            :host{ 
+                position: relative;
+                display:grid;
+                background-color: var(--color-gris-fondo) !important;
+                grid-auto-flow:row;
+                grid-gap:.8rem;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 1rem
+            }   
+            :host::-webkit-scrollbar{
+                display: none;
+            }   
+            :host([hidden]){
+                display: none; 
+            }
+            :host(:not([media-size="small"])){
+                max-width: fit-content;
+                min-width: 18rem;
+                justify-self: center;
+                max-height: fit-content;
+                min-height: 20rem;
+                align-self: center;
+                border-radius: 1rem;
+                box-shadow: var(--shadow-elevation-3-box);
+            }
+            #chk{
+                font-size: var(--font-header-h2-size);
+                font-weight: var(--font-header-h2-weight);
+            }
+            `
     }
 
     render() {
         return html `
-            <div class="ikeInput">
-                <label id="lblMail">${idiomas[this.idioma].inicioSesion.mail}</label>
-                <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].inicioSesion.mail_ph} value="bruno@ike.com">
-                <label id="lblErrorMail" error oculto>${idiomas[this.idioma].inicioSesion.errorMail.err1}</label>
-            </div>
+                    <div class="ikeInput">
+                        <label id="lblMail">${idiomas[this.idioma].inicioSesion.mail}</label>
+                        <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].inicioSesion.mail_ph} value="bruno@ike.com">
+                        <label id="lblErrorMail" error oculto>${idiomas[this.idioma].inicioSesion.errorMail.err1}</label>
+                    </div>
 
-            <div class="ikeInput">
-                <label id="lblClave">${idiomas[this.idioma].inicioSesion.clave}</label>
-                <input id="txtClave" @input=${this.activar} type="password" value="bruno">
-                <label id="lblErrorClave" error oculto>${idiomas[this.idioma].inicioSesion.errorClave.err1}</label>
-            </div>
+                    <div class="ikeInput">
+                        <label id="lblClave">${idiomas[this.idioma].inicioSesion.clave}</label>
+                        <input id="txtClave" @input=${this.activar} type="password" value="bruno">
+                        <label id="lblErrorClave" error oculto>${idiomas[this.idioma].inicioSesion.errorClave.err1}</label>
+                    </div>
 
-            <mi-checkbox id="chk" label="${idiomas[this.idioma].inicioSesion.datos}"></mi-checkbox>
+                    <mi-checkbox id="chk" label="${idiomas[this.idioma].inicioSesion.datos}"></mi-checkbox>
 
-            <button id="btn-siguiente" style="height:7vh" btn1 apagado @click=${this.clickBoton1}>
-            ${idiomas[this.idioma].inicioSesion.btn1}
-            </button>
-            <button id="btn-cuenta" btn2 @click=${this.clickBoton2}>
-            ${idiomas[this.idioma].inicioSesion.btn2}
-            </button>
-            <button id="btn-sinregistro" btn2 @click=${this.clickBoton3}>
-            ${idiomas[this.idioma].inicioSesion.btn3}
-            </button>
-            
-           
-        `
+                    <button id="btn-siguiente" style="height:7vh" btn1 apagado @click=${this.clickBoton1}>
+                    ${idiomas[this.idioma].inicioSesion.btn1}
+                    </button>
+                    <button id="btn-cuenta" btn2 @click=${this.clickBoton2}>
+                    ${idiomas[this.idioma].inicioSesion.btn2}
+                    </button>
+                    <button id="btn-sinregistro" btn2 @click=${this.clickBoton3}>
+                    ${idiomas[this.idioma].inicioSesion.btn3}
+                    </button>
+                    
+                   
+                `
     }
 
     stateChanged(state, name) {
@@ -132,11 +132,12 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN, L
             const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.activar()
             }
             this.update();
         }
-    }
 
+    }
 
     activar() {
         this.activo = true
@@ -196,9 +197,7 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN, L
 
     }
 
-    firstUpdated() {
-        this.activar()
-    }
+
 
     static get properties() {
         return {
