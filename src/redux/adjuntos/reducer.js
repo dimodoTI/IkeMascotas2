@@ -9,7 +9,14 @@ import {
     ADD_ERROR,
     REMOVE_SUCCESS,
     REMOVE_ERROR,
-    EDIT
+    EDIT,
+    UPLOAD_SUCCESS,
+    UPLOAD_ERROR,
+    DEL_CLIENTE_SUCCESS,
+    DEL_CLIENTE_ERROR,
+    DEL_VETERINARIO_SUCCESS,
+    DEL_VETERINARIO_ERROR
+
 } from "./actions";
 
 
@@ -22,6 +29,15 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
+    uploadErrorTimeStamp: null,
+    uploadTimeStamp: null,
+    delClienteTimeStamp: null,
+    delClienteErrorTimeStamp: null,
+    entityDelCliente: null,
+    entitityDelVeterinario: null,
+    delVeterinarioTimeStamp: null,
+    delVeterinarioErrorTimeStamp: null,
+
 };
 
 export const reducer = (state = initialState, action) => {
@@ -54,8 +70,31 @@ export const reducer = (state = initialState, action) => {
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
             break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
+        case UPDATE_ERROR:
+        case REMOVE_ERROR:
+        case PATCH_ERROR:
+        case ADD_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
+            break;
+        case UPLOAD_SUCCESS:
+            newState.uploadTimeStamp = (new Date()).getTime();
+            break;
+        case UPLOAD_ERROR:
+            newState.uploadErrorTimeStamp = (new Date()).getTime();
+            break;
+        case DEL_CLIENTE_SUCCESS:
+            newState.entityDelCliente = action.payload.receive;
+            newState.delClienteTimeStamp = (new Date()).getTime();
+            break;
+        case DEL_CLIENTE_ERROR:
+            newState.delClienteErrorTimeStamp = (new Date()).getTime();
+            break;
+        case DEL_VETERINARIO_SUCCESS:
+            newState.entitityDelVeterinario = action.payload.receive;
+            newState.delVeterinarioTimeStamp = (new Date()).getTime();
+            break;
+        case DEL_VETERINARIO_ERROR:
+            newState.delVeterinarioErrorTimeStamp = (new Date()).getTime();
             break;
 
     }

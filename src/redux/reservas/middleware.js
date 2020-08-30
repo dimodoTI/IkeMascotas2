@@ -51,16 +51,16 @@ export const get = ({
     }
 
 };
-/* 
-export const enAtencion = ({
+
+/* export const enAtencion = ({
     dispatch
 }) => next => action => {
     next(action);
     if (action.type === ENATENCION) {
-        dispatch(apiRequest(ikeReservasQuery, action.options, ENATENCION_SUCCESS, ENATENCION_ERROR))
+        dispatch(delCliente, )
     }
-}; */
-
+}; 
+ */
 export const add = ({
     dispatch
 }) => next => action => {

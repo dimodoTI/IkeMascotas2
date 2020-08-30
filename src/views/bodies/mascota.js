@@ -189,7 +189,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
 
         store.dispatch(getReservas({
             filter: "MascotaId eq " + e.currentTarget.item.Id.toString(),
-            expand: "Atencion,Mascota,Chats($top=1;$select=Id)",
+            expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
             token: store.getState().cliente.datos.token,
             orderby: "FechaAtencion desc"
         }))

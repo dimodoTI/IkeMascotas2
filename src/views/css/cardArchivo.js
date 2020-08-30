@@ -2,14 +2,14 @@ import {
     css
 } from "lit-element"
 
-export const cardArchivo = css`
+export const cardArchivo = css `
         #ciDivEtiqueta{
             position:relative;
             display: grid; 
-            height:2.5rem;
+            height:6vh;
             width:100%;
             background-color:transparent;
-            grid-template-columns: 85% 15%;
+            grid-template-columns: 90% 10%;
             grid-gap:0rem;
             align-items: center;
         }
@@ -17,12 +17,12 @@ export const cardArchivo = css`
             position:relative;
             display: grid;
             height:100%; 
-            background-color:var(--color-blanco);
+            background-color:var(--color-celeste-muy-claro);
             grid-template-columns: 15% 85%;
             grid-gap:0rem;
             border-radius:.4rem ;           
             align-items: center;
-            box-shadow: var(--shadow-elevation-3-box);
+            box-shadow: var(--shadow-elevation-1-box);
         }
         #ciDivIcomo{
             height:50%;

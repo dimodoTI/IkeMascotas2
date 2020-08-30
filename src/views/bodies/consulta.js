@@ -61,6 +61,7 @@ import {
     setTimer
 } from "../../redux/ui/actions";
 
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 
@@ -185,39 +186,17 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                         </button>
                 </form>
 
-       <!--          <input type="file" id="fileUpload" style="display:none" accept=".pdf,.jpg,.png" />
-                <button id="btn-adjuntar" btn3 @click=${this.adjuntar}>
-                    ${idiomas[this.idioma].consulta.btn1}
-                </button>
+
                 <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
                     ${idiomas[this.idioma].consulta.btn2}
                 </button>
-                <div style="height:1rem"></div> -->
+                <div style="height:1rem"></div> 
             </div>
 
     `
     }
 
-    uploadFiles() {
-        var input = this.shadowRoot.querySelector("#files");
-        var files = input.files;
-        var formData = new FormData();
 
-        for (var i = 0; i != files.length; i++) {
-            formData.append("files", files[i]);
-        }
-
-        formData.append("ReservaId", 20)
-
-        fetch("https://apis.mascotas.dimodo.ga/api/Adjuntos/UploadFile", {
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Authorization": "Bearer " + store.getState().cliente.datos.token
-            },
-            body: formData
-        })
-    }
 
 
     activar() {
@@ -259,12 +238,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
     clickBoton1() {
         store.dispatch(goPrev())
     }
-    firstUpdated(changedProperties) {
-        let a = 1
-        this.shadowRoot.querySelector("#fileUpload").addEventListener('change', (e) => {
-            if (e.currentTarget.files.length == 1) this.uploadFile(e.currentTarget.files[0]);
-        }, false)
-    }
+
 
 
     uploadFile(file) {

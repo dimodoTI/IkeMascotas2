@@ -13,7 +13,17 @@ import {
     PATCH_ERROR,
     REMOVE,
     REMOVE_SUCCESS,
-    REMOVE_ERROR
+    REMOVE_ERROR,
+    UPLOAD,
+    UPLOAD_ERROR,
+    UPLOAD_SUCCESS,
+    DEL_CLIENTE,
+    DEL_CLIENTE_SUCCESS,
+    DEL_CLIENTE_ERROR,
+    DEL_VETERINARIO,
+    DEL_VETERINARIO_SUCCESS,
+    DEL_VETERINARIO_ERROR,
+
 
 } from "./actions";
 
@@ -33,6 +43,9 @@ import {
 import {
     apiRequest
 } from "../api/actions"
+import {
+    store
+} from "../store";
 
 export const get = ({
     dispatch
@@ -41,6 +54,13 @@ export const get = ({
     if (action.type === GET) {
         dispatch(apiRequest(ikeAdjuntosnQuery, action.options, GET_SUCCESS, GET_ERROR))
     }
+    if (action.type === DEL_CLIENTE) {
+        dispatch(apiRequest(ikeAdjuntosnQuery, action.options, DEL_CLIENTE_SUCCESS, DEL_CLIENTE_ERROR))
+    }
+    if (action.type === DEL_VETERINARIO) {
+        dispatch(apiRequest(ikeAdjuntosnQuery, action.options, DEL_VETERINARIO_SUCCESS, DEL_VETERINARIO_ERROR))
+    }
+
 };
 
 export const add = ({
@@ -87,13 +107,19 @@ export const processGet = ({
     if (action.type === GET_SUCCESS) {
 
     }
+    if (action.type === DEL_CLIENTE_SUCCESS) {
+
+    }
+    if (action.type === DEL_VETERINARIO_SUCCESS) {
+
+    }
 };
 
 export const processComand = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type === UPLOAD_SUCCESS) {
 
     }
 };
@@ -104,9 +130,32 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === UPLOAD_ERROR || action.type === DEL_CLIENTE_ERROR || action.type === DEL_VETERINARIO_ERROR) {
 
     }
 };
 
-export const middleware = [get, add, update, patch, remove, processGet, processComand, processError];
+export const upload = ({
+    dispatch
+}) => next => action => {
+    next(action);
+    if (action.type === UPLOAD) {
+        fetch("https://apis.mascotas.dimodo.ga/api/Adjuntos/UploadFile", {
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": "Bearer " + action.token
+            },
+            body: action.body
+        }).then(
+            Response => store.dispatch({
+                type: UPLOAD_SUCCESS
+            })
+        ).catch(error => store.dispatch({
+            type: UPLOAD_ERROR
+        }))
+
+    }
+}
+
+export const middleware = [get, add, update, upload, patch, remove, processGet, processComand, processError];

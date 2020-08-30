@@ -41,6 +41,14 @@ import {
     showScreen
 } from "../../redux/screens/actions";
 
+import {
+    upload
+} from "../../redux/adjuntos/actions"
+
+import {
+    button
+} from "../css/button"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 
@@ -89,6 +97,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         return css `
 
         ${cardArchivo}
+        ${button}
 
         :host{
             position: relative;
@@ -97,7 +106,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             background-color: var(--color-gris-fondo) !important;
             height:100%;
             overflow-x: hidden;
-            overflow-y: hidden;    
+            overflow-y: auto;    
         }
 
         :host([hidden]){
@@ -126,11 +135,17 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
-        #footer{
-            grid-area: Pie; 
+
+        #divAtencion{
             display:grid;
-            overflow-x: none; 
+            padding: .5rem 1rem .5rem 1rem;
+            font-size: var(--font-label-size);
+            font-weight: var(--font-label-weight);
+            background-color: transparent;
+            grid-gap: .2rem;
+            border-radius: .4rem;            
         }
+
         :host([media-size="small"]) #control{
             height:calc((100vh * .82) * .9);
         }
@@ -142,17 +157,19 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             font-weight: var(--font-bajada-weight);   
             align-self:center;
         }
+        #lblDiagnostico{
+            font-size: var(--font-label-size);
+            font-weight: var(--font-label-weight);   
+        }
         #txtDiagnostico{
-            width: 100%;
-            height:95%;
             font-family:var(--font-label-family);
             font-size:var(--font-label-size);
             font-weight:var(--font-label-weight);
         }
         #divRecetas{
             display:grid;
-            position:relative;
-            grid-gap:2vh;
+            height: fit-content;
+            grid-gap:1vh;
             overflow-x:none;
             overflow-y:auto;
             margin : 1vh 0 1vh 0;
@@ -162,9 +179,13 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             display: none;
         }
         #divTituloConsulta{
+            display:grid;
+            align-content: center;
+            width: 100%;
+            height:5vh;
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);   
-            align-self:flex-end;    
+            padding-left:1rem
 
         }
         #divDetalle{
@@ -172,7 +193,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             padding: .5rem 1rem .5rem 1rem;
             font-size: var(--font-label-size);
             font-weight: var(--font-label-weight);
-            background-color: var(--color-gris-claro);
+            background-color:   transparent;
             grid-gap: .2rem;
             border-radius: .4rem;
         }
@@ -181,48 +202,100 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
 
     render() {
         return html `
-       
-                <div id="cuerpo">
-                    <div id="divTitulo">
-                        ${idiomas[this.idioma].diagnosticoDetalles.lblDiagnostico}
-                    </div>
-                    <div id="divDiagnostico">
-                        <textarea id="txtDiagnostico" rows="8" readonly>${this.reservaEnAtencion.Atencion?this.reservaEnAtencion.Atencion.Diagnostico:""}</textarea>
-                    </div>
-                    <div id="divRecetas">
-                        ${this.archivo.map(dato => html`
-                            <div id="ciDivEtiqueta">
-                                <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3">
-                                    <div id="ciDivIcomo">${ARCHIVO}</div>
-                                    <div id="ciDivNombre">${dato.nombre}</div>
-                                </div>
+            <div id="divAtencion">
+                <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>
+                <label id="lblComienzo">${idiomas[this.idioma].diagnosticoDetalles.lblComienzo + " " + this.comenzo()}</label>
+                <label id="lblFinal">${idiomas[this.idioma].diagnosticoDetalles.lblFinal + " " + this.termino()}</label>
+                <label  id="lblDiagnostico">${idiomas[this.idioma].diagnosticoDetalles.lblDiagnostico}</label>
+                <textarea id="txtDiagnostico" rows="8" readonly>${this.reservaEnAtencion.Atencion?this.reservaEnAtencion.Atencion.Diagnostico:""}</textarea>
+
+                <div id="divRecetas">
+                    ${this.archivo.map(dato => html`
+                        <div id="ciDivEtiqueta">
+                            <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3">
+                                <div id="ciDivIcomo">${ARCHIVO}</div>
+                                <div id="ciDivNombre">${dato.nombre}</div>
                             </div>
-                        `)} 
-                    </div>
-                    <div id="divTituloConsulta">
-                        ${idiomas[this.idioma].diagnosticoDetalles.tituloconsulta}
-                    </div>
-                    <div id="divDetalle">
-                        <label id="lblExpediente">${idiomas[this.idioma].diagnosticoDetalles.expediente + " " + this.reservaEnAtencion.Id}</label>
-                        <label id="lblPaciente">${idiomas[this.idioma].diagnosticoDetalles.paciente + " " + this.verNombre()}</label>           
-                        <label id="lblMotivo">${idiomas[this.idioma].diagnosticoDetalles.motivo + " " + this.reservaEnAtencion.Motivo}</label>           
-                        <label id="lblFecha">${idiomas[this.idioma].diagnosticoDetalles.fecha + " " + this.verFecha(this.reservaEnAtencion.FechaAtencion)}</label>           
-                        <label id="lblHora">${idiomas[this.idioma].diagnosticoDetalles.hora + " " + this.reservaEnAtencion.HoraAtencion}</label>           
-                        <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>           
-                        <div style="padding-top:.5rem;display:grid;grid-gap:.5rem">
-                        ${this.archivo.map(dato => html`
-                            <div id="ciDivEtiqueta">
-                                <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3">
-                                    <div id="ciDivIcomo">${ARCHIVO}</div>
-                                    <div id="ciDivNombre">${dato.nombre}</div>
-                                </div>
+                        </div>
+                    `)} 
+
+                </div>
+            </div>
+
+            <div id="divTituloConsulta">
+                ${idiomas[this.idioma].diagnosticoDetalles.tituloconsulta}
+            </div>
+            <div id="divDetalle">
+                <label id="lblExpediente">${idiomas[this.idioma].diagnosticoDetalles.expediente + " " + this.reservaEnAtencion.Id}</label>
+                <label id="lblPaciente">${idiomas[this.idioma].diagnosticoDetalles.paciente + " " + this.verNombre()}</label>           
+                <label id="lblMotivo">${idiomas[this.idioma].diagnosticoDetalles.motivo + " " + this.reservaEnAtencion.Motivo}</label>           
+                <label id="lblFecha">${idiomas[this.idioma].diagnosticoDetalles.fecha + " " + this.verFecha(this.reservaEnAtencion.FechaAtencion)}</label>           
+                <label id="lblHora">${idiomas[this.idioma].diagnosticoDetalles.hora + " " + this.reservaEnAtencion.HoraAtencion}</label>           
+                <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>           
+                <div style="padding-top:.5rem;display:grid;grid-gap:.5rem">
+                    ${this.archivo.map(dato => html`
+                        <div id="ciDivEtiqueta">
+                            <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3">
+                                <div id="ciDivIcomo">${ARCHIVO}</div>
+                                <div id="ciDivNombre">${dato.nombre}</div>
                             </div>
-                        `)}   
-                    </div>
+                        </div>
+                    `)}
+                    <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="POST" style="justify-self: center;">
+                        <input id="files" name="files" type="file" size="1" style="display:none" @change="${this.uploadFiles}" />
+                        <button type="button" id="btn-adjuntar" btn3 @click=${this.adjuntar}>
+                                ${idiomas[this.idioma].consulta.btn1}
+                        </button>
+                    </form>   
                 </div>
-                </div>
-           
+            </div>          
         `
+    }
+
+    adjuntar(e) {
+        this.shadowRoot.querySelector("#files").click()
+    }
+
+    uploadFiles() {
+        var input = this.shadowRoot.querySelector("#files");
+        var files = input.files;
+        var formData = new FormData();
+
+        for (var i = 0; i != files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        formData.append("ReservaId", this.reservaEnAtencion.Id)
+        store.dispatch(upload(formData, store.getState().cliente.datos.token))
+
+
+    }
+
+    verVeterinario() {
+        var ret = ""
+        if (this.reservaEnAtencion.Atencion) {
+            ret = this.atencionEnCurso.Veterinario
+        }
+        return ret
+    }
+
+    comenzo() {
+        var ret = ""
+        if (this.reservaEnAtencion.Atencion) {
+            let d = new Date(this.reservaEnAtencion.Atencion.InicioAtencion);
+            ret = d.getUTCDate() + "-" + (d.getUTCMonth() + 1) + "-" + d.getUTCFullYear();
+            ret = ret + "  -  " + d.getHours() + ":" + d.getMinutes();
+        }
+        return ret
+    }
+    termino() {
+        var ret = ""
+        if (this.reservaEnAtencion.Atencion) {
+            let d = new Date(this.reservaEnAtencion.Atencion.FinAtencion);
+            ret = d.getUTCDate() + "-" + (d.getUTCMonth() + 1) + "-" + d.getUTCFullYear();
+            ret = ret + "  -  " + d.getHours() + ":" + d.getMinutes();
+        }
+        return ret
     }
 
 
@@ -253,13 +326,13 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             retorno = this.reservaEnAtencion.Mascota.Nombre
         }
         return retorno
-
     }
 
     verFecha(fecha) {
         let d = new Date(fecha)
         return d.getUTCDate() + "-" + (d.getUTCMonth() + 1) + "-" + d.getUTCFullYear()
     }
+
     verVeterinario() {
         return store.getState().cliente.datos.apellido + ", " + store.getState().cliente.datos.nombre
     }

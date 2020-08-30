@@ -392,6 +392,8 @@ export const idiomas = {
         diagnosticoDetalles: {
             titulo: "Detalle de consulta",
             subTitulo: "Acá vas a encontrar el expediente correspondiente a una consulta.",
+            lblComienzo: "Comenzó: ",
+            lblFinal: "Finalizó: ",
             lblDiagnostico: "Diagnóstico",
             tituloconsulta: "Detalle de consulta",
             expediente: "Reserva #",

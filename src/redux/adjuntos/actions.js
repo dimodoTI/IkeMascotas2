@@ -4,7 +4,16 @@ export const PATCH = "[adjuntos] PATCH";
 export const UPDATE = "[adjuntos] UPDATE";
 export const REMOVE = "[adjuntos] REMOVE";
 export const EDIT = "[adjuntos] EDIT"
+export const UPLOAD = "[adjuntos] UPLOAD"
+export const DEL_CLIENTE = "[adjuntos] DEL_CLIENTE"
+export const DEL_VETERINARIO = "[adjuntos] DEL_VETERINARIO"
 
+export const UPLOAD_SUCCESS = "[adjuntos] UPLOAD_SUCCESS"
+export const UPLOAD_ERROR = "[adjuntos] UPLOAD_ERROR"
+export const DEL_CLIENTE_SUCCESS = "[adjuntos] DEL_CLIENTE_SUCCESS"
+export const DEL_CLIENTE_ERROR = "[adjuntos] DEL_CLIENTE_ERROR"
+export const DEL_VETERINARIO_SUCCESS = "[adjuntos] DEL_VETERINARIO_SUCCESS"
+export const DEL_VETERINARIO_ERROR = "[adjuntos] DEL_VETERINARIO_ERROR"
 
 export const GET_SUCCESS = "[adjuntos] GET success";
 export const ADD_SUCCESS = "[adjuntos] ADD success";
@@ -55,4 +64,29 @@ export const remove = (id, token) => ({
 export const edit = (modo, item) => ({
     type: EDIT,
     item: item
+})
+
+export const upload = (body, token) => ({
+    type: UPLOAD,
+    body: body,
+    token: token
+
+})
+
+export const delCliente = (reservaId, token) => ({
+    type: DEL_CLIENTE,
+    opciones: {
+        filter: "ReservaId eq " + reservaId + " perfil eq cliente and Activo",
+        orderby: "Fecha desc",
+        token: token
+    }
+})
+
+export const delVeterinario = (reservaId, token) => ({
+    type: DEL_VETERINARIO,
+    opciones: {
+        filter: "ReservaId eq " + reservaId + " perfil eq Veterinario and Activo",
+        orderby: "Fecha desc",
+        token: token
+    }
 })
