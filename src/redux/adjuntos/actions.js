@@ -75,8 +75,8 @@ export const upload = (body, token) => ({
 
 export const delCliente = (reservaId, token) => ({
     type: DEL_CLIENTE,
-    opciones: {
-        filter: "ReservaId eq " + reservaId + " perfil eq cliente and Activo",
+    options: {
+        filter: "ReservaId eq " + reservaId + " and Perfil eq 'Cliente'",
         orderby: "Fecha desc",
         token: token
     }
@@ -84,8 +84,8 @@ export const delCliente = (reservaId, token) => ({
 
 export const delVeterinario = (reservaId, token) => ({
     type: DEL_VETERINARIO,
-    opciones: {
-        filter: "ReservaId eq " + reservaId + " perfil eq Veterinario and Activo",
+    options: {
+        filter: "ReservaId eq " + reservaId + " and Perfil eq 'Veterinario' ",
         orderby: "Fecha desc",
         token: token
     }

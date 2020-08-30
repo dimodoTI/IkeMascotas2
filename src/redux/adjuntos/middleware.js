@@ -52,13 +52,13 @@ export const get = ({
 }) => next => action => {
     next(action);
     if (action.type === GET) {
-        dispatch(apiRequest(ikeAdjuntosnQuery, action.options, GET_SUCCESS, GET_ERROR))
+        dispatch(apiRequest(ikeAdjuntosQuery, action.options, GET_SUCCESS, GET_ERROR))
     }
     if (action.type === DEL_CLIENTE) {
-        dispatch(apiRequest(ikeAdjuntosnQuery, action.options, DEL_CLIENTE_SUCCESS, DEL_CLIENTE_ERROR))
+        dispatch(apiRequest(ikeAdjuntosQuery, action.options, DEL_CLIENTE_SUCCESS, DEL_CLIENTE_ERROR))
     }
     if (action.type === DEL_VETERINARIO) {
-        dispatch(apiRequest(ikeAdjuntosnQuery, action.options, DEL_VETERINARIO_SUCCESS, DEL_VETERINARIO_ERROR))
+        dispatch(apiRequest(ikeAdjuntosQuery, action.options, DEL_VETERINARIO_SUCCESS, DEL_VETERINARIO_ERROR))
     }
 
 };

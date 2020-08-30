@@ -19,11 +19,20 @@ import {
     RESERVA_CANTIDAD_SUCCESS,
     RESERVA_CANTIDAD_ERROR,
 
+    ENATENCION,
+    ENATENCION_ERROR,
+    ENATENCION_SUCCESS
+
 
     /*     ENATENCION_SUCCESS,
         ENATENCION_ERROR */
 
 } from "./actions";
+
+import {
+    delCliente,
+    delVeterinario
+} from "../adjuntos/actions"
 
 import {
     ikeReservasQuery,
@@ -52,15 +61,17 @@ export const get = ({
 
 };
 
-/* export const enAtencion = ({
-    dispatch
+export const enAtencion = ({
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
     if (action.type === ENATENCION) {
-        dispatch(delCliente, )
+        dispatch(delCliente(action.registro.registro.Id, getState().cliente.datos.token))
+        dispatch(delVeterinario(action.registro.registro.Id, getState().cliente.datos.token))
     }
-}; 
- */
+};
+
 export const add = ({
     dispatch
 }) => next => action => {
@@ -131,4 +142,4 @@ export const processError = ({
 
 
 
-export const middleware = [get, add, update, patch, remove, processGet, processComand, processError];
+export const middleware = [get, add, update, enAtencion, patch, remove, processGet, processComand, processError];
