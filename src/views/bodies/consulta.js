@@ -169,22 +169,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
 
                 <div id="lblSintoma">${idiomas[this.idioma].consulta.sintoma}</div>
                 <textarea id="txtSintoma" style="width:100%;height:5rem;" @input=${this.activar}></textarea>
-                ${this.archivo.map(dato => html`
-                    <div id="ciDivEtiqueta">
-                        <div id="ciDivContenido">
-                            <div id="ciDivIcomo">${ARCHIVO}</div>
-                            <div id="ciDivNombre">${dato.nombre}</div>
-                        </div>
-                        <div id="ciDivDelete">${BASURA}</div>
-                    </div>
-                `)}              
 
-                <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="POST">
-                        <input id="files" name="files" type="file" size="1" style="display:none" @change="${this.uploadFiles}" />
-                        <button type="button" id="btn-adjuntar" btn3 @click=${this.adjuntar}>
-                                ${idiomas[this.idioma].consulta.btn1}
-                        </button>
-                </form>
 
 
                 <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>

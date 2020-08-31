@@ -28,7 +28,7 @@ import {
 } from "../css/cardArchivo"
 
 
-const RESERVASENATENCION_TIMESTAMP = "reservas.enAtencionTimeStamp"
+
 
 import {
     goNext,
@@ -42,7 +42,9 @@ import {
 } from "../../redux/screens/actions";
 
 import {
-    upload
+    upload,
+    delCliente,
+    borrarAdjunto as patchAdjuntos
 } from "../../redux/adjuntos/actions"
 
 import {
@@ -51,8 +53,10 @@ import {
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
-
-export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_CHANGE, RESERVASENATENCION_TIMESTAMP)(LitElement) {
+const RESERVASENATENCION_TIMESTAMP = "reservas.enAtencionTimeStamp"
+const ADJUNTOS_DELCLIENTE_TIMESTAMP = "adjuntos.delClienteTimeStamp"
+const ADJUNTOS_DELVETERINARIO_TIMESTAMP = "adjuntos.delVeterinarioTimeStamp"
+export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_CHANGE, RESERVASENATENCION_TIMESTAMP, ADJUNTOS_DELCLIENTE_TIMESTAMP, ADJUNTOS_DELVETERINARIO_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.idioma = "ES"
@@ -68,29 +72,10 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                 Nombre: ""
             }
         }
+        this.adjuntosCliente = []
+        this.adjuntosVenterinario = []
 
-        this.archivo = [{
-                nombre: "Documento.jpg"
-            },
-            {
-                nombre: "Estudio.pdf"
-            },
-            {
-                nombre: "Estudio.pdf"
-            },
-            {
-                nombre: "Estudio.pdf"
-            },
-            {
-                nombre: "Estudio.pdf"
-            },
-            {
-                nombre: "Estudio.pdf"
-            },
-            {
-                nombre: "Estudio.pdf"
-            }
-        ]
+
     }
 
     static get styles() {
@@ -127,7 +112,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             position:relative;
           
             padding: 0 1rem 0 1rem;
-            grid-template-rows: 2rem 8rem 6rem 1rem auto;
+            grid-template-rows: 2rem 8rem 6rem 1rem;
             overflow-x:none;
             overflow-y:auto;
 
@@ -210,11 +195,11 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                 <textarea id="txtDiagnostico" rows="8" readonly>${this.reservaEnAtencion.Atencion?this.reservaEnAtencion.Atencion.Diagnostico:""}</textarea>
 
                 <div id="divRecetas">
-                    ${this.archivo.map(dato => html`
+                    ${this.adjuntosVenterinario.map(dato => html`
                         <div id="ciDivEtiqueta">
-                            <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3">
+                            <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3" .link="${dato.Url}" @click=${this.irA}>
                                 <div id="ciDivIcomo">${ARCHIVO}</div>
-                                <div id="ciDivNombre">${dato.nombre}</div>
+                                <div id="ciDivNombre">${dato.Nombre}</div>
                             </div>
                         </div>
                     `)} 
@@ -233,23 +218,37 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                 <label id="lblHora">${idiomas[this.idioma].diagnosticoDetalles.hora + " " + this.reservaEnAtencion.HoraAtencion}</label>           
                 <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>           
                 <div style="padding-top:.5rem;display:grid;grid-gap:.5rem">
-                    ${this.archivo.map(dato => html`
+                    ${this.adjuntosCliente.map(dato => html`
                         <div id="ciDivEtiqueta">
-                            <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3">
-                                <div id="ciDivIcomo">${ARCHIVO}</div>
-                                <div id="ciDivNombre">${dato.nombre}</div>
+                            <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3" >
+                                <div id="ciDivIcomo" .link="${dato.Url}"  @click=${this.irA}>${ARCHIVO}</div>
+                                <div id="ciDivNombre" .link="${dato.Url}"  @click=${this.irA}>${dato.Nombre}</div>
+                                <div id="ciDivIconoBorrar" .item="${dato}" @click="${this.borrarAdjunto}">${TRASH}</div>
                             </div>
                         </div>
                     `)}
                     <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="POST" style="justify-self: center;">
                         <input id="files" name="files" type="file" size="1" style="display:none" @change="${this.uploadFiles}" />
-                        <button type="button" id="btn-adjuntar" btn3 @click=${this.adjuntar}>
+                        <button type="button" id="btn-adjuntar" btn3 @click=${this.adjuntar} >
                                 ${idiomas[this.idioma].consulta.btn1}
                         </button>
                     </form>   
                 </div>
             </div>          
         `
+    }
+
+    borrarAdjunto(e) {
+
+        const id = e.currentTarget.item.Id
+
+        let datosPatch = [{
+            "op": "replace",
+            "path": "/Activo",
+            "value": false
+        }]
+
+        store.dispatch(patchAdjuntos(id, datosPatch, store.getState().cliente.datos.token))
     }
 
     adjuntar(e) {
@@ -266,10 +265,15 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         }
 
         formData.append("ReservaId", this.reservaEnAtencion.Id)
-        store.dispatch(upload(formData, store.getState().cliente.datos.token))
-
-
+        store.dispatch(upload(this.reservaEnAtencion.Id, formData, store.getState().cliente.datos.token))
     }
+
+    irA(e) {
+        if (e.currentTarget.link) {
+            window.open(e.currentTarget.link)
+        }
+    }
+
 
     verVeterinario() {
         var ret = ""
@@ -314,8 +318,19 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         if (name == RESERVASENATENCION_TIMESTAMP) {
             if (state.reservas.entities.enAtencion) {
                 this.reservaEnAtencion = state.reservas.entities.enAtencion.registro;
+
+
                 this.update()
             }
+        }
+
+        if (name == ADJUNTOS_DELCLIENTE_TIMESTAMP) {
+            this.adjuntosCliente = state.adjuntos.entityDelCliente ? state.adjuntos.entityDelCliente : []
+            this.update()
+        }
+        if (name == ADJUNTOS_DELVETERINARIO_TIMESTAMP) {
+            this.adjuntosVenterinario = state.adjuntos.entitityDelVeterinario ? state.adjuntos.entitityDelVeterinario : []
+            this.update()
         }
 
     }

@@ -18,7 +18,7 @@ export const cardArchivo = css `
             display: grid;
             height:100%; 
             background-color:var(--color-celeste-muy-claro);
-            grid-template-columns: 15% 85%;
+            grid-template-columns: 15% 65% 15%;
             grid-gap:0rem;
             border-radius:.4rem ;           
             align-items: center;
@@ -29,6 +29,13 @@ export const cardArchivo = css `
             width:50%;
             justify-self: center;
         }
+
+        #ciDivIconoBorrar{
+            height:50%;
+            width:50%;
+            justify-self: center;
+        }
+
         #ciDivNombre{
             font-size: var(--font-bajada-size);
             font-weight: var(--font-bajada-weight);   
@@ -39,5 +46,6 @@ export const cardArchivo = css `
             height:50%;
             width:50%;
         }
+
 
 `

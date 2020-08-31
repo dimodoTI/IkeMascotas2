@@ -23,6 +23,11 @@ import {
     DEL_VETERINARIO,
     DEL_VETERINARIO_SUCCESS,
     DEL_VETERINARIO_ERROR,
+    delCliente,
+    BORRARADJUNTO,
+    BORRARADJUNTO_ERROR,
+    BORRARADJUNTO_SUCCESS,
+
 
 
 } from "./actions";
@@ -86,7 +91,10 @@ export const patch = ({
 }) => next => action => {
     next(action);
     if (action.type === PATCH) {
-        dispatch(RESTPatch(ikeAdjuntos, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR, action.token))
+        dispatch(RESTPatch(ikeAdjuntos, action.id, action.body, action.onSuccess, action.onError, action.token))
+    }
+    if (action.type === BORRARADJUNTO) {
+        dispatch(RESTPatch(ikeAdjuntos, action.id, action.body, action.onSuccess, action.onError, action.token))
     }
 };
 
@@ -116,11 +124,15 @@ export const processGet = ({
 };
 
 export const processComand = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type === UPLOAD_SUCCESS) {
+    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
 
+    }
+    if (action.type === BORRARADJUNTO_SUCCESS) {
+        dispatch(delCliente(getState().reservas.entities.enAtencion.registro.Id, getState().cliente.datos.token))
     }
 };
 
@@ -130,7 +142,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === UPLOAD_ERROR || action.type === DEL_CLIENTE_ERROR || action.type === DEL_VETERINARIO_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === UPLOAD_ERROR || action.type === DEL_CLIENTE_ERROR || action.type === DEL_VETERINARIO_ERROR || action.type === BORRARADJUNTO_ERROR) {
 
     }
 };
@@ -148,9 +160,13 @@ export const upload = ({
             },
             body: action.body
         }).then(
-            Response => store.dispatch({
-                type: UPLOAD_SUCCESS
-            })
+            Response => {
+                store.dispatch({
+                    type: UPLOAD_SUCCESS
+                })
+                store.dispatch(delCliente(action.reservaId, action.token))
+            }
+
         ).catch(error => store.dispatch({
             type: UPLOAD_ERROR
         }))

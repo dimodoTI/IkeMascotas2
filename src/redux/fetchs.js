@@ -52,7 +52,7 @@ export const ikeReservas = fetchFactory(webApiMascotas, "Reservas")
 export const ikeAtenciones = fetchFactory(webApiMascotas, "Atenciones")
 export const ikeMascotasVacunas = fetchFactory(webApiMascotas, "MascotasVacunas")
 export const ikeTurnosDisponibles = fetchFactory(webApiMascotas, "TurnosDisponibles")
-export const ikeAdjuntos = fetchFactory(webApiMascotas, "Adjutos")
+export const ikeAdjuntos = fetchFactory(webApiMascotas, "Adjuntos")
 
 export const ikeChat = fetchFactory(webApiChat, "Chat")
 export const ikeNotificacionDetalle = fetchFactory(webApiChat, "Notificaciones/Leido")
