@@ -24,7 +24,8 @@ import {
 import {
     get as getReservas,
     reservarFecha,
-    add as addReservas
+    add as addReservas,
+    TRAER_ULTIMA_RESERVA_SUCCESS
 
 } from "../../redux/reservas/actions"
 import {
@@ -49,7 +50,9 @@ import {
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
-export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE, TURNOSDISPONIBLES_TIMESTAMP, RESERVASADD_TIMESTAMP)(LitElement) {
+
+const ULTIMA_RESERVA_TIMESTAMP = "reservas.ultimaReservaTimeStamp"
+export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE, TURNOSDISPONIBLES_TIMESTAMP, ULTIMA_RESERVA_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -220,26 +223,36 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             this.libres = state.turnosdisponibles.entities._retorno
             this.update()
         }
-        if (name == RESERVASADD_TIMESTAMP) {
 
+        if (name == ULTIMA_RESERVA_TIMESTAMP) {
             if (this.current == "consultaTurnos") {
-                store.dispatch(getReservas({
-                    token: state.cliente.datos.token,
-                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
-                    orderby: "FechaAtencion desc"
-                }))
-                store.dispatch(goTo("misConsultas"))
+                store.dispatch(goTo("consultaMsg"))
             } else {
-                store.dispatch(getReservas({
-                    token: state.cliente.datos.token,
-                    filter: "MascotaId eq " + state.mascotas.entities.currentItem.Id,
-                    expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
-                    orderby: "FechaAtencion desc"
-                }))
-                store.dispatch(goTo("mascotaver"))
+                store.dispatch(goTo("consultaMsgMascota"))
             }
 
         }
+        /* 
+                if (name == RESERVASADD_TIMESTAMP) {
+
+                    if (this.current == "consultaTurnos") {
+                        store.dispatch(getReservas({
+                            token: state.cliente.datos.token,
+                            expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
+                            orderby: "FechaAtencion desc"
+                        }))
+                        store.dispatch(goTo("misConsultas"))
+                    } else {
+                        store.dispatch(getReservas({
+                            token: state.cliente.datos.token,
+                            filter: "MascotaId eq " + state.mascotas.entities.currentItem.Id,
+                            expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
+                            orderby: "FechaAtencion desc"
+                        }))
+                        store.dispatch(goTo("mascotaver"))
+                    }
+
+                } */
     }
 
 

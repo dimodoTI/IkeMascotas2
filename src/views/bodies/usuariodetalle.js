@@ -60,6 +60,7 @@ const SCREEN = "screen.timeStamp"
 const GETCANTIDAD_TIMESTAMP = "mascotas.getCantidadTimeStamp"
 
 
+
 export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE, CLIENTE_LOGUEADO, UPDATEPROFILE_TIMESTAMP, FOTOS_TIMESTAMP, GETCANTIDAD_TIMESTAMP)(LitElement) {
     constructor() {
         super();
@@ -357,7 +358,8 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
                 this.mascotas = store.getState().mascotas.entities
                 this.vacunas = store.getState().mascotasvacunas.entities
                 this.item.consultas = store.getState().reservas.reservaCantidad
-                this.item.vacunas = this.vacunas ? this.vacunas.length : 0
+                this.item.vacunas = store.getState().mascotasvacunas.vacunasCantidad
+                this.cuantasMascotas = store.getState().mascotas.cantidad
                 this.update();
             }
         }
@@ -367,10 +369,10 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
             this.update()
         }
 
-        if (name == GETCANTIDAD_TIMESTAMP) {
-            this.cuantasMascotas = state.mascotas.cantidad
-            this.update()
-        }
+        /*         if (name == GETCANTIDAD_TIMESTAMP) {
+                    this.cuantasMascotas = state.mascotas.cantidad
+                    this.update()
+                } */
 
 
         if (name == UPDATEPROFILE_TIMESTAMP) {

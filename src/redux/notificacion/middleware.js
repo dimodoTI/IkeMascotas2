@@ -125,7 +125,7 @@ export const getNotificacionChatPendientes = ({
                     notificaciones.push(arr)
                 })
             }
-            //notificaciones.sort((a, b) => b.fecha - a.fecha)
+
             dispatch({
                 type: GET_NOTIFICACION_CHAT_PENDIENTES_SUCCESS,
                 payload: {
@@ -135,6 +135,8 @@ export const getNotificacionChatPendientes = ({
             })
             dispatch(hideSpinner(ikeChatQuery))
             dispatch(goTo("notificacionReservas"))
+
+
         }).catch(() => {
             dispatch({
                 type: GET_NOTIFICACION_CHAT_PENDIENTES_ERROR
@@ -166,12 +168,17 @@ export const leido = ({
 };
 
 export const processGet = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
-    if (action.type === GET_SUCCESS || action.type === GET_NOTIFICACION_PENDIENTES_SUCCESS || action.type === GET_DETALLE_CABECERA_SUCCESS) {
+    if (action.type === GET_SUCCESS || action.type === GET_DETALLE_CABECERA_SUCCESS) {
 
     }
+    if (action.type === GET_NOTIFICACION_PENDIENTES_SUCCESS) {
+        dispatch(setCampana(getState().cliente.datos.id))
+    }
+
 
 
 };
@@ -186,7 +193,7 @@ export const processComand = ({
     }
     if (action.type === LEIDO_SUCCESS) {
         dispatch(getPendientes(getState().cliente.datos.id))
-        dispatch(setCampana())
+        dispatch(setCampana(getState().cliente.datos.id))
     }
 };
 

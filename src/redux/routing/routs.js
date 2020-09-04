@@ -47,6 +47,7 @@ export const largeRoute = [
 
     "8/1/1 -consultaMascota",
     "8/1/2 -consultaTurnosMascota",
+    "8/1/3 -consultaMsgMascota",
     "8/2 -diagnosticoDetallesM",
 
     /*     "9/1 -mascotaver",*/
@@ -67,6 +68,7 @@ export const largeRoute = [
     "15 -misConsultas",
     "15/1 -consulta",
     "15/2 -consultaTurnos",
+    "15/3 -consultaMsg",
 
     "16/1 -diagnosticoDetalles",
     "17/1 -videoConsulta",

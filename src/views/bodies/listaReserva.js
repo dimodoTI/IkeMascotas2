@@ -151,14 +151,32 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
                             <div id="cmhDivVerDetalle">
                                 <button btn2  @click=${this.verDetalle} .item=${dato} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].listaReserva.verDetalle}</button>                    
                             </div>
-                            <div id="cmhDivChat" @click=${this.chat} .item=${dato} hiddechat=${dato.Chats.length == 0 ? true : false}>${CHAT}</div>                    
+                            <div id="cmhDivChat" @click=${this.atencion} .item=${dato} ?hiddenchat="${this.escondoVideo(dato.FechaAtencion,dato.Atencion)}">${VIDEO}</div>                    
+                            <div id="cmhDivChat" @click=${this.chat} .item=${dato} ?hiddenchat="${!dato.Atencion}">${CHAT}</div>                    
                         </div>
                     </div>
                     `)}
             </div>
-
-
         `
+    }
+
+    escondoVideo(fecha, atencion) {
+
+        if (atencion) return true
+
+
+        let fechaHoy = new Date()
+        fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
+        const retorno = fecha.substr(0, 10) != fechaHoy.substr(0, 10)
+        return retorno
+    }
+
+    muestroChat(e) {
+        let reto = false
+        if (e.currentTarget.Atencion) {
+            return reto
+        }
+        return reto
     }
 
     mostrarIcono(e) {

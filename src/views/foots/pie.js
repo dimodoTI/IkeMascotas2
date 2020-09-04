@@ -85,13 +85,13 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             background-color: var(--color-blanco);
         }
         :host([media-size="small"]) #pieMenu{
-            grid-template-columns:repeat(5,2fr);
+            grid-template-columns:repeat(4,2fr);
             grid-template-rows: 60% 40%;
             grid-gap:0.1rem;
         }
         :host(:not([media-size="small"])) #pieMenu{
             grid-template-columns: 40% 60%;
-            grid-template-rows: 3rem 3rem 3rem 3rem 3rem ;
+            grid-template-rows: 3rem 3rem 3rem 3rem  ;
             grid-auto-flow: column;
             align-self: start;
             grid-gap:0rem;
@@ -204,10 +204,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
                 </div>
                 <div id="img-vacuna" select=${this.opcion == 'cuatro' ? 'SI' : 'NO'} @click="${this.clickBoton4}" class="img">
                     ${VACUNA}
-                </div>  
-                <div id="img-foto" select=${this.opcion == 'cinco' ? 'SI' : 'NO'} @click="${this.clickBoton5}" class="img">
-                    ${FOTO}
-                </div>          
+                </div>        
                 <div id="lbl-home" select=${this.opcion == 'uno' ? 'SI' : 'NO'} @click="${this.clickBoton1}"  class="lbl">
                     ${idiomas[this.idioma].pie.inicio}
                 </div>
@@ -220,9 +217,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
                 <div id="lbl-vacuna" select=${this.opcion == 'cuatro' ? 'SI' : 'NO'} @click="${this.clickBoton4}"  class="lbl">
                     ${idiomas[this.idioma].pie.vacuna}
                 </div>
-                <div id="lbl-foto" select=${this.opcion == 'cinco' ? 'SI' : 'NO'} @click="${this.clickBoton5}"  class="lbl">
-                    ${idiomas[this.idioma].pie.foto}
-                </div>
+
 
             </div>
             <div id="divAyudaPie">
@@ -237,7 +232,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveFootArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-diagnosticoDetalles-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-diagnosticoDetalles-diagnosticoDetallesM-".indexOf("-" + state.screen.name + "-") != -1
             if (haveFootArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }
@@ -248,6 +243,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
     clickBoton1() {
         store.dispatch(goTo("principal"))
         this.opcion = 'uno'
+        this.update()
     }
     clickBoton2() {
         store.dispatch(getMascotas({
@@ -256,6 +252,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
         }))
         store.dispatch(goTo("mascota"))
         this.opcion = 'dos'
+        this.update()
     }
     clickBoton3() {
         this.opcion = "tres"
@@ -263,8 +260,9 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
         store.dispatch(getReservas({
             expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
             token: store.getState().cliente.datos.token,
-            orderby: "FechaAtencion,HoraAtencion desc"
+            orderby: "FechaAtencion desc,HoraAtencion desc"
         }))
+        this.update()
 
     }
 

@@ -15,7 +15,8 @@ import {
     ENATENCION,
     RESERVA_PARA_CHAT,
     RESERVA_CANTIDAD_SUCCESS,
-    RESERVA_CANTIDAD_ERROR
+    RESERVA_CANTIDAD_ERROR,
+    TRAER_ULTIMA_RESERVA_SUCCESS
 } from "./actions";
 
 
@@ -30,6 +31,8 @@ const initialState = {
     editTimeStamp: null,
     entityReservaParaChat: null,
     reservaParaChatTimeStamp: null,
+    ultimaReserva: null,
+    ultimaReservaTimeStamp: null,
     reserva: {
         TramoId: 0,
         MascotaId: 0,
@@ -101,6 +104,10 @@ export const reducer = (state = initialState, action) => {
         case RESERVA_CANTIDAD_SUCCESS:
             newState.reservaCantidad = action.payload.receive.length
             newState.reservaCantidadTimeStamp = (new Date()).getTime();
+            break;
+        case TRAER_ULTIMA_RESERVA_SUCCESS:
+            newState.ultimaReserva = action.payload.receive.length > 0 ? action.payload.receive[0] : {}
+            newState.ultimaReservaTimeStamp = (new Date()).getTime();
             break;
     }
     return newState;

@@ -70,8 +70,8 @@ export const cardMascotaHorizontal = css `
     padding-left: .2rem;
 } 
 
-#cmhDivChat[hiddechat="true"] {
-            display:none;
+#cmhDivChat[hiddenchat] {
+    display:none;
 }
 
 #cmhDivChat

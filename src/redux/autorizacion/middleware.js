@@ -42,7 +42,7 @@ import {
 from "../mascotas/actions"
 
 import {
-    get as getMascotasVacunas
+    getCantidad as getMascotasVacunas
 } from "../mascotasvacunas/actions"
 
 import {

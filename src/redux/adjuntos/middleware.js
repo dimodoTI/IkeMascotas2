@@ -134,6 +134,9 @@ export const processComand = ({
     if (action.type === BORRARADJUNTO_SUCCESS) {
         dispatch(delCliente(getState().reservas.entities.enAtencion.registro.Id, getState().cliente.datos.token))
     }
+    /*     if (action.type === BORRARADJUNTOR_SUCCESS){
+            
+        } */
 };
 
 

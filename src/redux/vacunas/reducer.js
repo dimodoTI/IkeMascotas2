@@ -1,6 +1,7 @@
 import {
     GET_SUCCESS,
-    GET_ERROR
+    GET_ERROR,
+
 } from "./actions";
 
 
@@ -22,8 +23,10 @@ export const reducer = (state = initialState, action) => {
             newState.timeStamp = (new Date()).getTime();
             break;
         case GET_ERROR:
+
             newState.errorTimeStamp = (new Date()).getTime();
             break;
+
 
     }
     return newState;

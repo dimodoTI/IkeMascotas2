@@ -108,8 +108,6 @@ export const setCampana = ({
             if (dataChat.length > 0 || dataNotif.length > 0) {
                 //dispatch(showCampana());
                 estado = true
-            } else {
-                // dispatch(hiddeCampana());
             }
             dispatch({
                 type: SET_CAMPANA_SUCCESS,

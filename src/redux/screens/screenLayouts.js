@@ -35,9 +35,9 @@ export const screenLayuts = {
     },
 
     videoRTC: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
     },
 
     crearclave: {
@@ -164,15 +164,15 @@ export const screenLayuts = {
     },
 
     videoMasocotaVer: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
     },
 
     videoConsulta: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
     },
     vacunaMascota: {
         small: HEADER_BODY,
@@ -218,7 +218,18 @@ export const screenLayuts = {
         small: ALL_BODY,
         medium: ALL_BODY,
         large: ALL_BODY
+    },
+    consultaMsg: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    consultaMsgMascota: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
     }
+
 
 }
 

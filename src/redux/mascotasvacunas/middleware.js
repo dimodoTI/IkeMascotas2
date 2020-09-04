@@ -13,7 +13,11 @@ import {
     PATCH_ERROR,
     REMOVE,
     REMOVE_SUCCESS,
-    REMOVE_ERROR
+    REMOVE_ERROR,
+    GETCANTIDAD,
+    GETCANTIDAD_ERROR,
+    GETCANTIDAD_SUCCESS,
+    getCantidad
 
 } from "./actions";
 
@@ -35,12 +39,16 @@ import {
     apiRequest
 } from "../api/actions"
 
+
 export const get = ({
     dispatch
 }) => next => action => {
     next(action);
     if (action.type === GET) {
         dispatch(apiRequest(ikeMascotasVacunasQuery, action.options, GET_SUCCESS, GET_ERROR))
+    }
+    if (action.type === GETCANTIDAD) {
+        dispatch(apiRequest(ikeMascotasVacunasQuery, action.options, GETCANTIDAD_SUCCESS, GETCANTIDAD_ERROR))
     }
 };
 
@@ -91,11 +99,17 @@ export const processGet = ({
 };
 
 export const processComand = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+    if (action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type === GETCANTIDAD_SUCCESS) {
 
+    }
+    if (action.type === ADD_SUCCESS) {
+        dispatch(getCantidad({
+            token: getState().cliente.datos.token
+        }))
     }
 };
 
@@ -105,7 +119,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === GETCANTIDAD_ERROR) {
 
     }
 };

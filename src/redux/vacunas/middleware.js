@@ -1,7 +1,8 @@
 import {
     GET,
     GET_SUCCESS,
-    GET_ERROR
+    GET_ERROR,
+
 
 
 } from "./actions";
@@ -15,6 +16,9 @@ import {
 import {
     apiRequest
 } from "../api/actions"
+import {
+    GET_CANTIDAD_ERROR
+} from "../mascotas/actions";
 
 export const get = ({
     dispatch

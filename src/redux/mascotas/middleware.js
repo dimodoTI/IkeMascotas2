@@ -22,7 +22,8 @@ import {
     GET_CANTIDAD_SUCCESS,
     GET_COMBO,
     GET_COMBO_SUCCESS,
-    GET_COMBO_ERROR
+    GET_COMBO_ERROR,
+    getCantidad
 } from "./actions";
 
 import {
@@ -41,6 +42,8 @@ import {
 import {
     apiRequest
 } from "../api/actions"
+
+
 
 export const get = ({
     dispatch
@@ -67,11 +70,16 @@ export const getEdit = ({
 };
 
 export const add = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
     if (action.type === ADD) {
         dispatch(RESTAdd(ikeMascotas, action.body, ADD_SUCCESS, ADD_ERROR, action.token))
+        dispatch(getCantidad({
+            select: "Id",
+            token: getState().cliente.datos.token
+        }))
     }
 };
 

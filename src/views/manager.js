@@ -164,6 +164,10 @@ import {
     pantallaEstrellitas
 } from "../views/bodies/estrellitas"
 
+import {
+    pantallaConsultaMsg
+} from "./bodies/consultaMsg"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -227,6 +231,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <chat-app class="body"></chat-app>
             <pantalla-crearclavemsg class="body"></pantalla-crearclavemsg>
             <pantalla-estrellitas class="body"></pantalla-estrellitas>
+            <pantalla-consultamsg class="body"></pantalla-consultamsg>
             `
 
     }

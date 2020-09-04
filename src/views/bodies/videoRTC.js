@@ -353,8 +353,9 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             name: this.otherName,
             sala: this.sala
         });
-        this.handleLeave();
         store.dispatch(goPrev())
+        this.handleLeave();
+
     }
 
     handleLeave() {

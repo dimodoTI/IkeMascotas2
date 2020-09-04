@@ -7,6 +7,7 @@ export const EDIT = "[reservas] EDIT"
 export const RESERVAR = "[reservas] RESERVAR"
 export const RESERVARFECHA = "[reservas] RESERVARFECHA"
 export const ENATENCION = "[reservas] ENATENCION"
+export const TRAER_ULTIMA_RESERVA = "[reservas] TRAER_ULTIMA_RESERVA";
 
 export const GET_SUCCESS = "[reservas] GET success"
 export const ADD_SUCCESS = "[reservas] ADD success";
@@ -14,6 +15,7 @@ export const PATCH_SUCCESS = "[reservas] PATCH success";
 export const UPDATE_SUCCESS = "[reservas] UPDATE success";
 export const REMOVE_SUCCESS = "[reservas] REMOVE success";
 export const ENATENCION_SUCCESS = "[reservas] ENATENCION success";
+export const TRAER_ULTIMA_RESERVA_SUCCESS = "[reservas] TRAER_ULTIMA_RESERVA_SUCCESS";
 
 
 export const GET_ERROR = "[reservas] GET error";
@@ -22,6 +24,7 @@ export const PATCH_ERROR = "[reservas] PATCH error";
 export const UPDATE_ERROR = "[reservas] UPDATE error";
 export const REMOVE_ERROR = "[reservas] REMOVE error";
 export const ENATENCION_ERROR = "[reservas] ENATENCION error";
+export const TRAER_ULTIMA_RESERVA_ERROR = "[reservas] TRAER_ULTIMA_RESERVA_ERROR";
 
 export const RESERVA_PARA_CHAT = "[reservas] RESERVA_PARA_CHAT"
 
@@ -113,3 +116,15 @@ export const reservaCantidad = (options, onSuccess = RESERVA_CANTIDAD_SUCCESS, o
     onError: onError
 
 })
+
+export const traerUltimaReserva = (token, onSuccess = TRAER_ULTIMA_RESERVA_SUCCESS, onError = TRAER_ULTIMA_RESERVA_ERROR) => ({
+    type: TRAER_ULTIMA_RESERVA,
+    options: {
+        top: 1,
+        expand: "Mascota($select=Nombre,Id;$expand=Raza($expand=MascotasTipo))",
+        orderby: "Id desc",
+        token: token
+    },
+    onSuccess: onSuccess,
+    onError: onError
+});

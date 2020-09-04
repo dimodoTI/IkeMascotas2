@@ -458,6 +458,12 @@ export const idiomas = {
         chatAppR: {
             titulo: "Notificación",
             subTitulo: ""
+        },
+        consultaMsg: {
+            titulo: "Se ha registrado la reserva!",
+            subTitulo: "Un veterinario te atenderá el ",
+            hora: " a las ",
+            adjuntar: "Adjuntar Archivos"
         }
     }
 }

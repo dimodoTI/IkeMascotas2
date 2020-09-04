@@ -76,11 +76,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         //this.item = { para: "", motivo: "", sintoma: "" }
         this.mascotas = []
         this.reserva = []
-        this.archivo = [{
-            nombre: "Documento.jpg"
-        }, {
-            nombre: "Estudio.pdf"
-        }]
+
     }
 
     static get styles() {
@@ -269,6 +265,10 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
                 this.hidden = false
                 this.current = state.screen.name
                 this.mascotas = state.mascotas.combo
+                const txtMascota = this.shadowRoot.querySelector("#txtMascota")
+                txtMascota.value = 0
+                const txtSintoma = this.shadowRoot.querySelector("#txtSintoma")
+                txtSintoma.value = ""
 
             }
             this.update();

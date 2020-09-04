@@ -5,6 +5,11 @@ export const UPDATE = "[mascotasvacunas] UPDATE";
 export const REMOVE = "[mascotasvacunas] REMOVE";
 export const EDIT = "[mascotasvacunas] EDIT"
 
+export const GETCANTIDAD = "[mascotasvacunas] GETCANTIDAD";
+
+export const GETCANTIDAD_SUCCESS = "[mascotasvacunas] GETCANTIDAD success";
+
+export const GETCANTIDAD_ERROR = "[mascotasvacunas] GETCANTIDAD error";
 
 export const GET_SUCCESS = "[mascotasvacunas] GET success";
 export const ADD_SUCCESS = "[mascotasvacunas] ADD success";
@@ -62,4 +67,9 @@ export const edit = (modo, item) => ({
         Activo: true
     },
     modo: modo,
+})
+
+export const getCantidad = (options) => ({
+    type: GETCANTIDAD,
+    options: options
 })

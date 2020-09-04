@@ -9,7 +9,9 @@ import {
     ADD_ERROR,
     REMOVE_SUCCESS,
     REMOVE_ERROR,
-    EDIT
+    EDIT,
+    GETCANTIDAD_SUCCESS,
+    GETCANTIDAD_ERROR
 } from "./actions";
 
 
@@ -22,6 +24,8 @@ const initialState = {
     errorTimeStamp: null,
     commandErrorTimeStamp: null,
     editTimeStamp: null,
+    vacunasCantidadTimeStamp: null,
+    vacunasCantidad: null
 };
 
 export const reducer = (state = initialState, action) => {
@@ -54,8 +58,12 @@ export const reducer = (state = initialState, action) => {
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
             break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR:
+        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR || GETCANTIDAD_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
+            break;
+        case GETCANTIDAD_SUCCESS:
+            newState.vacunasCantidad = action.payload.receive.length
+            newState.vacunasCantidadTimeStamp = (new Date()).getTime();
             break;
 
     }

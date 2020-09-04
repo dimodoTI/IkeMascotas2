@@ -20,12 +20,14 @@ import {
     RESERVA_CANTIDAD_ERROR,
 
     ENATENCION,
-    ENATENCION_ERROR,
-    ENATENCION_SUCCESS
+    TRAER_ULTIMA_RESERVA,
+    TRAER_ULTIMA_RESERVA_ERROR,
+    TRAER_ULTIMA_RESERVA_SUCCESS,
+    traerUltimaReserva,
+    get as getReservas,
+    reservaCantidad
 
 
-    /*     ENATENCION_SUCCESS,
-        ENATENCION_ERROR */
 
 } from "./actions";
 
@@ -55,7 +57,7 @@ export const get = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET || action.type === RESERVA_CANTIDAD) {
+    if (action.type === GET || action.type === RESERVA_CANTIDAD || action.type === TRAER_ULTIMA_RESERVA) {
         dispatch(apiRequest(ikeReservasQuery, action.options, action.onSuccess, action.onError))
     }
 
@@ -113,17 +115,26 @@ export const processGet = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_SUCCESS || action.type === RESERVA_CANTIDAD_SUCCESS) {
+    if (action.type === GET_SUCCESS || action.type === RESERVA_CANTIDAD_SUCCESS || action.type === TRAER_ULTIMA_RESERVA_SUCCESS) {
 
     }
 
 };
 
 export const processComand = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+    if (action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+
+    }
+    if (action.type === ADD_SUCCESS) {
+        dispatch(traerUltimaReserva(getState().cliente.datos.token))
+        dispatch(reservaCantidad({
+            select: "Id",
+            token: getState().cliente.datos.token,
+        }))
 
     }
 };
@@ -134,7 +145,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === RESERVA_CANTIDAD_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === RESERVA_CANTIDAD_ERROR || action.type === TRAER_ULTIMA_RESERVA_ERROR) {
 
     }
 };
