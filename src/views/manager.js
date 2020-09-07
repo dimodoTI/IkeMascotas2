@@ -182,7 +182,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
 
 
     static get styles() {
-        return css `
+        return css`
         :host{
             display: grid;                 
             height:100vh;
@@ -201,7 +201,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
 
 
     render() {
-        return html `
+        return html`
             <splash-screen class="body"></splash-screen>
             <pantalla-onboarding class="body"></pantalla-onboarding>
             <pantalla-iniciosesion class="body"></pantalla-iniciosesion>
@@ -242,11 +242,25 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
     }
 
     stateChanged(state, name) {
+
         if ((name == MEDIA_CHANGE || name == SCREEN)) {
             this.mediaSize = state.ui.media.size
+            this.orientation = state.ui.media.orientation
             this.layout = getLayout(state).name
-        }
+            if (!window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                //                
+                if (('standalone' in window.navigator) && (window.navigator.standalone)) {
+                    this.style.height = document.documentElement.offsetHeight ? document.documentElement.offsetHeight : window.innerHeight + "px"
+                } else {
+                    if (state.ui.media.orientation == "portrait") {
+                        this.style.height = window.innerHeight < window.innerWidth ? window.innerWidth : window.innerHeight + "px"
+                    } else {
+                        this.style.height = window.innerHeight > window.innerWidth ? window.innerWidth : window.innerHeight + "px"
+                    }
+                }
 
+            }
+        }
         this.update();
     }
 
