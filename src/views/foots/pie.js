@@ -232,7 +232,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveFootArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-diagnosticoDetalles-diagnosticoDetallesM-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-principal-mascota-misConsultas-calendario-diagnosticoDetalles-diagnosticoDetallesM-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
             if (haveFootArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
             }

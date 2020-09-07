@@ -24,7 +24,9 @@ export const idiomas = {
             errorClave: {
                 err1: "Tu contraseña debe tener 4 caraceres",
                 err2: "Usuario o clave incorrectas"
-            }
+            },
+            warningTitulo: ["Error en login."],
+            warningCuerpo: ["Mail o password incorrecta"]
         },
         recuperaclave: {
             titulo: "Recuperá tu contraseña",
@@ -398,6 +400,7 @@ export const idiomas = {
             tituloconsulta: "Detalle de consulta",
             expediente: "Reserva #",
             paciente: "Paciente: ",
+            usuario: "Cliente:",
             motivo: "Motivo: ",
             fecha: "Fecha: ",
             hora: "Hora: ",
@@ -412,6 +415,7 @@ export const idiomas = {
             tituloconsulta: "Detalle de consulta",
             expediente: "Reserva #",
             paciente: "Paciente: ",
+            usuario: "Cliente:",
             motivo: "Motivo: ",
             fecha: "Fecha: ",
             hora: "Hora: ",

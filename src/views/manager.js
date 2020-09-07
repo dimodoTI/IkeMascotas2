@@ -168,6 +168,10 @@ import {
     pantallaConsultaMsg
 } from "./bodies/consultaMsg"
 
+import {
+    pantallaWarning
+} from "./bodies/warning"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -232,6 +236,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <pantalla-crearclavemsg class="body"></pantalla-crearclavemsg>
             <pantalla-estrellitas class="body"></pantalla-estrellitas>
             <pantalla-consultamsg class="body"></pantalla-consultamsg>
+            <pantalla-warning ></pantalla-warning>
             `
 
     }

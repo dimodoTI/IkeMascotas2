@@ -43,12 +43,11 @@ import {
 
 
 
-const LOGIN_OK_ERROR = "cliente.logueadoTimeStamp"
-const COMMAND_ERROR = "autorizacion.commandErrorTimeStamp"
+
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN, LOGIN_OK_ERROR, COMMAND_ERROR)(LitElement) {
+export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -136,6 +135,8 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN, L
             }
             this.update();
         }
+
+
 
     }
 

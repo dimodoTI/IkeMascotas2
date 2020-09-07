@@ -82,9 +82,9 @@ export const screenLayuts = {
         large: SLIDER_HEADER_BODY
     },
     mascotaver: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
+        small: HEADER_BODY_FOOT,
+        medium: HEADER_BODY_FOOT,
+        large: HEADER_BODY_FOOT
     },
     calendario: {
         small: HEADER_BODY_FOOT,

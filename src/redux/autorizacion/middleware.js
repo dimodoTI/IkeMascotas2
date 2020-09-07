@@ -54,7 +54,7 @@ import {
     showSpinner,
     hideSpinner,
     showError,
-
+    showWarning
 } from "../ui/actions";
 
 import {
@@ -146,6 +146,9 @@ export const processLogin = ({
     if (action.type === LOGIN_SUCCESS) {
         if (action.payload.receive.message) {
             dispatch(setLogueado(false))
+
+            dispatch(showWarning(getState().screen.name, 0))
+
         } else {
             dispatch(setLogueado(true))
 
@@ -192,7 +195,17 @@ export const processLogin = ({
             connection.onerror = (err) => {
                 console.log("Got error", err);
             };
-            dispatch(goTo("principal"))
+            if (getState().screen.name == "inicioSesion") {
+                if (getState().cliente.datos.perfil.toUpperCase().indexOf("CLIENTE") != -1 || getState().cliente.datos.perfil == "Admin") {
+                    dispatch(goTo("principal"))
+                } else {
+                    dispatch(showWarning(getState().screen.name, 0))
+                }
+            }
+
+
+
+
         }
     }
 };

@@ -63,14 +63,18 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         this.reservas = null
         this.area = "body"
         this.current = "diagnosticoDetalles"
+        this.hidden = true
+
         this.reservaEnAtencion = {
             Id: 0,
             Atencion: {
-                Diagnostico: ""
+                Diagnostico: "",
+                Veterinario: {}
             },
             Mascota: {
                 Nombre: ""
             }
+
         }
         this.adjuntosCliente = []
         this.adjuntosVenterinario = []
@@ -188,7 +192,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     render() {
         return html `
             <div id="divAtencion">
-                <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>
+                <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + "  " + this.verVeterinario() }</label>
                 <label id="lblComienzo">${idiomas[this.idioma].diagnosticoDetalles.lblComienzo + " " + this.comenzo()}</label>
                 <label id="lblFinal">${idiomas[this.idioma].diagnosticoDetalles.lblFinal + " " + this.termino()}</label>
                 <label  id="lblDiagnostico">${idiomas[this.idioma].diagnosticoDetalles.lblDiagnostico}</label>
@@ -216,7 +220,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                 <label id="lblMotivo">${idiomas[this.idioma].diagnosticoDetalles.motivo + " " + this.reservaEnAtencion.Motivo}</label>           
                 <label id="lblFecha">${idiomas[this.idioma].diagnosticoDetalles.fecha + " " + this.verFecha(this.reservaEnAtencion.FechaAtencion)}</label>           
                 <label id="lblHora">${idiomas[this.idioma].diagnosticoDetalles.hora + " " + this.reservaEnAtencion.HoraAtencion}</label>           
-                <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>           
+                <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.usuario + " " + this.verUsuario()}</label>           
                 <div style="padding-top:.5rem;display:grid;grid-gap:.5rem">
                     ${this.adjuntosCliente.map(dato => html`
                         <div id="ciDivEtiqueta">
@@ -278,7 +282,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     verVeterinario() {
         var ret = ""
         if (this.reservaEnAtencion.Atencion) {
-            ret = this.atencionEnCurso.Veterinario
+            ret = this.reservaEnAtencion.Atencion.Veterinario.Apellido + ", " + this.reservaEnAtencion.Atencion.Veterinario.Nombre
         }
         return ret
     }
@@ -312,8 +316,9 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             const SeMuestraEnUnasDeEstasPantallas = "-diagnosticoDetalles-diagnosticoDetallesM-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+                this.update();
             }
-            this.update();
+
         }
         if (name == RESERVASENATENCION_TIMESTAMP) {
             if (state.reservas.entities.enAtencion) {
@@ -328,11 +333,11 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             this.adjuntosCliente = state.adjuntos.entityDelCliente ? state.adjuntos.entityDelCliente : []
             this.update()
         }
+
         if (name == ADJUNTOS_DELVETERINARIO_TIMESTAMP) {
             this.adjuntosVenterinario = state.adjuntos.entitityDelVeterinario ? state.adjuntos.entitityDelVeterinario : []
             this.update()
         }
-
     }
 
     verNombre() {
@@ -348,7 +353,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         return d.getUTCDate() + "-" + (d.getUTCMonth() + 1) + "-" + d.getUTCFullYear()
     }
 
-    verVeterinario() {
+    verUsuario() {
         return store.getState().cliente.datos.apellido + ", " + store.getState().cliente.datos.nombre
     }
     clickAtras() {
