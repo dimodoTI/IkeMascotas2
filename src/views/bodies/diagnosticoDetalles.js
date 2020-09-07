@@ -79,7 +79,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     }
 
     static get styles() {
-        return css `
+        return css`
 
         ${cardArchivo}
         ${button}
@@ -186,13 +186,13 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     }
 
     render() {
-        return html `
+        return html`
             <div id="divAtencion">
                 <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + " " + this.verVeterinario()}</label>
                 <label id="lblComienzo">${idiomas[this.idioma].diagnosticoDetalles.lblComienzo + " " + this.comenzo()}</label>
                 <label id="lblFinal">${idiomas[this.idioma].diagnosticoDetalles.lblFinal + " " + this.termino()}</label>
                 <label  id="lblDiagnostico">${idiomas[this.idioma].diagnosticoDetalles.lblDiagnostico}</label>
-                <textarea id="txtDiagnostico" rows="8" readonly>${this.reservaEnAtencion.Atencion?this.reservaEnAtencion.Atencion.Diagnostico:""}</textarea>
+                <textarea id="txtDiagnostico" rows="8" readonly>${this.reservaEnAtencion.Atencion ? this.reservaEnAtencion.Atencion.Diagnostico : ""}</textarea>
 
                 <div id="divRecetas">
                     ${this.adjuntosVenterinario.map(dato => html`

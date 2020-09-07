@@ -29,7 +29,7 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
     }
 
     static get styles() {
-        return css `
+        return css`
         :host{
             display: grid;
             justify-content: center;
@@ -53,11 +53,21 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
             background-position: center;
             background-size: 100%;
         }
+        #version{
+            display:grid;
+            position:absolute;
+            top: 3vh;
+            left: 3vw;
+            color: var(--color-blanco);
+            font-size: var(--font-header-h2-size);
+            font-weight: var(--font-header-h2-weight);
+        }
         `
     }
     render() {
-        return html `
+        return html`
         <div id="cuerpo" @click=${this.proximo}>
+        <div id="version">v.1</div>
         </div>
         `
     }

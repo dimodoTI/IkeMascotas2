@@ -6,12 +6,12 @@ html {
 }
 
 body {
-    overflow-y: hidden;
-    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    position: fixed;
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
-
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
