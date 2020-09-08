@@ -8,6 +8,8 @@ export const RESERVAR = "[reservas] RESERVAR"
 export const RESERVARFECHA = "[reservas] RESERVARFECHA"
 export const ENATENCION = "[reservas] ENATENCION"
 export const TRAER_ULTIMA_RESERVA = "[reservas] TRAER_ULTIMA_RESERVA";
+export const CALIFICAR = "[reservas] CALIFICAR";
+
 
 export const GET_SUCCESS = "[reservas] GET success"
 export const ADD_SUCCESS = "[reservas] ADD success";
@@ -16,6 +18,7 @@ export const UPDATE_SUCCESS = "[reservas] UPDATE success";
 export const REMOVE_SUCCESS = "[reservas] REMOVE success";
 export const ENATENCION_SUCCESS = "[reservas] ENATENCION success";
 export const TRAER_ULTIMA_RESERVA_SUCCESS = "[reservas] TRAER_ULTIMA_RESERVA_SUCCESS";
+export const CALIFICAR_SUCCESS = "[reservas] CALIFICAR success";
 
 
 export const GET_ERROR = "[reservas] GET error";
@@ -25,6 +28,7 @@ export const UPDATE_ERROR = "[reservas] UPDATE error";
 export const REMOVE_ERROR = "[reservas] REMOVE error";
 export const ENATENCION_ERROR = "[reservas] ENATENCION error";
 export const TRAER_ULTIMA_RESERVA_ERROR = "[reservas] TRAER_ULTIMA_RESERVA_ERROR";
+export const CALIFICAR_ERROR = "[reservas] CALIFICAR error";
 
 export const RESERVA_PARA_CHAT = "[reservas] RESERVA_PARA_CHAT"
 
@@ -127,4 +131,19 @@ export const traerUltimaReserva = (token, onSuccess = TRAER_ULTIMA_RESERVA_SUCCE
     },
     onSuccess: onSuccess,
     onError: onError
+});
+
+export const calificarAtencion = (id, calificacion, comentario, token) => ({
+    type: CALIFICAR,
+    id: id,
+    body: [{
+        "op": "replace",
+        "path": "/Calificacion",
+        "value": calificacion
+    }, {
+        "op": "replace",
+        "path": "/ComentarioCalificacion",
+        "value": comentario
+    }],
+    token: token
 });

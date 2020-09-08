@@ -172,6 +172,14 @@ import {
     pantallaWarning
 } from "./bodies/warning"
 
+import {
+    pantallaPlanDetalle
+} from "./bodies/planDetalle"
+
+import {
+    pantallaVideoCalificacion
+} from "./bodies/videoCalificacion"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -182,7 +190,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
 
 
     static get styles() {
-        return css`
+        return css `
         :host{
             display: grid;                 
             height:100vh;
@@ -201,7 +209,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
 
 
     render() {
-        return html`
+        return html `
             <splash-screen class="body"></splash-screen>
             <pantalla-onboarding class="body"></pantalla-onboarding>
             <pantalla-iniciosesion class="body"></pantalla-iniciosesion>
@@ -237,6 +245,8 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <pantalla-estrellitas class="body"></pantalla-estrellitas>
             <pantalla-consultamsg class="body"></pantalla-consultamsg>
             <pantalla-warning ></pantalla-warning>
+            <pantalla-plandetalle class="body" ></pantalla-plandetalle>
+            <pantalla-videocalificacion class="body"></pantalla-videocalificacion>
             `
 
     }

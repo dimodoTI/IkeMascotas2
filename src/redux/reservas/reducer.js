@@ -16,7 +16,9 @@ import {
     RESERVA_PARA_CHAT,
     RESERVA_CANTIDAD_SUCCESS,
     RESERVA_CANTIDAD_ERROR,
-    TRAER_ULTIMA_RESERVA_SUCCESS
+    TRAER_ULTIMA_RESERVA_SUCCESS,
+    CALIFICAR_SUCCESS,
+    CALIFICAR_ERROR
 } from "./actions";
 
 
@@ -43,7 +45,8 @@ const initialState = {
         Motivo: "",
         Estdo: 0,
         Activo: 1
-    }
+    },
+    claificarTimeStamp: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -76,7 +79,7 @@ export const reducer = (state = initialState, action) => {
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
             break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR || RESERVA_CANTIDAD_ERROR:
+        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR || RESERVA_CANTIDAD_ERROR || CALIFICAR_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
         case RESERVAR:
@@ -108,6 +111,9 @@ export const reducer = (state = initialState, action) => {
         case TRAER_ULTIMA_RESERVA_SUCCESS:
             newState.ultimaReserva = action.payload.receive.length > 0 ? action.payload.receive[0] : {}
             newState.ultimaReservaTimeStamp = (new Date()).getTime();
+            break;
+        case CALIFICAR_SUCCESS:
+            newState.claificarTimeStamp = (new Date()).getTime();
             break;
     }
     return newState;

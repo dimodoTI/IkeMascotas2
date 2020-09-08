@@ -109,7 +109,19 @@ export const idiomas = {
             btn2: "¿Qué incluye mi cobertura?",
             btn3: "Ingresar sin registrarme"
         },
-        plandetalle: {
+        planDetalle: {
+            titulo: "Plan Mascotas 110",
+            subTitulo: "Este plan incluye las siguientes prestaciones:",
+            btn1: "Descargar póliza",
+            btn2: "Ver todos los planes"
+        },
+        planDetalleU: {
+            titulo: "Plan Mascotas 110",
+            subTitulo: "Este plan incluye las siguientes prestaciones:",
+            btn1: "Descargar póliza",
+            btn2: "Ver todos los planes"
+        },
+        planDetalleC: {
             titulo: "Plan Mascotas 110",
             subTitulo: "Este plan incluye las siguientes prestaciones:",
             btn1: "Descargar póliza",
@@ -209,7 +221,16 @@ export const idiomas = {
             titulo: "Consulta Online",
             subTitulo: "Accedé a consulta con un veterinario."
         },
-        videocalificacion: {
+        videoCalificacion: {
+            titulo: "Calificá la consulta",
+            subTitulo: "Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
+            calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",
+            comentarioLbl: "Dejanos un comentario (opcional)",
+            btn1: "Guardar calificación",
+            btn2: "Ahora no"
+        },
+
+        videoCalificacionM: {
             titulo: "Calificá la consulta",
             subTitulo: "Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",
             calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",

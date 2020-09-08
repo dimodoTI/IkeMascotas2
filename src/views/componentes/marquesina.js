@@ -103,14 +103,20 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
         if (this.item) {
             return repeat(this.item, (dato) => dato.Titulo, (dato, index) => html `
                     <div id="cuerpo-marq" class="${!dato.Titulo == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"
-                    style="background-color:var(${dato.Color});width:${this.etiquetaAncho}">
+                    style="background-color:var(${dato.Color});width:${this.etiquetaAncho}" .item="${dato}" @click="${this.link}">
                         <div class="${!dato.Titulo == '' ? 'img-marq-dos' : 'img-marq-solo'}" >
-                        <img  style="content:var(${dato.Imagen})"/>
+                        <img src="${dato.Imagen}"/>
                         </div>
                         <label id="lbl-marq" >${!dato.Titulo == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl : ''}</label>
                     </div>`)
         }
 
+    }
+
+    link(e) {
+        if (e.currentTarget.item.Http != "") {
+            window.open(e.currentTarget.item.Http)
+        }
     }
     stateChanged(state, name) {
         if (name == PUBLICIDAD_TIMESTAMP) {

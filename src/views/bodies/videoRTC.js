@@ -43,6 +43,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
         this.facingMode = "user"
         this.area = "body"
         this.hidden = true
+        this.reserva = []
     }
 
     static get styles() {
@@ -353,7 +354,12 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             name: this.otherName,
             sala: this.sala
         });
-        store.dispatch(goPrev())
+        if (this.current == "videoConsulta") {
+            store.dispatch(goTo("videoCalificacion"))
+        } else {
+            store.dispatch(goTo("videoCalificacionM"))
+        }
+
         this.handleLeave();
 
     }
@@ -413,6 +419,8 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
                 if (!this.yours) {
                     this.sala = "dimodo"
                     this.connectCliente()
+                    this.current = state.screen.name
+                    this.reserva = state.reservas.entities.enAtencion.registro
                 }
                 this.hidden = false
             }

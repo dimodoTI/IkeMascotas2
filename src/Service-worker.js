@@ -1,4 +1,4 @@
-const cacheName = 'Version1';
+const cacheName = 'Version1.3';
 const enCache = [
     "./index.html",
     "./app.bundle.js",
@@ -8,7 +8,7 @@ const enCache = [
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(cacheName)
-            .then(cache => cache.addAll(enCache))
+        .then(cache => cache.addAll(enCache))
     );
 });
 
@@ -21,12 +21,12 @@ self.addEventListener('message', function (event) {
 self.addEventListener('fetch', function (event) {
     event.respondWith(
         caches.match(event.request)
-            .then(function (response) {
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request);
-            })
+        .then(function (response) {
+            if (response) {
+                return response;
+            }
+            return fetch(event.request);
+        })
     );
 });
 

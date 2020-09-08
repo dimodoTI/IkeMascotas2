@@ -285,6 +285,9 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
 
         `
     }
+
+
+
     valido() {
         [].forEach.call(this.shadowRoot.querySelectorAll("[error]"), element => {
             element.setAttribute("oculto", "")
@@ -416,10 +419,17 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
         }
     }
     clickCobertura() {
-        //store.dispatch(modoPantalla("plandetalle", "usuariodetalle"))
+        store.dispatch(goTo("planDetalleU"))
     }
+
+    clickAsistencia(e) {
+        location.href = "tel:08001221453"
+    }
+
     clickDelete() {}
-    clickAsistencia() {}
+
+
+
 
     static get properties() {
         return {

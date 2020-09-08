@@ -228,7 +228,32 @@ export const screenLayuts = {
         small: ALL_BODY,
         medium: ALL_BODY,
         large: ALL_BODY
-    }
+    },
+    planDetalle: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    planDetalleU: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    planDetalleC: {
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
+    },
+    videoCalificacion: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
+    videoCalificacionM: {
+        small: ALL_BODY,
+        medium: ALL_BODY,
+        large: ALL_BODY
+    },
 
 
 }

@@ -25,13 +25,16 @@ export const largeRoute = [
     "2 -onboarding",
     "3 -accesoplan",
     "3/1 -usuarioregistro",
+    "3/1/1 -planDetalle",
     "3/2 -principal",
     "3/3 -inicioSesion",
     "3/4 -vercobertura",
+    "3/4/1 -planDetalleC",
     "3/5 -usuariodetalle",
     "3/5/1 -fotos",
-    "3/6 -notificacionReservas",
-    "3/6/1 -chatApp",
+    "3/6 -planDetalleU",
+    "3/7 -notificacionReservas",
+    "3/7/1 -chatApp",
 
 
     "4 -crearclave",
@@ -52,6 +55,7 @@ export const largeRoute = [
 
     /*     "9/1 -mascotaver",*/
     "9/1/1 -videoMasocotaVer",
+    "9/1/1/1 -videoCalificacionM",
     "9/1/3 -vacunaMsgMascota",
     "9/2 -mascotaeditar",
     "9/3 -mascotaEditarFoto",
@@ -72,6 +76,7 @@ export const largeRoute = [
 
     "16/1 -diagnosticoDetalles",
     "17/1 -videoConsulta",
+    "17/1/1 -videoCalificacion",
     "12 -vacunaMascota",
 
     "13 -usuarioregistro",

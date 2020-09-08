@@ -101,7 +101,7 @@ export class pantallaAccesoPlan extends connect(store, SCREEN, MEDIA_CHANGE)(Lit
             ${idiomas[this.idioma].accesoplan.btn1}</button>
             <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].accesoplan.btn2}
             </button>
-            <button id="btnInvitado" btn2 @click=${this.clickBoton3}>${idiomas[this.idioma].accesoplan.btn3}</button>
+            <!-- <button id="btnInvitado" btn2 @click=${this.clickBoton3}>${idiomas[this.idioma].accesoplan.btn3}</button> -->
             <button id="btnTengoCuenta" btn2 @click=${this.clickBoton4}>${idiomas[this.idioma].accesoplan.btn4}</button>
             <button id="btnAyuda" btn2 @click=${this.clickBoton5}>${idiomas[this.idioma].accesoplan.btn5}</button>
    
@@ -161,7 +161,7 @@ export class pantallaAccesoPlan extends connect(store, SCREEN, MEDIA_CHANGE)(Lit
     }
     clickBoton2() {
         //store.dispatch(modoPantalla("usuarioregistro", "accesoplan"))
-        store.dispatch(goTo("usuariodetalle"))
+        location.href = "tel:08001221453"
     }
     clickBoton3() {
         store.dispatch(goTo("principal"))

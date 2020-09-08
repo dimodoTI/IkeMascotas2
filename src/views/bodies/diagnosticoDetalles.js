@@ -83,19 +83,17 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     }
 
     static get styles() {
-        return css`
+        return css `
 
         ${cardArchivo}
         ${button}
 
         :host{
-            position: relative;
             display: grid;
-            padding: 0  !important;
+            position: relative;
             background-color: var(--color-gris-fondo) !important;
-            height:100%;
-            overflow-x: hidden;
-            overflow-y: auto;    
+            overflow-x:none;
+            overflow-y:auto;
         }
 
         :host([hidden]){
@@ -190,7 +188,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     }
 
     render() {
-        return html`
+        return html `
             <div id="divAtencion">
                 <label id="lblVeterinario">${idiomas[this.idioma].diagnosticoDetalles.veterinario + "  " + this.verVeterinario() }</label>
                 <label id="lblComienzo">${idiomas[this.idioma].diagnosticoDetalles.lblComienzo + " " + this.comenzo()}</label>

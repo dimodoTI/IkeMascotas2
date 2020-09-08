@@ -25,7 +25,10 @@ import {
     TRAER_ULTIMA_RESERVA_SUCCESS,
     traerUltimaReserva,
     get as getReservas,
-    reservaCantidad
+    reservaCantidad,
+    CALIFICAR,
+    CALIFICAR_ERROR,
+    CALIFICAR_SUCCESS
 
 
 
@@ -99,6 +102,9 @@ export const patch = ({
     if (action.type === PATCH) {
         dispatch(RESTPatch(ikeReservas, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR, action.token))
     }
+    if (action.type === CALIFICAR) {
+        dispatch(RESTPatch(ikeReservas, action.id, action.body, CALIFICAR_SUCCESS, CALIFICAR_ERROR, action.token))
+    }
 };
 
 export const remove = ({
@@ -126,7 +132,7 @@ export const processComand = ({
     getState
 }) => next => action => {
     next(action);
-    if (action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS) {
+    if (action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type === CALIFICAR_SUCCESS) {
 
     }
     if (action.type === ADD_SUCCESS) {
@@ -145,7 +151,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === RESERVA_CANTIDAD_ERROR || action.type === TRAER_ULTIMA_RESERVA_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === RESERVA_CANTIDAD_ERROR || action.type === TRAER_ULTIMA_RESERVA_ERROR || action.type === CALIFICAR_ERROR) {
 
     }
 };

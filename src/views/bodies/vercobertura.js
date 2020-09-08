@@ -104,13 +104,13 @@ export class pantallaVerCobertura extends connect(store, SCREEN, MEDIA_CHANGE)(L
     }
 
     clickBoton1() {
-        //store.dispatch(modoPantalla("iniciosesion"))
+        store.dispatch(goTo("planDetalleC"))
     }
     clickBoton2() {
-        //store.dispatch(modoPantalla("iniciosesion"))
+        location.href = "tel:08001221453"
     }
     clickBoton3() {
-        store.dispatch(goPrev())
+        store.dispatch(goTo("accesoplan"))
     }
     stateChanged(state, name) {
 

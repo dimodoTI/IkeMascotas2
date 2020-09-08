@@ -29,7 +29,7 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
     }
 
     static get styles() {
-        return css`
+        return css `
         :host{
             display: grid;
             justify-content: center;
@@ -65,9 +65,9 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
         `
     }
     render() {
-        return html`
+        return html `
         <div id="cuerpo" @click=${this.proximo}>
-        <div id="version">v.1</div>
+        <div id="version">v.1.3</div>
         </div>
         `
     }

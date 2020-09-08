@@ -241,7 +241,9 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
             <div id="divAyuda">
                 <label class="lblayuda">${idiomas[this.idioma].principal.lblAyuda01}</label>
                 <label class="lblayuda">${idiomas[this.idioma].principal.lblAyuda02}</label>
-                <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}</button>
+                <button btn3 id="btn-ayuda" @click=${this.clickAyuda}>${idiomas[this.idioma].principal.btnAyuda}
+                
+                </button>
             </div>
             <div id="espacio" style="height:.5rem;width:1%"></div>
         </div>        
@@ -250,7 +252,9 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
 
 `
     }
-
+    clickAyuda(e) {
+        location.href = "tel:08001221453"
+    }
 
     /*    clickBotonUsuario() {
            store.dispatch(modoPantalla("usuariodetalle", "principal"))

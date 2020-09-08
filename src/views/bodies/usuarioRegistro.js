@@ -133,7 +133,7 @@ export class pantallaUsuarioRegistro extends connect(store, SCREEN, MEDIA_CHANGE
             ${idiomas[this.idioma].usuarioregistro.btn1}</button>
             <button id="btnPlan" btn3 @click=${this.clickBoton2}>${idiomas[this.idioma].usuarioregistro.btn2}
             </button>
-            <button id="btnInvitado" btn2 @click=${this.clickBoton3} style="padding-bottom:.5rem;">${idiomas[this.idioma].usuarioregistro.btn3}</button>
+            <!-- <button id="btnInvitado" btn2 @click=${this.clickBoton3} style="padding-bottom:.5rem;">${idiomas[this.idioma].usuarioregistro.btn3}</button> -->
             <div ></div>
 
        
@@ -247,11 +247,9 @@ export class pantallaUsuarioRegistro extends connect(store, SCREEN, MEDIA_CHANGE
         }
     }
     clickBoton2() {
-        store.dispatch(modoPantalla("plandetalle", "usuarioregistro"))
+        store.dispatch(goTo("planDetalle"))
     }
-    clickBoton3() {
-        store.dispatch(modoPantalla("principal", "usuarioregistro"))
-    }
+
 
 
 
