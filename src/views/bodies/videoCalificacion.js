@@ -212,8 +212,8 @@ export class pantallaVideoCalificacion extends connect(store, SCREEN, MEDIA_CHAN
         this.calificacion = 0
         comentario.value = ""
         store.dispatch(goTo("principal"))
-
     }
+
     ahoraNo() {
         store.dispatch(goTo("principal"))
     }

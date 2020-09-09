@@ -53,6 +53,9 @@ import {
 import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
+import {
+    selectMenu
+} from "../../redux/ui/actions";
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
@@ -323,6 +326,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
     clickAtras() {
         store.dispatch(goTo("mascota"))
+        store.dispatch(selectMenu("dos"))
     }
     clickFoto() {
         this.shadowRoot.querySelector("#divTapa").style.display = "grid";
@@ -360,6 +364,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
         delete item.Raza
         delete item.MascotasVacuna
+        delete item.Reservas
 
         return item
     }

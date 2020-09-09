@@ -272,6 +272,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
 
     irA(e) {
         if (e.currentTarget.link) {
+            //window.open(e.currentTarget.link)
             window.open(e.currentTarget.link)
         }
     }

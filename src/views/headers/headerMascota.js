@@ -24,6 +24,9 @@ import {
     goTo
 } from "../../redux/routing/actions"
 
+import {
+    selectMenu
+} from "../../redux/ui/actions"
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
@@ -169,6 +172,7 @@ export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS
 
     atras() {
         store.dispatch(goTo("mascota"))
+        store.dispatch(selectMenu("dos"))
     }
     static get properties() {
         return {

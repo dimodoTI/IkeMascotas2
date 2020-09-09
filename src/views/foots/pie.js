@@ -37,7 +37,8 @@ import {
 } from "../../redux/mascotas/actions"
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
-export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+const SELECTMENU = "ui.selectMenu"
+export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTMENU)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -237,6 +238,10 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN)(LitEleme
                 this.hidden = false
             }
             this.update();
+        }
+
+        if (name == SELECTMENU) {
+            this.opcion = state.ui.selectMenu
         }
 
     }

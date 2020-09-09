@@ -40,6 +40,9 @@ import {
 import {
     validaMail
 } from "../../libs/funciones"
+import {
+    selectMenu
+} from "../../redux/ui/actions";
 
 
 
@@ -195,6 +198,7 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN)(L
 
     clickBoton3() {
         store.dispatch(goTo("principal"))
+        store.dispatch(selectMenu("uno"))
 
     }
 

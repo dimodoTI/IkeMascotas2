@@ -76,10 +76,7 @@ export const add = ({
     next(action);
     if (action.type === ADD) {
         dispatch(RESTAdd(ikeMascotas, action.body, ADD_SUCCESS, ADD_ERROR, action.token))
-        dispatch(getCantidad({
-            select: "Id",
-            token: getState().cliente.datos.token
-        }))
+
     }
 };
 
@@ -121,12 +118,20 @@ export const processGet = ({
 };
 
 export const processComand = ({
-    dispatch
+    dispatch,
+    getState
 }) => next => action => {
     next(action);
-    if (action.type === ADD_SUCCESS || action.type === UPDATE_SUCCESS || action.type === REMOVE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS) {
+    if (action.type === UPDATE_SUCCESS || action.type === PATCH_SUCCESS || action.type == GETEDIT_SUCCESS) {
 
     }
+    if (action.type === ADD_SUCCESS || action.type === REMOVE_SUCCESS) {
+        dispatch(getCantidad({
+            select: "Id",
+            token: getState().cliente.datos.token
+        }))
+    }
+
 };
 
 

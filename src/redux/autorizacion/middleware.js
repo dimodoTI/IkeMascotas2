@@ -54,7 +54,8 @@ import {
     showSpinner,
     hideSpinner,
     showError,
-    showWarning
+    showWarning,
+    selectMenu
 } from "../ui/actions";
 
 import {
@@ -198,6 +199,7 @@ export const processLogin = ({
             if (getState().screen.name == "inicioSesion") {
                 if (getState().cliente.datos.perfil.toUpperCase().indexOf("CLIENTE") != -1 || getState().cliente.datos.perfil == "Admin") {
                     dispatch(goTo("principal"))
+                    dispatch(selectMenu("uno"))
                 } else {
                     dispatch(showWarning(getState().screen.name, 0))
                 }

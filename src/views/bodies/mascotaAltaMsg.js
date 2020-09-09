@@ -31,6 +31,10 @@ import {
     showScreen
 } from "../../redux/screens/actions";
 
+import {
+    selectMenu
+} from "../../redux/ui/actions"
+
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
@@ -175,6 +179,7 @@ export class pantallaMascotaAltaMsg extends connect(store, SCREEN, MEDIA_CHANGE)
 
     clickBoton1() {
         store.dispatch(goTo("mascota"))
+        store.dispatch(selectMenu("dos"))
     }
     clickBoton2() {
         store.dispatch(goPrev())

@@ -22,6 +22,8 @@ export const SET_CONTADOR = "[ui] SET_CONTADOR"
 export const HEADER_MUESTRA_TAPA = "[ui] header muestra tapa"
 export const FOOTHER_MUESTRA_TAPA = "[ui] foother muestra tapa"
 
+export const SELECTMENU = "[ui] select menu"
+
 
 
 export const showSpinner = () => ({
@@ -98,3 +100,8 @@ export const showWarning = (pagina = "", nroWarning = -1) => ({
 export const hideWarning = () => ({
   type: HIDE_WARNING
 });
+
+export const selectMenu = (opcion) => ({
+  type: SELECTMENU,
+  opcion: opcion
+})

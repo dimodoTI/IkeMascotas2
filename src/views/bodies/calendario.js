@@ -85,7 +85,7 @@ export class pantallaCalendario extends connect(store, SCREEN, MEDIA_CHANGE, MAS
         }
 
         :host(:not([media-size="small"])) #cuerpo{
-            width:70%;
+            width:65%;
             justify-self:center;
         }
         #campana{
@@ -96,20 +96,31 @@ export class pantallaCalendario extends connect(store, SCREEN, MEDIA_CHANGE, MAS
             background-position: right center;
             background-size: 1rem 1rem;
         }
+
+        #cuerpo{
+            display: grid;
+            grid-template-rows: 5% 85%;
+        }
         #cuerpoVacuna{
             background-color: transparent;
             display: grid;
-            width: 100%;
+            
             grid-template-columns: 100%;
             justify-items: center;
             overflow-y: auto; 
             overflow-x: hidden; 
             grid-gap:1rem;
-            align-content:flex-start
+            align-content:flex-start;
+            overflow-y: auto;
+            
+   
+            justify-items: center;
         }
+
         #cuerpoVacuna::-webkit-scrollbar {
             display: none;
         }
+   
         label {
             position: relative;
             width: 95%;
@@ -196,7 +207,7 @@ export class pantallaCalendario extends connect(store, SCREEN, MEDIA_CHANGE, MAS
 
     renderItemVacuna(dato) {
         return html `                
-        <div id="ccDivEtiqueta">
+        <div id="ccDivEtiqueta" style="width:96%">
             <div id="ccDivVacuna">${dato.Vacuna.Descripcion}</div>
             <div id="ccDivPara">${dato.Enfermedades}</div>
             <div class="labelRedondeado" id="ccDivCachorro">${dato.Edad}</div>

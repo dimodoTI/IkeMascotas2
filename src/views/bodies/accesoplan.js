@@ -36,6 +36,9 @@ import {
 import {
     showScreen
 } from "../../redux/screens/actions";
+import {
+    selectMenu
+} from "../../redux/ui/actions";
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
@@ -165,6 +168,7 @@ export class pantallaAccesoPlan extends connect(store, SCREEN, MEDIA_CHANGE)(Lit
     }
     clickBoton3() {
         store.dispatch(goTo("principal"))
+        store.dispatch(selectMenu("uno"))
     }
     clickBoton4() {
         store.dispatch(goTo("inicioSesion"))

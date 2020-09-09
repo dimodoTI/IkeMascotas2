@@ -8,7 +8,8 @@ import {
     SHOW_WARNING,
     HIDE_WARNING,
     HEADER_MUESTRA_TAPA,
-    FOOTHER_MUESTRA_TAPA
+    FOOTHER_MUESTRA_TAPA,
+    SELECTMENU
 } from "./actions";
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
     },
     headerMuestraTapa: false,
     footherMuestraTapa: false,
+    selectMenu: 1
 
 };
 
@@ -81,6 +83,9 @@ export const reducer = (state = initialState, action) => {
             break;
         case FOOTHER_MUESTRA_TAPA:
             newState.footherMuestraTapa = action.mostrar
+            break;
+        case SELECTMENU:
+            newState.selectMenu = action.opcion
             break;
 
     }

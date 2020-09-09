@@ -31,7 +31,8 @@ import {
 } from "../componentes/campanaNotificaciones"
 
 import {
-    headerMuestraTapa
+    headerMuestraTapa,
+    selectMenu
 } from "../../redux/ui/actions"
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
@@ -267,18 +268,22 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
                 break;
             case "mascotaver":
                 store.dispatch(goTo("mascota"))
+                store.dispatch(selectMenu("dos"))
                 break;
             case "usuariodetalle":
                 store.dispatch(goTo("principal"))
+                store.dispatch(selectMenu("uno"))
                 break;
             case "notificacionReservas":
                 store.dispatch(goTo("principal"))
+                store.dispatch(selectMenu("uno"))
                 break;
             case "chatAppM":
                 store.dispatch(goTo("mascotaver"))
                 break;
             case "chatAppR":
                 store.dispatch(goTo("misConsultas"))
+                store.dispatch(selectMenu("tres"))
                 break;
                 /*             case "mascotaalta":
                                 store.dispatch(goPrev())
