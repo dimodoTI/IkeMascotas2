@@ -177,6 +177,7 @@ export const processGet = ({
     }
     if (action.type === GET_NOTIFICACION_PENDIENTES_SUCCESS) {
         dispatch(setCampana(getState().cliente.datos.id))
+
     }
 
 

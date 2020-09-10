@@ -61,7 +61,8 @@ import {
     reservaParaChat
 } from "../reservas/actions";
 import {
-    getNotificacionPendientes
+    getNotificacionPendientes,
+    getNotificacionChatPendientes
 } from "../notificacion/actions";
 
 export const get = ({
@@ -202,8 +203,13 @@ export const processComand = ({
 
     }
     if (action.type === ADD_PREGUNTA_SUCCESS) {
-        dispatch(sinContestar(getState().cliente.datos.id))
+        //dispatch(sinContestar(getState().cliente.datos.id))
+        dispatch(getNotificacionChatPendientes(getState().cliente.datos.id))
         dispatch(setCampanaAction(getState().cliente.datos.id))
+        dispatch(goTo("notificacionReservas"))
+
+
+
     }
     if (action.type === PATCH_SUCCESS) {
         dispatch(setCampanaAction(getState().cliente.datos.id))

@@ -403,7 +403,13 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
     }
 
     verDetalle(e) {
+
+        const registro = {
+            Id: e.currentTarget.item.item.reservaId
+
+        }
         store.dispatch(chatReserva(e.currentTarget.item.item.reservaId))
+        store.dispatch(reservaParaChat(registro))
         if (e.currentTarget.item.tipo == 1) {
             const datosPatch = [{
                 "op": "replace",
