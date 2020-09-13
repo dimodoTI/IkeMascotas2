@@ -33,7 +33,8 @@ import {
 
 import {
     RESERVAR,
-    reservar
+    reservar,
+    reservasAFuturo
 } from "../../redux/reservas/actions";
 
 import {
@@ -58,14 +59,16 @@ import {
     showScreen
 } from "../../redux/screens/actions";
 import {
-    setTimer
+    setTimer,
+    showWarning
 } from "../../redux/ui/actions";
 
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
+const RESERVAS_A_FUTURO_TIMESTAMP = "reservas.reservasAFuturoTimeStamp"
 
-export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
+export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESERVAS_A_FUTURO_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -240,19 +243,21 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
         this.shadowRoot.querySelector("#files").click()
     }
 
+
+
+
     clickBoton2() {
-        store.dispatch(getTurnosDisponibles())
         const mascota = this.shadowRoot.querySelector("#txtMascota").value
         const motivo = this.shadowRoot.querySelector("#txtSintoma").value
-        store.dispatch((reservar(mascota, motivo)))
-        if (this.current == "consulta") {
-            store.dispatch(goTo("consultaTurnos"))
-        } else {
-            store.dispatch(goTo("consultaTurnosMascota"))
-        }
 
 
+        let fechaHoy = new Date()
+        fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
+        store.dispatch(reservasAFuturo(mascota, store.getState().cliente.datos.token, fechaHoy))
     }
+
+
+
     stateChanged(state, name) {
 
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
@@ -272,6 +277,24 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN)(LitEl
 
             }
             this.update();
+        }
+
+        if (name == RESERVAS_A_FUTURO_TIMESTAMP) {
+            if (state.reservas.reservasAFurturo.length == 0) {
+                store.dispatch(getTurnosDisponibles())
+                const mascota = this.shadowRoot.querySelector("#txtMascota").value
+                const motivo = this.shadowRoot.querySelector("#txtSintoma").value
+                store.dispatch((reservar(mascota, motivo)))
+                if (this.current == "consulta") {
+                    store.dispatch(goTo("consultaTurnos"))
+                } else {
+                    store.dispatch(goTo("consultaTurnosMascota"))
+                }
+            } else {
+                store.dispatch(showWarning(this.current, 0))
+            }
+
+
         }
 
 

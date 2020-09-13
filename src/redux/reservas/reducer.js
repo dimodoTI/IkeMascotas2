@@ -18,7 +18,9 @@ import {
     RESERVA_CANTIDAD_ERROR,
     TRAER_ULTIMA_RESERVA_SUCCESS,
     CALIFICAR_SUCCESS,
-    CALIFICAR_ERROR
+    CALIFICAR_ERROR,
+    RESERVAS_A_FUTURO_ERROR,
+    RESERVAS_A_FUTURO_SUCCESS
 } from "./actions";
 
 
@@ -47,6 +49,8 @@ const initialState = {
         Activo: 1
     },
     claificarTimeStamp: null,
+    reservasAFuturoTimeStamp: null,
+    reservasAFurturo: null
 };
 
 export const reducer = (state = initialState, action) => {
@@ -79,7 +83,7 @@ export const reducer = (state = initialState, action) => {
         case GET_ERROR:
             newState.errorTimeStamp = (new Date()).getTime();
             break;
-        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR || RESERVA_CANTIDAD_ERROR || CALIFICAR_ERROR:
+        case UPDATE_ERROR || REMOVE_ERROR || PATCH_ERROR || ADD_ERROR || RESERVA_CANTIDAD_ERROR || CALIFICAR_ERROR || RESERVAS_A_FUTURO_ERROR:
             newState.commandErrorTimeStamp = (new Date()).getTime();
             break;
         case RESERVAR:
@@ -114,6 +118,10 @@ export const reducer = (state = initialState, action) => {
             break;
         case CALIFICAR_SUCCESS:
             newState.claificarTimeStamp = (new Date()).getTime();
+            break;
+        case RESERVAS_A_FUTURO_SUCCESS:
+            newState.reservasAFuturoTimeStamp = (new Date()).getTime();
+            newState.reservasAFurturo = action.payload.receive
             break;
     }
     return newState;

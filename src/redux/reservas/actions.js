@@ -10,6 +10,8 @@ export const ENATENCION = "[reservas] ENATENCION"
 export const TRAER_ULTIMA_RESERVA = "[reservas] TRAER_ULTIMA_RESERVA";
 export const CALIFICAR = "[reservas] CALIFICAR";
 
+export const RESERVAS_A_FUTURO = "[reservas] RESERVAS_A_FUTURO"
+
 
 export const GET_SUCCESS = "[reservas] GET success"
 export const ADD_SUCCESS = "[reservas] ADD success";
@@ -19,7 +21,7 @@ export const REMOVE_SUCCESS = "[reservas] REMOVE success";
 export const ENATENCION_SUCCESS = "[reservas] ENATENCION success";
 export const TRAER_ULTIMA_RESERVA_SUCCESS = "[reservas] TRAER_ULTIMA_RESERVA_SUCCESS";
 export const CALIFICAR_SUCCESS = "[reservas] CALIFICAR success";
-
+export const RESERVAS_A_FUTURO_SUCCESS = "[reservas] RESERVAS_A_FUTURO success";
 
 export const GET_ERROR = "[reservas] GET error";
 export const ADD_ERROR = "[reservas] ADD error";
@@ -29,6 +31,7 @@ export const REMOVE_ERROR = "[reservas] REMOVE error";
 export const ENATENCION_ERROR = "[reservas] ENATENCION error";
 export const TRAER_ULTIMA_RESERVA_ERROR = "[reservas] TRAER_ULTIMA_RESERVA_ERROR";
 export const CALIFICAR_ERROR = "[reservas] CALIFICAR error";
+export const RESERVAS_A_FUTURO_ERROR = "[reservas] RESERVAS_A_FUTURO error";
 
 export const RESERVA_PARA_CHAT = "[reservas] RESERVA_PARA_CHAT"
 
@@ -147,3 +150,14 @@ export const calificarAtencion = (id, calificacion, comentario, token) => ({
     }],
     token: token
 });
+
+export const reservasAFuturo = (mascotaId, token, fecha) => ({
+    type: RESERVAS_A_FUTURO,
+    options: {
+        filter: "FechaAtencion gt " + fecha + " and MascotaId eq " + mascotaId,
+        token: token
+    },
+
+    onSuccess: RESERVAS_A_FUTURO_SUCCESS,
+    onError: RESERVAS_A_FUTURO_ERROR
+})

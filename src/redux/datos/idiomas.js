@@ -385,7 +385,9 @@ export const idiomas = {
             para: "¿Para qué mascota es la consulta?",
             motivo: "¿Cuál es el motivo de la consulta?",
             sintoma: "¿Qué síntomas tiene? (opcional)",
-            elegimascota: "Elegí tu mascota"
+            elegimascota: "Elegí tu mascota",
+            warningTitulo: ["Consuta"],
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota"]
         },
         consultaTurnos: {
             titulo: "Agendá una consulta",
@@ -456,7 +458,9 @@ export const idiomas = {
             para: "¿Para qué mascota es la consulta?",
             motivo: "¿Cuál es el motivo de la consulta?",
             sintoma: "¿Qué síntomas tiene? (opcional)",
-            elegimascota: "Elegí tu mascota"
+            elegimascota: "Elegí tu mascota",
+            warningTitulo: ["Consuta"],
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota"]
         },
         consultaTurnosMascota: {
             titulo: "Agendá una consulta",

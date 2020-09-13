@@ -28,7 +28,10 @@ import {
     reservaCantidad,
     CALIFICAR,
     CALIFICAR_ERROR,
-    CALIFICAR_SUCCESS
+    CALIFICAR_SUCCESS,
+    RESERVAS_A_FUTURO,
+    RESERVAS_A_FUTURO_SUCCESS,
+    RESERVAS_A_FUTURO_ERROR
 
 
 
@@ -60,7 +63,7 @@ export const get = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET || action.type === RESERVA_CANTIDAD || action.type === TRAER_ULTIMA_RESERVA) {
+    if (action.type === GET || action.type === RESERVA_CANTIDAD || action.type === TRAER_ULTIMA_RESERVA || action.type === RESERVAS_A_FUTURO) {
         dispatch(apiRequest(ikeReservasQuery, action.options, action.onSuccess, action.onError))
     }
 
@@ -121,7 +124,7 @@ export const processGet = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_SUCCESS || action.type === RESERVA_CANTIDAD_SUCCESS || action.type === TRAER_ULTIMA_RESERVA_SUCCESS) {
+    if (action.type === GET_SUCCESS || action.type === RESERVA_CANTIDAD_SUCCESS || action.type === TRAER_ULTIMA_RESERVA_SUCCESS || RESERVAS_A_FUTURO_SUCCESS) {
 
     }
 
@@ -151,7 +154,7 @@ export const processError = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === RESERVA_CANTIDAD_ERROR || action.type === TRAER_ULTIMA_RESERVA_ERROR || action.type === CALIFICAR_ERROR) {
+    if (action.type === GET_ERROR || action.type === ADD_ERROR || action.type === UPDATE_ERROR || action.type === REMOVE_ERROR || action.type === PATCH_ERROR || action.type === RESERVA_CANTIDAD_ERROR || action.type === TRAER_ULTIMA_RESERVA_ERROR || action.type === CALIFICAR_ERROR || RESERVAS_A_FUTURO_ERROR) {
 
     }
 };

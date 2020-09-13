@@ -92,8 +92,9 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             padding:1rem;
             grid-template-columns: repeat(auto-fit,minmax(3.5rem,1fr));
             grid-gap:.8rem;
-        
+            height:55vh;
             align-content: flex-start;
+            
    
     
             overflow-y: auto; 
@@ -145,9 +146,41 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
     }
     render() {
         return html `
+
+
+            <div id="contenedor" style="display:grid">
+               
+                    <label style="padding:.8rem" id="lblProximo">${idiomas[this.idioma].consultaTurnos.proximo}</label>
+                
+                <div id="cuerpo">
+                    ${this.libres.map((item) => { 
+                        
+                        const dia = this.nroDia(item.fecha)
+                        const mes = this.mes(item.fecha)
+                        const fecha = item.fecha
+                    
+                        return item.horarios.map(horario=>{
+                        return  html`
+                            <div   class="etiqueta" .item="${item}" .horario="${horario}"  @click=${this.clickSeleccionar}>
+                                <div id="atDivDia">
+                                    <label id="atLblDiaNumero">${dia}</label>
+                                    <label id="atLblMes">${mes}</label>
+                                </div>
+                                <div id="atDivHora">
+                                    <label id="atLblDiaTexto">${this.dow(fecha)}</label>
+                                    <label id="atLblHora" value="${horario.hora}">${this.formateoHora(horario.hora)}</label>
+                                </div>
+                            </div>`
+                        })
+                    })}    
+                </div>
             
+            
+            </div>
+            
+            
+<!--             <div id="cuerpo">
             <div><label style="padding:.8rem" id="lblProximo">${idiomas[this.idioma].consultaTurnos.proximo}</label></div>
-            <div id="cuerpo">
                 
                 ${this.libres.map((item) => { 
                     
@@ -169,11 +202,12 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
                         </div>`
                     })
                 })}    
-            </div>
-            <div style="display:grid;"> 
+            </div> -->
+            
+             <div style="display:grid;"> 
             <button style="margin:1rem" id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
                 ${idiomas[this.idioma].consultaTurnos.btn1}
-            </button></div>
+            </button></div> 
 
     `
     }
