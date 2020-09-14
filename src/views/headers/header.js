@@ -121,7 +121,9 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             :host([current="chatAppR"]) #divImg,
             :host([current="planDetalle"]) #divImg,
             :host([current="planDetalleU"]) #divImg,
-            :host([current="planDetalleC"]) #divImg
+            :host([current="planDetalleC"]) #divImg,
+            :host([current="videoConsulta"]) #divImg,
+            :host([current="videoMasocotaVer"]) #divImg
             
             {
                 display:grid;
@@ -242,7 +244,7 @@ export class headerComponente extends connect(store, MEDIA_CHANGE, SCREEN, RECIB
             this.mediaSize = state.ui.media.size
             this.hidden = true
             const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-chatApp-chatAppM-chatAppR-planDetalle-planDetalleU-planDetalleC-".indexOf("-" + state.screen.name + "-") != -1
+            const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-accesoplan-recuperaclave-usuarioregistro-mascota-mascotaalta-mascotaeditar-calendario-vacuna-vacunaMascota-usuariodetalle-crearclave-misConsultas-consulta-consultaMascota-videos-consultaTurnos-consultaTurnosMascota-diagnosticoDetalles-diagnosticoDetallesM-notificacionReservas-chatApp-chatAppM-chatAppR-planDetalle-planDetalleU-planDetalleC-videoConsulta-videoMasocotaVer-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.titulo = idiomas[this.idioma][this.current].titulo

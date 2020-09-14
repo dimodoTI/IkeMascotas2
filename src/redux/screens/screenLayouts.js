@@ -164,15 +164,15 @@ export const screenLayuts = {
     },
 
     videoMasocotaVer: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
     },
 
     videoConsulta: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
+        small: HEADER_BODY,
+        medium: HEADER_BODY,
+        large: HEADER_BODY
     },
     vacunaMascota: {
         small: HEADER_BODY,

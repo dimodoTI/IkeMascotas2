@@ -221,6 +221,16 @@ export const idiomas = {
             titulo: "Consulta Online",
             subTitulo: "Accedé a consulta con un veterinario."
         },
+        videoConsulta: {
+            conectando: "Conectando ...",
+            titulo: "Consulta Online",
+            subTitulo: "Accedé a consulta con un veterinario."
+        },
+        videoMascotaVer: {
+            conectando: "Conectando ...",
+            titulo: "Consulta Online",
+            subTitulo: "Accedé a consulta con un veterinario."
+        },
         videoCalificacion: {
             titulo: "Calificá la consulta",
             subTitulo: "Calificando tus consultas nos ayudás a mejorar el servicio para vos y los que más querés!",

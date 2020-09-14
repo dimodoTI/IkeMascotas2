@@ -48,6 +48,10 @@ import {
     getCantidad
 } from "../../redux/mascotas/actions";
 
+import {
+    FOTOEDIT
+} from "../../../assets/icons/icons"
+
 
 const CLIENTE_LOGUEADO = "cliente.logueadoTimeStamp"
 
@@ -147,11 +151,17 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
             position: relative;
             width: 1.5rem;
             height: 1.5rem;
-            background-image:var(--icon-foto-edit);
+            
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100%;
             z-index:10;
+        }
+
+        #fotoEdit svg {
+            
+           fill:black
+           
         }
         #lblTitNombre{
             padding-top: 3rem;
@@ -222,7 +232,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
                 <div id="marco">
                     
                     <div id="foto" style="background-image:url(${this.item.foto});">
-                        <div id="fotoEdit" @click="${this.abreFoto}"></div>
+                        <div id="fotoEdit" @click="${this.abreFoto}">${FOTOEDIT}</div>
                     </div>
                     <div id="lblTitNombre">${this.item.nombre}</div>
                     <div id="lblPlan">${this.item.plan}</div>

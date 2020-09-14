@@ -86,16 +86,17 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             background-color:transparent;
           }
          
-         :host([orientation="portrait"]) #videoRemoto{
-             width:100%;
-         }
-         :host([orientation="landscape"]) #videoRemoto{
-             height:100%;
-
-         }
           #videoRemoto{
             display:grid;
             justify-self:center;
+          }
+          :host([orientation="portrait"]) #videoRemoto{
+            width:100%;
+            height:auto;
+          }
+          :host([orientation="landscape"]) #videoRemoto{
+            height:100%;
+            width:auto;
           }
   
           .boton-consola{
@@ -117,13 +118,17 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
           }
   
           #videoLocal {
-            width: 8rem;
-            height: 8rem;
             position: absolute;
-            top: .5rem;
-            right: .5rem;
+            top: 0rem;
+            right: 0rem;
+            height: 25%;
+            width: auto;
             z-index:100
           }
+          :host([orientation="portrait"]) #videoLocal{
+            width: 25%;         
+            height: auto;
+        }
   
           
           `
