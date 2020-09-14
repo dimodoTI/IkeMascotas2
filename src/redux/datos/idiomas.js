@@ -159,7 +159,10 @@ export const idiomas = {
             mascota: "Mascotas",
             consulta: "Consultas",
             vacuna: "Vacunas",
-            foto: "Fotos"
+            foto: "Fotos",
+            lblAyuda01: "¿Necesitás ayuda?.",
+            lblAyuda02: "Estamos para lo que necesites.",
+            btnAyuda: "Comunicarse con IKÉ"
         },
         usuariodetalle: {
             titulo: "Tu perfil",

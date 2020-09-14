@@ -186,6 +186,22 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
             font-size: var(--font-error-size);
         }
 
+
+        .lblayuda{
+            font-size: var(--font-header-h2-size);
+            font-weight: var(--font-header-h2-weight);
+            text-align:center;
+        }
+
+        #divAyuda{
+            display:grid;
+            width:100%;
+            grid-gap:0;
+            justify-items:center;
+            grid-column-start:1;
+            grid-column-end:3;
+        }
+
         `
     }
 
@@ -222,8 +238,10 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
 
             </div>
             <div id="divAyudaPie">
-                <hr style="width:90%; border-top: 2px solid var(--color-gris-claro)">
-                <div><label class="lblayudaPie">${idiomas[this.idioma].pie.lblAyuda01}</label></div>
+                <label class="lblayuda">${idiomas[this.idioma].pie.lblAyuda01}</label>
+                <label class="lblayuda">${idiomas[this.idioma].pie.lblAyuda02}</label>
+                <!-- <hr style="width:90%; border-top: 2px solid var(--color-gris-claro)"> -->
+                <!-- <div><label class="lblayudaPie">${idiomas[this.idioma].pie.lblAyuda01}</label></div> -->
                 <button btn3 id="btn-ayudaPie" @click=${this.clickAyudaPie}>${idiomas[this.idioma].pie.btnAyuda}</button>
             </div>
         `
@@ -269,6 +287,10 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
         }))
         this.update()
 
+    }
+
+    clickAyudaPie(e) {
+        location.href = "tel:08001221453"
     }
 
     clickBoton4() {

@@ -422,10 +422,11 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             const SeMuestraEnUnasDeEstasPantallas = "-videoConsulta-videoMasocotaVer-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 if (!this.yours) {
-                    this.sala = "dimodo"
+                    this.reserva = state.reservas.entities.enAtencion.registro
+                    this.sala = "dimodo" //+ this.reserva.Id.toString()
                     this.connectCliente()
                     this.current = state.screen.name
-                    this.reserva = state.reservas.entities.enAtencion.registro
+
                 }
                 this.hidden = false
             }
