@@ -1,4 +1,4 @@
-const cacheName = 'Version1.4';
+const cacheName = 'Version1.5';
 const enCache = [
     "./index.html",
     "./app.bundle.js",

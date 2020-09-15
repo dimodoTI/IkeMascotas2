@@ -150,9 +150,9 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     }
 
     firstUpdated(changedProperties) {
-
-        this.videoLocal = this.shadowRoot.querySelector('#videoLocal');
-        this.videoRemoto = this.shadowRoot.querySelector('#videoRemoto');
+        /* 
+                this.videoLocal = this.shadowRoot.querySelector('#videoLocal');
+                this.videoRemoto = this.shadowRoot.querySelector('#videoRemoto'); */
 
         //this.connectCliente()
         //this.connectVeterinario()
@@ -267,6 +267,14 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
 
             const configuration = {
                 iceServers: [{
+                    urls: "turn:dimodo.ga",
+                    username: "dimodo",
+                    credential: "dimodo"
+                }]
+            }
+
+            /* const configuration = {
+                iceServers: [{
                     urls: [
                         "stun:stun.l.google.com:19302",
                         "stun:stun1.l.google.com:19302",
@@ -274,7 +282,20 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
                         "stun:stun.l.google.com:19302?transport=udp",
                     ]
                 }]
-            };
+            }; */
+
+            /*             const configuration = {
+                            iceServers: [{
+                                urls: [
+                                    "turn:64.227.109.20:80?transport=tcp",
+                                    "turn:64.227.109.20:49160?transport=tcp"
+                                ],
+                                username: "",
+                                credential: ""
+                            }]
+                        };
+
+             */
 
             const remoteStream = new MediaStream();
             theirVideo.srcObject = remoteStream;
@@ -379,9 +400,15 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
     };
 
     connectCliente() {
+        this.videoLocal = this.shadowRoot.querySelector('#videoLocal');
+        this.videoRemoto = this.shadowRoot.querySelector('#videoRemoto');
+
         this.connectVideo("cliente", this.sala, this.videoRemoto, this.videoLocal)
     }
     connectVeterinario() {
+        this.videoLocal = this.shadowRoot.querySelector('#videoLocal');
+        this.videoRemoto = this.shadowRoot.querySelector('#videoRemoto');
+
         this.connectVideo("veterinario", this.sala, this.videoRemoto, this.videoLocal)
     }
 
