@@ -13,6 +13,7 @@ export class miCheckbox extends connect(store)(LitElement) {
     constructor() {
         super();
         this.label = ""
+
     }
 
     static get styles() {
@@ -145,11 +146,25 @@ export class miCheckbox extends connect(store)(LitElement) {
         return html `
             <label class="controlCkh controlCkh-checkbox">
                 ${this.label}
-                <input type="checkbox" />
+                <input type="checkbox" id="myChecked"/>
                 <div class="controlCkh_indicator"></div>
             </label>
         `
     }
+
+    click() {
+
+        this.check = !this.check
+    }
+
+    get check() {
+        return this.shadowRoot.querySelector("#myChecked").checked
+    }
+
+    set check(value) {
+        this.shadowRoot.querySelector("#myChecked").checked = value
+    }
+
     static get properties() {
         return {
             label: {

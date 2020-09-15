@@ -100,13 +100,13 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN)(L
         return html `
                     <div class="ikeInput">
                         <label id="lblMail">${idiomas[this.idioma].inicioSesion.mail}</label>
-                        <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].inicioSesion.mail_ph} value="mdominguez33@hotmail.com">
+                        <input id="txtMail"  @input=${this.activar} type="email" placeholder=${idiomas[this.idioma].inicioSesion.mail_ph}>
                         <label id="lblErrorMail" error oculto>${idiomas[this.idioma].inicioSesion.errorMail.err1}</label>
                     </div>
 
                     <div class="ikeInput">
                         <label id="lblClave">${idiomas[this.idioma].inicioSesion.clave}</label>
-                        <input id="txtClave" @input=${this.activar} type="password" value="mdominguez">
+                        <input id="txtClave" @input=${this.activar} type="password">
                         <label id="lblErrorClave" error oculto>${idiomas[this.idioma].inicioSesion.errorClave.err1}</label>
                     </div>
 
@@ -134,7 +134,13 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN)(L
             const SeMuestraEnUnasDeEstasPantallas = "-inicioSesion-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
-                this.activar()
+                if (localStorage.getItem("email") && localStorage.getItem("clave")) {
+                    this.shadowRoot.querySelector("#txtClave").value = localStorage.getItem("clave")
+                    this.shadowRoot.querySelector("#txtMail").value = localStorage.getItem("email")
+                    this.shadowRoot.querySelector("#chk").check = true
+                    this.activar()
+                }
+                //this.activar()
             }
             this.update();
         }
@@ -185,6 +191,12 @@ export class pantallaInicioSesion extends connect(store, MEDIA_CHANGE, SCREEN)(L
             if (this.valido()) {
                 const clave = this.shadowRoot.querySelector("#txtClave").value
                 const email = this.shadowRoot.querySelector("#txtMail").value
+                if (this.shadowRoot.querySelector("#chk").check) {
+                    localStorage.clear();
+                    localStorage.setItem("email", email);
+                    localStorage.setItem("clave", clave);
+                }
+
                 store.dispatch(login(email, clave))
                 //store.dispatch(goTo("principal"))
                 //store.dispatch(modoPantalla("principal", "inicioSesion"));

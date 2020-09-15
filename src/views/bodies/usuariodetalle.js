@@ -87,12 +87,12 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
           
             position: relative;
             display: grid;
-            grid-auto-flow: row;
+            grid-template-rows:100%;
              overflow-x: hidden;
-            overflow-y: auto;
             background-color: #FAFAFA !important;
             gap: 0.8rem;    
             padding: 1rem;
+            
         
         }
         :host([hidden]){
@@ -228,7 +228,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
         
 
             <div id="cuerpo">
-                <div style="height:1rem;width:100%"></div>
+                <div style="height:1rem;width:100%;display:grid"></div>
                 <div id="marco">
                     
                     <div id="foto" style="background-image:url(${this.item.foto});">
@@ -390,6 +390,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
 
         if (name == UPDATEPROFILE_TIMESTAMP) {
             store.dispatch(setDatos(this.asignarValores(this.item)))
+            store.dispatch(goTo("principal"))
         }
 
         if (name == FOTOS_TIMESTAMP && state.fotos.quien == "usuario") {
@@ -404,10 +405,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
 
     }
 
-    clickAtras() {
-        //store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "usuariodetalle"))
-        store.dispatch(goTo())
-    }
+
 
     clickClave() {
         store.dispatch(goTo("crearclave"))

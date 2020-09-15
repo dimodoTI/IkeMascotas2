@@ -89,6 +89,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             left: 0rem;  
             height:100%;
             width: 100%;
+            grid-template-rows:100%;
             background-color:var(--color-gris-fondo);
             display:grid;
         }

@@ -104,7 +104,7 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
 
 
         :host(:not([media-size="small"])) #cuerpo{
-            grid-template-rows : 1% 7% 55% 7% 25% 1%;
+            grid-template-rows : 1% 62% 7% 25% 1%;
             grid-row-gap : .4rem;
         }
 
@@ -216,8 +216,8 @@ export class pantallaPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, RESE
         <div class="cuerpo">
             <div id="espacio" style="height:.5rem;width:1%;grid-column-start:1;grid-column-end:3;"></div>
 
-            <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" style="padding-bottom:.5rem" @click="${this.video}">
-                    </btn-nueva-consulta>
+<!--             <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" style="padding-bottom:.5rem" @click="${this.video}">
+                    </btn-nueva-consulta> -->
             
             
             <flierportada-componente id="flier" media-size="${this.mediaSize}" tipo="C"></flierportada-componente>

@@ -46,7 +46,7 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
         }
         #cuerpo{
             display: block;
-            height: 90vmin;
+            height: 100%;
             width: 90vmin;
             background-image:var(--imagen-logo-splash);
             background-repeat: no-repeat;

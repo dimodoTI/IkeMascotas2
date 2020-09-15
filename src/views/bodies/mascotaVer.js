@@ -180,10 +180,10 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             background-color: transparent;
             display:grid;
             padding:1rem;
-            grid-auto-flow:row;
             grid-gap:.1rem;
             overflow-y: auto; 
             overflow-x: hidden; 
+            height:90%
            
         }
         #cuerpo::-webkit-scrollbar {

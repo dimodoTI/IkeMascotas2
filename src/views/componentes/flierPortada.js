@@ -77,7 +77,7 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
                 repeat(this.item, (dato) => dato.Titulo, (dato, index) => html`
                 <div id="div-agenda" >
                     <label id="lbl-agenda">${idiomas[this.idioma].publicidad.flier[dato.Titulo].lbl}</label>
-                    <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].publicidad.flier[dato.Titulo].lblBtn}</button>
+                    <!-- <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].publicidad.flier[dato.Titulo].lblBtn}</button> -->
                 </div>                
             `)}
         `
