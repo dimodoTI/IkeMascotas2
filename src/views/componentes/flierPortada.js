@@ -19,6 +19,22 @@ import {
     idiomas
 } from "../../redux/datos/idiomas"
 
+import {
+    goNext,
+    goTo
+} from "../../redux/routing/actions"
+
+import {
+    get as getReservas
+} from "../../redux/reservas/actions"
+import {
+    get as getMascotas
+} from "../../redux/mascotas/actions"
+
+import {
+    selectMenu
+} from "../../redux/ui/actions"
+
 //const PUBLICIDAD_TIMESTAMP = "publicidad.timeStamp"
 
 const PUBLICIDAD_TIMESTAMP = "publicacion.timeStamp"
@@ -77,20 +93,33 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
                 repeat(this.item, (dato) => dato.Titulo, (dato, index) => html`
                 <div id="div-agenda" >
                     <label id="lbl-agenda">${idiomas[this.idioma].publicidad.flier[dato.Titulo].lbl}</label>
-                    <!-- <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].publicidad.flier[dato.Titulo].lblBtn}</button> -->
+                    <button id="btn-agenda" btn2 @click=${this.clickAgenda}>${idiomas[this.idioma].publicidad.flier[dato.Titulo].lblBtn}</button> 
                 </div>                
             `)}
         `
         }
     }
-    stateChanged(state, name) {
-        /*         if (name == PUBLICIDAD_TIMESTAMP) {
-                     this.item = state.publicidad.entities.filter(item => {
-                        return item.tipo == this.tipo 
 
-                    });
-                    this.update();
-                } */
+    clickAgenda(e) {
+        if (store.getState().mascotas.cantidad == 0) {
+            store.dispatch(getMascotas({
+                token: store.getState().cliente.datos.token,
+                expand: "Raza($expand=MascotasTipo),Reservas"
+            }))
+            store.dispatch(goTo("mascota"))
+            store.dispatch(selectMenu('dos'))
+        } else {
+            store.dispatch(getReservas({
+                expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
+                token: store.getState().cliente.datos.token,
+                orderby: "FechaAtencion desc,HoraAtencion desc"
+            }))
+            store.dispatch(goTo("misConsultas"))
+            store.dispatch(selectMenu('tres'))
+        }
+    }
+    stateChanged(state, name) {
+
         if (name == PUBLICIDAD_TIMESTAMP) {
             this.item = state.publicacion.entities.filter(item => {
                 return item.Tipo == this.tipo

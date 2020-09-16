@@ -186,6 +186,7 @@ export class pantallaMascotaAltaMsg extends connect(store, SCREEN, MEDIA_CHANGE)
     }
     clickBoton3() {
         store.dispatch(goTo("principal"))
+        store.dispatch(selectMenu("uno"))
     }
     stateChanged(state, name) {
         this.mediaSize = state.ui.media.size

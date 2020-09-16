@@ -35,6 +35,10 @@ import {
 import {
     get as getMascotas
 } from "../../redux/mascotas/actions"
+
+import {
+    selectMenu
+} from "../../redux/ui/actions"
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 const SELECTMENU = "ui.selectMenu"
@@ -260,12 +264,14 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
 
         if (name == SELECTMENU) {
             this.opcion = state.ui.selectMenu
+            this.update()
         }
 
     }
     clickBoton1() {
         store.dispatch(goTo("principal"))
-        this.opcion = 'uno'
+
+        store.dispatch(selectMenu("uno"))
         this.update()
     }
     clickBoton2() {
@@ -274,11 +280,11 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
             expand: "Raza($expand=MascotasTipo),Reservas"
         }))
         store.dispatch(goTo("mascota"))
-        this.opcion = 'dos'
+        store.dispatch(selectMenu("dos"))
         this.update()
     }
     clickBoton3() {
-        this.opcion = "tres"
+        store.dispatch(selectMenu("tres"))
         store.dispatch(goTo("misConsultas"))
         store.dispatch(getReservas({
             expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
@@ -295,7 +301,7 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
 
     clickBoton4() {
         store.dispatch(goTo("calendario"))
-        this.opcion = 'cuatro'
+        store.dispatch(selectMenu("cuatro"))
     }
 
     static get properties() {

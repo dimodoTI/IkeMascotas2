@@ -103,18 +103,18 @@ export class pantallaCalendario extends connect(store, SCREEN, MEDIA_CHANGE, MAS
         }
         #cuerpoVacuna{
             background-color: transparent;
-            display: grid;
-            
-            grid-template-columns: 100%;
+            display: grid;            
+            grid-template-columns: 99%;
             justify-items: center;
             overflow-y: auto; 
             overflow-x: hidden; 
-            grid-gap:1rem;
+            grid-gap:.8rem;
             align-content:flex-start;
-            overflow-y: auto;
-            
-   
-            justify-items: center;
+            overflow-y: auto;            
+            justify-items: center;           
+            justify-self: center;
+            height: 63vh;           
+            margin-top: 1rem;
         }
 
         #cuerpoVacuna::-webkit-scrollbar {
@@ -137,12 +137,7 @@ export class pantallaCalendario extends connect(store, SCREEN, MEDIA_CHANGE, MAS
             height:1.5rem;
             align-items:top;
         }
-        #pie{
-            position:relative;
-            grid-area: Pie; 
-            display:grid;
-            overflow-x: none; 
-        }
+
 
         .botonMarcado{
             cursor: not-allowed;

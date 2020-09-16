@@ -40,6 +40,10 @@ import {
     calificarAtencion
 } from "../../redux/reservas/actions"
 
+import {
+    selectMenu
+} from "../../redux/ui/actions"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 
@@ -203,6 +207,8 @@ export class pantallaVideoCalificacion extends connect(store, SCREEN, MEDIA_CHAN
     }
     cerrar() {
         store.dispatch(goTo("principal"))
+        store.dispatch(selectMenu("uno"))
+
         //store.dispatch(modoPantalla(store.getState().ui.pantallaQueLLamo, "videocalificacion"))
     }
 
@@ -212,10 +218,12 @@ export class pantallaVideoCalificacion extends connect(store, SCREEN, MEDIA_CHAN
         this.calificacion = 0
         comentario.value = ""
         store.dispatch(goTo("principal"))
+        store.dispatch(selectMenu("uno"))
     }
 
     ahoraNo() {
         store.dispatch(goTo("principal"))
+        store.dispatch(selectMenu("uno"))
     }
 
     stateChanged(state, name) {

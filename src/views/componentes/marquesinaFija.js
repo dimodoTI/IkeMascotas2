@@ -109,7 +109,7 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
             return repeat(this.item, (dato) => dato.Titulo, (dato, index) => html `
                   <div id="cuerpo-marq" class="${!dato.Titulo == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.Color});">
                       <div class="${!dato.Titulo == '' ? 'img-marq-dos' : 'img-marq-solo'}">
-                        <img  style="content:var(${dato.Imagen})"/>
+                        <img  style="content:url(${dato.Imagen})"/>
                       </div>
                       <label id="lbl-marq" >${!dato.Titulo == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl : ''}</label>
                   </div>`)

@@ -52,6 +52,10 @@ import {
     FOTOEDIT
 } from "../../../assets/icons/icons"
 
+import {
+    selectMenu
+} from "../../redux/ui/actions"
+
 
 const CLIENTE_LOGUEADO = "cliente.logueadoTimeStamp"
 
@@ -391,6 +395,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
         if (name == UPDATEPROFILE_TIMESTAMP) {
             store.dispatch(setDatos(this.asignarValores(this.item)))
             store.dispatch(goTo("principal"))
+            store.dispatch(selectMenu("uno"))
         }
 
         if (name == FOTOS_TIMESTAMP && state.fotos.quien == "usuario") {

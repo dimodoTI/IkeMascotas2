@@ -238,7 +238,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
                 <label class="subTitulo">${idiomas[this.idioma].mascotaver.informacion}</label>
                 <label class="informacion">${idiomas[this.idioma].mascotaver.tipo +  this.items.Raza.MascotasTipo.Descripcion}</label>
                 <label class="informacion">${idiomas[this.idioma].mascotaver.edad + this.calculaEdad(this.items.FechaNacimiento)}</label>
-                 <button id="btn-edit" btn1 @click=${ this.clickEdit}>
+                 <button id="btn-edit" btn1 @click=${this.clickEdit}>
                     ${ idiomas[this.idioma].mascotaver.btn1}
                 </button >
 
