@@ -529,9 +529,9 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                 this.current = state.screen.name
                 //this.item = state.chat.entitySinContestar
                 this.item = state.notificacion.entityNotificacionChatPendiente ? state.notificacion.entityNotificacionChatPendiente : []
-                this.update();
-            }
 
+            }
+            this.update();
 
         }
 

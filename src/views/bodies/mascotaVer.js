@@ -159,44 +159,39 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
     static get styles() {
         return css `
         ${button}
-
         ${cardCalendario}
         ${cardMascotaHorizontal}
 
         :host{
-            position: absolute;
-            top: 0rem;
-            left: 0rem;  
-            height:100%;
-            width: 100%;
+           
             background-color:var(--color-gris-fondo);
             display:grid;
+            height:75vh;
+            width:100%;
+            overflow-y:scroll !important;
+            
+            -webkit-overflow-scrolling: touch;
+            z-index:1000
         }
 
         :host([hidden]){
             display: none; 
         } 
+
         #cuerpo{
             background-color: transparent;
             display:grid;
             padding:1rem;
             grid-gap:.1rem;
-            overflow-y: auto; 
-            overflow-x: hidden; 
-            height:90%
-           
         }
+
         #cuerpo::-webkit-scrollbar {
             display: none;
         }
-        :host(:not([media-size="small"])) #cuerpo{
-/*             width:70%;
-            justify-self:center; */
-            grid-template-columns: repeat(auto-fit,minmax(10rem,1fr));
-        }
+
         #foto{
             display:grid;
-            height: calc(60vw - 2rem);
+            height:58vw;
             width: 100%;
             background-color: var(--color-gris-claro);
             border-radius: .5rem;
@@ -204,6 +199,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             background-position: center center;
             background-size: cover;
         }
+        
         .subTitulo{
             font-size: var(--font-bajada--size);
             font-weight: bold;
@@ -220,10 +216,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
-        #pie{
-            position:relative;
-
-        }
+ 
 
 
         .labelRedondeado{
@@ -239,37 +232,34 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
     }
     render() {
         return html `
-
             <div id="cuerpo" media-size="${this.mediaSize}">
                 <div id="foto" style="background-image:url(${this.items.Foto})">
                 </div>
                 <label class="subTitulo">${idiomas[this.idioma].mascotaver.informacion}</label>
                 <label class="informacion">${idiomas[this.idioma].mascotaver.tipo +  this.items.Raza.MascotasTipo.Descripcion}</label>
                 <label class="informacion">${idiomas[this.idioma].mascotaver.edad + this.calculaEdad(this.items.FechaNacimiento)}</label>
-                <button id="btn-edit" btn1 @click=${ this.clickEdit}>
+                 <button id="btn-edit" btn1 @click=${ this.clickEdit}>
                     ${ idiomas[this.idioma].mascotaver.btn1}
                 </button >
 
                 <div>
-                <label class="subTitulo" >${idiomas[this.idioma].mascotaver.consulta}</label>
-                    <pantalla-listareserva class="body"></pantalla-listareserva>
+                    <label class="subTitulo" >${idiomas[this.idioma].mascotaver.consulta}</label>
+                     <pantalla-listareserva class="body"></pantalla-listareserva>
                 </div>
+
                 <button style="margin-top:1rem" id="btn-edit" btn3 @click=${ this.clickConsulta}>
-                ${ idiomas[this.idioma].listaReserva.agendarReserva}
-            </button >
+                    ${ idiomas[this.idioma].listaReserva.agendarReserva}
+                 </button >
                 
-                <div style="padding:.5rem 0 .5rem 0">
+                 <div style="padding:.5rem 0 .5rem 0">
                     <label class="subTitulo" >${idiomas[this.idioma].mascotaver.vacuna}</label>
                     <div style="display:grid;grid-gap:.8rem;">
                         ${this.vacunas()}
-      
                     </div> 
                     <button id="btn-edit" btn3 @click=${ this.clickVacunas}>
                         ${ idiomas[this.idioma].mascotaver.btn3}
                     </button >
-                </div>
-
-
+                </div>  
             </div>`
     }
 
@@ -283,17 +273,11 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
     }
 
     vacunas() {
-
-
-
         return this.mascotasVacuna.map(dato => {
-
-
 
             const calendario = this.calendario.filter(u => u.VacunaId == dato.VacunaId)
             return html `
             
-
             <div id="ccDivEtiqueta" style="width:90%;justify-self:center">
             <div id="ccDivVacuna">${dato.Vacuna?dato.Vacuna.Descripcion:""}</div>
             <div id="ccDivPara">
@@ -306,32 +290,9 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             <div class="labelRedondeado" id="ccDivPeriodicidad">${calendario.length>0?calendario[0].Periodicidad:""}</div>
         </div>`
         })
-
-
-
     }
 
-    renderVacuna(dato) {
 
-
-        const calendario = this.calendario.filter(u => u.VacunaId == dato.VacunaId)
-
-        return html `
-        
-        <div id="ccDivEtiqueta" style="width:90%;justify-self:center">
-            <div id="ccDivVacuna">${dato.Vacuna.Descripcion}</div>
-            <div id="ccDivPara">
-                ${calendario.length>0?calendario[0].Enfermedades:""}
-            </div>
-            <div class="labelRedondeado" id="ccDivCachorro">
-                ${calendario.length>0?calendario[0].Edad:""}
-            </div>
-            <div class="labelRedondeado" id="ccDivObligatorio">${calendario.length>0?calendario[0].Optativa?idiomas[this.idioma].calendario.optativa:idiomas[this.idioma].calendario.obligatoria:""}</div>
-            <div class="labelRedondeado" id="ccDivPeriodicidad">${calendario.length>0?calendario[0].Periodicidad:""}</div>
-        </div>`
-
-        this.update()
-    }
 
     clickEdit() {
         store.dispatch(mascotasEdit("M", this.items))

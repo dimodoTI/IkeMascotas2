@@ -165,14 +165,14 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, C
 <!--                 <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}">
                 </btn-nueva-consulta> -->
 
-                <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" style="padding-bottom:.5rem" @click="${this.video}">
-                    </btn-nueva-consulta>
+                <!-- <btn-nueva-consulta id="avisoConsulta" media-size="${this.mediaSize}" style="padding-bottom:.5rem" @click="${this.video}">
+                    </btn-nueva-consulta> -->
 
                 <div id="div-Titulo-02" >
                     ${idiomas[this.idioma].misConsultas.titulo02}
                 </div> 
-                <div>
-                <pantalla-listareserva></pantalla-listareserva></div>
+                <div style="display:grid">
+                    <pantalla-listareserva></pantalla-listareserva></div>
             </div>
                
 

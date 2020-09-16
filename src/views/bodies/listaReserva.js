@@ -105,7 +105,7 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
             display:grid;
             align-content: flex-start;
             grid-gap:.5rem;
-            overflow-x:none;
+            overflow-x:hidden;
             overflow-y:auto;
         }
         #grilla::-webkit-scrollbar {

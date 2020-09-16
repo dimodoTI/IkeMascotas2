@@ -450,10 +450,9 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 if (!this.yours) {
                     this.reserva = state.reservas.entities.enAtencion.registro
-                    this.sala = "dimodo" //+ this.reserva.Id.toString()
+                    this.sala = "dimodo" + this.reserva.Id.toString()
                     this.connectCliente()
                     this.current = state.screen.name
-
                 }
                 this.hidden = false
             }
