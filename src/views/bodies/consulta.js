@@ -209,7 +209,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
         let valido = true
         const mascota = this.shadowRoot.querySelector("#txtMascota")
         const sintoma = this.shadowRoot.querySelector("#txtSintoma")
-        if (mascota.value.length < 8) {
+        if (mascota.value = 0) {
             valido = false
         }
 
@@ -247,13 +247,18 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
 
 
     clickBoton2() {
-        const mascota = this.shadowRoot.querySelector("#txtMascota").value
-        const motivo = this.shadowRoot.querySelector("#txtSintoma").value
+
+        if (this.valido()) {
+            const mascota = this.shadowRoot.querySelector("#txtMascota").value
+            const motivo = this.shadowRoot.querySelector("#txtSintoma").value
 
 
-        let fechaHoy = new Date()
-        fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
-        store.dispatch(reservasAFuturo(mascota, store.getState().cliente.datos.token, fechaHoy))
+            let fechaHoy = new Date()
+            fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
+            store.dispatch(reservasAFuturo(mascota, store.getState().cliente.datos.token, fechaHoy))
+
+        }
+
     }
 
 

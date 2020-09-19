@@ -160,12 +160,14 @@ export const processLogin = ({
 
             dispatch(getCantidad({
                 select: "Id",
+                filter: "Activo",
                 token: getState().cliente.datos.token
 
             }))
 
             dispatch(reservaCantidad({
                 select: "Id",
+                filter: "Activo",
                 token: getState().cliente.datos.token,
             }))
 

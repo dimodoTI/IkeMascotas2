@@ -63,20 +63,25 @@ if (getParameterByName("ticket")) {
 
 
 store.dispatch(getCalendario({
-    expand: "MascotasTipo, Vacuna"
+    expand: "MascotasTipo, Vacuna",
+    filter: "Activo and MascotasTipo/Activo and Vacuna/Activo"
 
 }))
 
 store.dispatch(getMascotasTipo({
+    filter: "Activo",
     orderby: "Descripcion"
 }))
 
 store.dispatch(getRazas({
-    orderby: "idMascotasTipo,Descripcion"
+    orderby: "idMascotasTipo,Descripcion",
+    filter: "Activo"
 }))
 
 
-store.dispatch(getVacunas({}))
+store.dispatch(getVacunas({
+    filter: "Activo"
+}))
 
 
 

@@ -225,6 +225,12 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
 
 
     }
+
+    refresh() {
+        this.vacunas = []
+        this.update()
+    }
+
     stateChanged(state, name) {
 
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
@@ -242,13 +248,18 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
             this.mascotas = state.mascotas.entities
         }
 
+
+
         if (name == VACUNAS_TIMESTAMP) {
+            this.refresh()
             this.vacunas = state.vacunas.entities
+            this.update()
         }
 
         if (name == MASCOTASGETEDIT_TIMESTAMP) {
             /*    const mascota = state.mascotas.entities.currentTarget
                if (mascota.length > 0) { */
+            this.refresh()
             const comboMascota = this.shadowRoot.querySelector("#mascota")
             comboMascota.value = state.mascotas.entities.currentEdit[0].Id.toString()
             this.vacunas = state.vacunas.entities.filter(u => u.MascotaTipoId == state.mascotas.entities.currentEdit[0].Raza.idMascotasTipo)

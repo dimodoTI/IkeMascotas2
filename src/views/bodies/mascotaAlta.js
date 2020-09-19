@@ -73,7 +73,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         this.razas = []
         this.mascotasTipo = [];
         this.modo = ""
-        this.current = "mascotaalta"
+
     }
 
     static get styles() {
@@ -237,7 +237,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             <div id="cuerpo">
                 <div id="foto" >
                     <img src="${this.item.Foto}" id = "fotoMascota">
-                    <button id="fotoBoton" btn3 @click=${this.clickFoto}>${
+                    <button id="fotoBoton" btn3 @click=${this.abreFoto}>${
                  idiomas[this.idioma][this.current].btn1 }
                     </button>
                 </div>
@@ -246,7 +246,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                 <div id="selectMascota" class="select" style="width:100%;height:3.4rem" > 
                     <label >${idiomas[this.idioma][this.current].mascota}</label>
                     <select style="width:100%;height:1.7rem; color:black" id="mascota"  @change="${this.cambioTipo}" > 
-                        <option  value="0">Elija Tipo de Mascota</option>                          
+                        <option   value="0">Elija Tipo de Mascota</option>                          
                         ${this.mascotasTipo.map((p)=>{
                             return html `
                             <option style="color:black" .selected="${this.item.Raza.idMascotasTipo==p.Id}" value="${p.Id}">${p.Descripcion}</option>
@@ -329,10 +329,10 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         store.dispatch(goTo("mascota"))
         store.dispatch(selectMenu("dos"))
     }
-    clickFoto() {
-        this.shadowRoot.querySelector("#divTapa").style.display = "grid";
-        this.shadowRoot.querySelector("#divMensaje").style.display = "grid";
-    }
+    /*     clickFoto() {
+            this.shadowRoot.querySelector("#divTapa").style.display = "grid";
+            this.shadowRoot.querySelector("#divMensaje").style.display = "grid";
+        } */
 
     abreFoto() {
         store.dispatch(llamador("mascota"))
@@ -343,10 +343,10 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         }
 
     }
-    clickCancelar() {
-        this.shadowRoot.querySelector("#divTapa").style.display = "none";
-        this.shadowRoot.querySelector("#divMensaje").style.display = "none";
-    }
+    /*     clickCancelar() {
+            this.shadowRoot.querySelector("#divTapa").style.display = "none";
+            this.shadowRoot.querySelector("#divMensaje").style.display = "none";
+        } */
 
     asignarValores(olditem) {
         let item = {
@@ -410,13 +410,25 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
     }
 
 
-
+    refresh() {
+        this.item = {
+            Raza: {
+                MascotasTipo: {
+                    Id: 0
+                }
+            },
+            MascotasVacuna: {},
+            Reservas: {}
+        }
+        this.update()
+    }
 
     clickGrabar() {
 
 
         if (this.modo == "A") {
             store.dispatch(addMascotas(this.asignarValores(this.item), store.getState().cliente.datos.token))
+
         } else {
             store.dispatch(patchMascotas(this.item.Id, this.generaPathch(this.item), store.getState().cliente.datos.token))
         }
@@ -438,6 +450,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                 this.current = state.screen.name
                 this.hidden = false
             }
+
             this.update();
         }
 
@@ -448,6 +461,8 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
 
         if (name == MASCOTAS_EDIT) {
+
+            this.refresh()
             this.mascotasTipo = state.mascotastipo.entities
             this.razas = state.razas.entities
             this.modo = state.mascotas.modo
@@ -461,6 +476,10 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
 
             const combo = this.shadowRoot.querySelector("#selectRaza")
             combo.value = this.item.idRaza
+            this.item = state.mascotas.entities.currentItem
+            if (!this.item.Foto) {
+                this.item.Foto = ""
+            }
             this.update()
         }
 
