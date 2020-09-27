@@ -205,6 +205,7 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, C
         store.dispatch(getCombo({
             orderby: "Nombre",
             select: "Id,Nombre",
+            filter: "Activo",
             token: store.getState().cliente.datos.token
         }))
 

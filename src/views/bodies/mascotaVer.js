@@ -304,6 +304,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
         store.dispatch(getCombo({
             orderby: "Nombre",
             select: "Id,Nombre",
+            filter: "Activo",
             token: store.getState().cliente.datos.token
         }))
 

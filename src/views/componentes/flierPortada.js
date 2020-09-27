@@ -104,6 +104,7 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
         if (store.getState().mascotas.cantidad == 0) {
             store.dispatch(getMascotas({
                 token: store.getState().cliente.datos.token,
+                filter: "Activo",
                 expand: "Raza($expand=MascotasTipo),Reservas"
             }))
             store.dispatch(goTo("mascota"))
@@ -112,6 +113,7 @@ export class flierPortadaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)
             store.dispatch(getReservas({
                 expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
                 token: store.getState().cliente.datos.token,
+                filter: "Activo",
                 orderby: "FechaAtencion desc,HoraAtencion desc"
             }))
             store.dispatch(goTo("misConsultas"))

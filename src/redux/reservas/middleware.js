@@ -31,9 +31,10 @@ import {
     CALIFICAR_SUCCESS,
     RESERVAS_A_FUTURO,
     RESERVAS_A_FUTURO_SUCCESS,
-    RESERVAS_A_FUTURO_ERROR
-
-
+    RESERVAS_A_FUTURO_ERROR,
+    ANULAR_RESERVAS,
+    ANULAR_RESERVAS_ERROR,
+    ANULAR_RESERVAS_SUCCESS
 
 } from "./actions";
 
@@ -102,12 +103,14 @@ export const patch = ({
     dispatch
 }) => next => action => {
     next(action);
-    if (action.type === PATCH) {
-        dispatch(RESTPatch(ikeReservas, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR, action.token))
+    if (action.type === PATCH || action.type === ANULAR_RESERVAS) {
+        dispatch(RESTPatch(ikeReservas, action.id, action.body, action.onSuccess, action.onError, action.token))
     }
     if (action.type === CALIFICAR) {
         dispatch(RESTPatch(ikeReservas, action.id, action.body, CALIFICAR_SUCCESS, CALIFICAR_ERROR, action.token))
     }
+
+
 };
 
 export const remove = ({
@@ -128,6 +131,7 @@ export const processGet = ({
 
     }
 
+
 };
 
 export const processComand = ({
@@ -142,9 +146,25 @@ export const processComand = ({
         dispatch(traerUltimaReserva(getState().cliente.datos.token))
         dispatch(reservaCantidad({
             select: "Id",
+            filter: "Activo",
             token: getState().cliente.datos.token,
         }))
 
+
+
+    }
+    if (action.type === ANULAR_RESERVAS_SUCCESS) {
+        dispatch(getReservas({
+            expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
+            filter: "Activo",
+            token: getState().cliente.datos.token,
+            orderby: "FechaAtencion desc,HoraAtencion desc"
+        }))
+        dispatch(reservaCantidad({
+            select: "Id",
+            filter: "Activo",
+            token: getState().cliente.datos.token,
+        }))
     }
 };
 

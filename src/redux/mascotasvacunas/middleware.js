@@ -108,6 +108,7 @@ export const processComand = ({
     }
     if (action.type === ADD_SUCCESS) {
         dispatch(getCantidad({
+            filter: "Activo",
             token: getState().cliente.datos.token
         }))
     }

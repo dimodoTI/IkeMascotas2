@@ -277,7 +277,8 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
     clickBoton2() {
         store.dispatch(getMascotas({
             token: store.getState().cliente.datos.token,
-            expand: "Raza($expand=MascotasTipo),Reservas"
+            filter: "Activo",
+            expand: "Raza($expand=MascotasTipo),Reservas($filter=Activo)"
         }))
         store.dispatch(goTo("mascota"))
         store.dispatch(selectMenu("dos"))
@@ -285,13 +286,16 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
     }
     clickBoton3() {
         store.dispatch(selectMenu("tres"))
-        store.dispatch(goTo("misConsultas"))
+
         store.dispatch(getReservas({
             expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
+            filter: "Activo",
             token: store.getState().cliente.datos.token,
             orderby: "FechaAtencion desc,HoraAtencion desc"
         }))
         this.update()
+
+        store.dispatch(goTo("misConsultas"))
 
     }
 

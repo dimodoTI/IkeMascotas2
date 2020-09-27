@@ -145,7 +145,7 @@ export class pantallaConsultaMsg extends connect(store, SCREEN, MEDIA_CHANGE, AD
                 <div id="divDetalle">
                     <div id="listaAdjuntos" style="padding-top:.5rem;display:grid;grid-gap:.5rem">
                         ${this.adjuntosCliente.map(dato => html`
-                            <div id="ciDivEtiqueta">
+                            <div id="ciDivEtiqueta" style="width:90%">
                                 <div id="ciDivContenido" style="grid-column-start:1;grid-column-end:3" >
                                     <div id="ciDivIcomo" .link="${dato.Url}"  @click=${this.irA}>${ARCHIVO}</div>
                                     <div id="ciDivNombre" .link="${dato.Url}"  @click=${this.irA}>${dato.Nombre}</div>
@@ -222,13 +222,14 @@ export class pantallaConsultaMsg extends connect(store, SCREEN, MEDIA_CHANGE, AD
             store.dispatch(getReservas({
                 token: store.getState().cliente.datos.token,
                 expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
+                filter: "Activo",
                 orderby: "FechaAtencion desc"
             }))
             store.dispatch(goTo("misConsultas"))
         } else {
             store.dispatch(getReservas({
                 token: store.getState().cliente.datos.token,
-                filter: "MascotaId eq " + this.items.Mascota.Id,
+                filter: "MascotaId eq " + this.items.Mascota.Id + " and Activo",
                 expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
                 orderby: "FechaAtencion desc"
             }))
@@ -245,12 +246,12 @@ export class pantallaConsultaMsg extends connect(store, SCREEN, MEDIA_CHANGE, AD
             const haveBodyArea = state.screen.layouts[this.mediaSize].areas.find(a => a == this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-consultaMsg-consultaMsgMascota-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
+                this.adjuntosCliente = []
                 this.hidden = false
                 this.items = store.getState().reservas.ultimaReserva
                 this.current = state.screen.name
                 this.update();
             }
-
         }
 
         if (name == ADJUNTOS_DELCLIENTE_TIMESTAMP) {

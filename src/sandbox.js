@@ -63,8 +63,8 @@ if (getParameterByName("ticket")) {
 
 
 store.dispatch(getCalendario({
-    expand: "MascotasTipo, Vacuna",
-    filter: "Activo and MascotasTipo/Activo and Vacuna/Activo"
+    expand: "MascotasTipo($filter=Activo), Vacuna($filter=Activo)",
+    filter: "Activo"
 
 }))
 

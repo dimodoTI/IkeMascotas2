@@ -180,7 +180,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
         store.dispatch(editMascotas("M", e.currentTarget.item))
 
         store.dispatch(getMascotasVacuna({
-            filter: "MascotaId eq " + e.currentTarget.item.Id,
+            filter: "MascotaId eq " + e.currentTarget.item.Id + " and Activo",
             expand: "Vacuna($expand=Calendarios)",
             token: store.getState().cliente.datos.token
         }))
@@ -188,7 +188,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
 
 
         store.dispatch(getReservas({
-            filter: "MascotaId eq " + e.currentTarget.item.Id.toString(),
+            filter: "MascotaId eq " + e.currentTarget.item.Id.toString() + " and Activo",
             expand: "Atencion($expand=Veterinario),Mascota,Chats($top=1;$select=Id)",
             token: store.getState().cliente.datos.token,
             orderby: "FechaAtencion desc"
@@ -214,6 +214,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
         if (name == MASCOTAS_ADDTIMESTAMP || name == MASCOTAS_REMOVETIMESTAMP || name == MASCOTAS_UPDATETIMESTAMP) {
             store.dispatch(getMascotas({
                 token: state.cliente.datos.token,
+                filter: "Activo",
                 expand: "Raza($expand=MascotasTipo)"
             }))
         }

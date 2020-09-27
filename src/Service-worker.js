@@ -1,4 +1,4 @@
-const cacheName = 'Version1.5';
+const cacheName = 'Version1.6';
 
 const enCache = [
     "./index.html",

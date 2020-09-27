@@ -54,7 +54,8 @@ import {
     isInLayout
 } from "../../redux/screens/screenLayouts";
 import {
-    selectMenu
+    selectMenu,
+    showWarning
 } from "../../redux/ui/actions";
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
@@ -246,7 +247,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
                 <div id="selectMascota" class="select" style="width:100%;height:3.4rem" > 
                     <label >${idiomas[this.idioma][this.current].mascota}</label>
                     <select style="width:100%;height:1.7rem; color:black" id="mascota"  @change="${this.cambioTipo}" > 
-                        <option   value="0">Elija Tipo de Mascota</option>                          
+                        <option value="0" >Elija Tipo de Mascota</option>                          
                         ${this.mascotasTipo.map((p)=>{
                             return html `
                             <option style="color:black" .selected="${this.item.Raza.idMascotasTipo==p.Id}" value="${p.Id}">${p.Descripcion}</option>
@@ -329,10 +330,6 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         store.dispatch(goTo("mascota"))
         store.dispatch(selectMenu("dos"))
     }
-    /*     clickFoto() {
-            this.shadowRoot.querySelector("#divTapa").style.display = "grid";
-            this.shadowRoot.querySelector("#divMensaje").style.display = "grid";
-        } */
 
     abreFoto() {
         store.dispatch(llamador("mascota"))
@@ -341,12 +338,8 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
         } else {
             store.dispatch(goTo("mascotaEditarFoto"))
         }
-
     }
-    /*     clickCancelar() {
-            this.shadowRoot.querySelector("#divTapa").style.display = "none";
-            this.shadowRoot.querySelector("#divMensaje").style.display = "none";
-        } */
+
 
     asignarValores(olditem) {
         let item = {
@@ -413,6 +406,7 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
     refresh() {
         this.item = {
             Raza: {
+                idMascotasTipo: 0,
                 MascotasTipo: {
                     Id: 0
                 }
@@ -420,22 +414,65 @@ export class pantallaMascotaAlta extends connect(store, MEDIA_CHANGE, SCREEN, MA
             MascotasVacuna: {},
             Reservas: {}
         }
+        this.shadowRoot.querySelector("#mascota").value = 0
         this.update()
     }
 
-    clickGrabar() {
+    validarDatos() {
+        const mascota = this.shadowRoot.querySelector("#mascota")
+        const nombre = this.shadowRoot.querySelector("#txtNombre")
+        const fecha = this.shadowRoot.querySelector("#txtFecha")
+        const raza = this.shadowRoot.querySelector("#selectRaza")
+        let errores = []
+        let retorno = true
 
-
-        if (this.modo == "A") {
-            store.dispatch(addMascotas(this.asignarValores(this.item), store.getState().cliente.datos.token))
-
-        } else {
-            store.dispatch(patchMascotas(this.item.Id, this.generaPathch(this.item), store.getState().cliente.datos.token))
+        if (mascota.value == 0) {
+            store.dispatch(showWarning(this.current, 0))
+            //errores.push(idiomas[this.idioma][this.current].errorTipoMascota);
+            return false
         }
 
-        store.dispatch(goTo("mascotaAltaMsg"));
-        //            }
-        //       }
+        if (nombre.value == "") {
+            //errores.push(idiomas[this.idioma][this.current].errorNombre)
+            store.dispatch(showWarning(this.current, 1))
+            return false
+        }
+
+        if (fecha.value != "") {
+            let fechaHoy = new Date()
+            fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
+            let fechaNacimiento = new Date(fecha.value)
+            fechaNacimiento = (new Date(fechaNacimiento.getTime() - (fechaNacimiento.getTimezoneOffset() * 60000))).toJSON()
+            if (fechaNacimiento > fechaHoy) {
+                //errores.push("Mal fecha")
+                store.dispatch(showWarning(this.current, 2))
+                return false
+            }
+        } else {
+            //errores.push(idiomas[this.idioma][this.current].errorFecha)
+            store.dispatch(showWarning(this.current, 3))
+            return false
+        }
+
+
+        if (raza.value == 0) {
+            store.dispatch(showWarning(this.current, 3))
+            return false
+        }
+
+        return true //errores.length > 0 ? false : true
+    }
+
+    clickGrabar() {
+        if (this.validarDatos()) {
+            if (this.modo == "A") {
+                store.dispatch(addMascotas(this.asignarValores(this.item), store.getState().cliente.datos.token))
+
+            } else {
+                store.dispatch(patchMascotas(this.item.Id, this.generaPathch(this.item), store.getState().cliente.datos.token))
+            }
+            store.dispatch(goTo("mascotaAltaMsg"));
+        }
     }
 
 

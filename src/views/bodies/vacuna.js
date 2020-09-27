@@ -49,6 +49,10 @@ import {
     showScreen
 } from "../../redux/screens/actions";
 
+import {
+    showWarning
+} from "../../redux/ui/actions"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 
@@ -63,6 +67,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
         this.mascotas = []
         this.mascota = 0
         this.current = "vacuna"
+        this.mascota = 0
 
         this.item = {
             Id: 0,
@@ -126,9 +131,10 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
                     <label >${idiomas[this.idioma].vacuna.mascota}</label>
                     <select  id="mascota" @change="${this.cambioMascota}" style="width:100%;height:1.7rem;">   
                         <option  selected="true"value=0>${idiomas[this.idioma].vacuna.elegimascota}</option>
-                        ${this.mascotas.map(mascota => html `<option .selected="${this.mascotas.Id==mascota.Id}" value=${mascota.Id}>${mascota.Nombre}</option>`)}
+                        ${this.mascotas.map(mascota => html `<option .selected="${this.mascota==mascota.Id}" value=${mascota.Id}>${mascota.Nombre}</option>`)}
                     </select>
-                    <label id="mascotaEror" oculto>${idiomas[this.idioma].vacuna.mascotaerror}</label>
+                    
+                    <label id="mascotaError" error oculto>${idiomas[this.idioma].vacuna.mascotaerror}</label>
                 </div>  
 
                 <div id="selectVacuna" class="select"> 
@@ -141,7 +147,8 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
                              `}
                                 )}
                     </select>
-                    <label id="vacunaEror" oculto style="display:none">${idiomas[this.idioma].vacuna.mascotaerror}</label>
+                    
+                    <label id="vacunaError" error oculto>${idiomas[this.idioma].vacuna.vacunaerror}</label>
                 </div>  
 
                  
@@ -184,18 +191,42 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
         const fecha = this.shadowRoot.querySelector("#txtFecha")
 
 
-        if (mascota.value == 0) {
-            valido = false
-            this.shadowRoot.querySelector("#mascotaEror").removeAttribute("oculto");
+        if (mascota.value == "0") {
+            store.dispatch(showWarning(this.current, 0))
+            return false
+            //valido = false
+            //this.shadowRoot.querySelector("#mascotaError").removeAttribute("oculto");
         }
 
-        if (vacuna.value == 0) {
+        if (vacuna.value == "0") {
             valido = false
-            this.shadowRoot.querySelector("#vacunaEror").removeAttribute("oculto");
+            store.dispatch(showWarning(this.current, 1))
+            return false
+            //this.shadowRoot.querySelector("#vacunaError").removeAttribute("oculto");
+        }
+
+        if (fecha.value != "") {
+            let fechaHoy = new Date()
+            fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
+            let fechaVacuna = new Date(fecha.value)
+            fechaVacuna = (new Date(fechaVacuna.getTime() - (fechaVacuna.getTimezoneOffset() * 60000))).toJSON()
+            if (fechaVacuna > fechaHoy) {
+                //this.shadowRoot.querySelector("#lblErrorFecha").removeAttribute("oculto");
+                store.dispatch(showWarning(this.current, 2))
+
+                valido = false
+                return false
+            }
+        } else {
+            //this.shadowRoot.querySelector("#lblErrorFecha").removeAttribute("oculto");
+            store.dispatch(showWarning(this.current, 3))
+
+            valido = false
+            return false
         }
 
         this.update()
-        return valido
+        return true
     }
 
     asignarValores(olditem) {
@@ -216,18 +247,17 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
     clickBoton2() {
         if (this.valido()) {
             store.dispatch(addMascotasvacunas(this.asignarValores(this.item), store.getState().cliente.datos.token))
+            if (this.current == "vacuna") {
+                store.dispatch(goTo("vacunaMsg"))
+            } else {
+                store.dispatch(goTo("vacunaMsgMascota"))
+            }
         }
-        if (this.current == "vacuna") {
-            store.dispatch(goTo("vacunaMsg"))
-        } else {
-            store.dispatch(goTo("vacunaMsgMascota"))
-        }
-
-
     }
 
     refresh() {
         this.vacunas = []
+        this.shadowRoot.querySelector("#mascota").value = 0
         this.update()
     }
 
@@ -241,6 +271,10 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
                 this.current = state.screen.name
+                this.mascota = 0
+                if (this.current == "vacunaMascota") {
+                    this.mascota = state.mascotas.entities.currentItem.Id
+                }
             }
             this.update();
         }
@@ -262,6 +296,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
             this.refresh()
             const comboMascota = this.shadowRoot.querySelector("#mascota")
             comboMascota.value = state.mascotas.entities.currentEdit[0].Id.toString()
+
             this.vacunas = state.vacunas.entities.filter(u => u.MascotaTipoId == state.mascotas.entities.currentEdit[0].Raza.idMascotasTipo)
             comboMascota.disable
             this.update()

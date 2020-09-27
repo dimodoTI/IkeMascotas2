@@ -11,6 +11,7 @@ export const TRAER_ULTIMA_RESERVA = "[reservas] TRAER_ULTIMA_RESERVA";
 export const CALIFICAR = "[reservas] CALIFICAR";
 
 export const RESERVAS_A_FUTURO = "[reservas] RESERVAS_A_FUTURO"
+export const ANULAR_RESERVAS = "[reservas] ANULAR_RESERVAS"
 
 
 export const GET_SUCCESS = "[reservas] GET success"
@@ -22,6 +23,7 @@ export const ENATENCION_SUCCESS = "[reservas] ENATENCION success";
 export const TRAER_ULTIMA_RESERVA_SUCCESS = "[reservas] TRAER_ULTIMA_RESERVA_SUCCESS";
 export const CALIFICAR_SUCCESS = "[reservas] CALIFICAR success";
 export const RESERVAS_A_FUTURO_SUCCESS = "[reservas] RESERVAS_A_FUTURO success";
+export const ANULAR_RESERVAS_SUCCESS = "[reservas] ANULAR_RESERVAS_SUCCESS"
 
 export const GET_ERROR = "[reservas] GET error";
 export const ADD_ERROR = "[reservas] ADD error";
@@ -32,6 +34,7 @@ export const ENATENCION_ERROR = "[reservas] ENATENCION error";
 export const TRAER_ULTIMA_RESERVA_ERROR = "[reservas] TRAER_ULTIMA_RESERVA_ERROR";
 export const CALIFICAR_ERROR = "[reservas] CALIFICAR error";
 export const RESERVAS_A_FUTURO_ERROR = "[reservas] RESERVAS_A_FUTURO error";
+export const ANULAR_RESERVAS_ERROR = "[reservas] ANULAR_RESERVAS_ERROR"
 
 export const RESERVA_PARA_CHAT = "[reservas] RESERVA_PARA_CHAT"
 
@@ -62,11 +65,13 @@ export const update = (id, body, token) => ({
     token: token
 });
 
-export const patch = (id, body, token) => ({
+export const patch = (id, body, token, onSuccess = PATCH_SUCCESS, onError = PATCH_ERROR) => ({
     type: PATCH,
     id: id,
     body: body,
-    token: token
+    token: token,
+    onSuccess: onSuccess,
+    onError: onError
 });
 
 export const remove = (id, token) => ({
@@ -128,6 +133,7 @@ export const traerUltimaReserva = (token, onSuccess = TRAER_ULTIMA_RESERVA_SUCCE
     type: TRAER_ULTIMA_RESERVA,
     options: {
         top: 1,
+        filter: "Activo",
         expand: "Mascota($select=Nombre,Id;$expand=Raza($expand=MascotasTipo))",
         orderby: "Id desc",
         token: token
@@ -154,10 +160,24 @@ export const calificarAtencion = (id, calificacion, comentario, token) => ({
 export const reservasAFuturo = (mascotaId, token, fecha) => ({
     type: RESERVAS_A_FUTURO,
     options: {
-        filter: "FechaAtencion gt " + fecha + " and MascotaId eq " + mascotaId,
+        filter: "FechaAtencion gt " + fecha + " and MascotaId eq " + mascotaId + " and Activo",
         token: token
     },
 
     onSuccess: RESERVAS_A_FUTURO_SUCCESS,
     onError: RESERVAS_A_FUTURO_ERROR
 })
+
+
+export const anularReserva = (id, token) => ({
+    type: ANULAR_RESERVAS,
+    id: id,
+    body: [{
+        "op": "replace",
+        "path": "/Activo",
+        "value": 0
+    }],
+    token: token,
+    onSuccess: ANULAR_RESERVAS_SUCCESS,
+    onError: ANULAR_RESERVAS_ERROR
+});

@@ -386,10 +386,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
             this.update()
         }
 
-        /*         if (name == GETCANTIDAD_TIMESTAMP) {
-                    this.cuantasMascotas = state.mascotas.cantidad
-                    this.update()
-                } */
+
 
 
         if (name == UPDATEPROFILE_TIMESTAMP) {

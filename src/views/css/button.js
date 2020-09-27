@@ -105,4 +105,7 @@ export const button = css `
       cursor: not-allowed;
       pointer-events: none;
    }
+   button[btn3][anular]{
+      display:none;
+   }
 `

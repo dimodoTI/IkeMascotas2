@@ -21,7 +21,8 @@ import {
 import {
     CHAT,
     VIDEO,
-    ARCHIVO
+    ARCHIVO,
+    TRASH
 } from "../../../assets/icons/icons"
 
 
@@ -130,8 +131,6 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
                 grid-template-columns:4fr 1fr 1fr
             }
 
-  
-
     `
     }
     render() {
@@ -152,13 +151,16 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
                                 <button btn2  @click=${this.verDetalle} .item=${dato} style="width:4rem;padding:0;text-align:left;font-size: var(--font-label-size);font-weight: var(--font-label-weight);">${idiomas[this.idioma].listaReserva.verDetalle}</button>                    
                             </div>
                             <div id="cmhDivChat" @click=${this.atencion} .item=${dato} ?hiddenchat="${this.escondoVideo(dato.FechaAtencion,dato.Atencion)}">${VIDEO}</div>                    
-                            <div id="cmhDivChat" @click=${this.chat} .item=${dato} ?hiddenchat="${!dato.Atencion}">${CHAT}</div>                    
+                            <div id="cmhDivChat" @click=${this.chat} .item=${dato} ?hiddenchat="${!dato.Atencion}">${CHAT}</div>   
+
                         </div>
                     </div>
                     `)}
             </div>
         `
     }
+
+
 
     escondoVideo(fecha, atencion) {
 
@@ -247,18 +249,13 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
 
     }
     verReserva(fecha) {
-
-
-
-
         let hoy = new Date();
         let atencion = new Date(fecha);
         return hoy.getTime() === atencion.getTime();
-
     }
+
     clickAtencion(e) {
         let arr = e.currentTarget.item;
-
     }
 
     clickConsulta(e) {

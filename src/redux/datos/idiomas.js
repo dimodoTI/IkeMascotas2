@@ -315,7 +315,10 @@ export const idiomas = {
             btn1: "Registrar vacuna",
             mascotaerror: "Tenés que elgir una mascota",
             vacunaerror: "Tenés que seleccionar una vacuna",
-            fechaerror: "Seleccioná la fecha de aplicación"
+            fechaerror: "Seleccioná la fecha de aplicación",
+
+            warningTitulo: ["Mascota", "Vacuna", "Fecha de Aplicación,"],
+            warningCuerpo: ["A qué mascota vacunaste", "Qué vacuna le diste?", "Debe ser menor al día de hoy", "Decinos cuando la vacunaste"]
 
         },
         vacunaMascota: {
@@ -355,7 +358,9 @@ export const idiomas = {
             btnCamara: "Camara",
             btnImagen: "Libreria de Fotos",
             btnCancelar: "Cancelar",
-            castrada: "Castrado/a"
+            castrada: "Castrado/a",
+            warningTitulo: ["Tipo de Mascota", "Nombre de la mascota", "Fecha de Nacimiento", "Fecha de Nacimiento,", "Raza"],
+            warningCuerpo: ["Debés seleccionar uno", "No puede estar vacío", "Debe ser menor al día de hoy", "Decinos cuando nació", "Decinos de qué raza es"]
         },
         mascotaeditar: {
             titulo: "Editar perfil",
@@ -399,8 +404,8 @@ export const idiomas = {
             motivo: "¿Cuál es el motivo de la consulta?",
             sintoma: "¿Qué síntomas tiene? (opcional)",
             elegimascota: "Elegí tu mascota",
-            warningTitulo: ["Consuta"],
-            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota"]
+            warningTitulo: ["Consuta", "Consulta"],
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Completá los datos"]
         },
         consultaTurnos: {
             titulo: "Agendá una consulta",
@@ -472,8 +477,8 @@ export const idiomas = {
             motivo: "¿Cuál es el motivo de la consulta?",
             sintoma: "¿Qué síntomas tiene? (opcional)",
             elegimascota: "Elegí tu mascota",
-            warningTitulo: ["Consuta"],
-            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota"]
+            warningTitulo: ["Consuta", "Consulta"],
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Completá los datos"]
         },
         consultaTurnosMascota: {
             titulo: "Agendá una consulta",

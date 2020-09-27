@@ -50,6 +50,9 @@ import {
 import {
     button
 } from "../css/button"
+import {
+    anularReserva
+} from "../../redux/reservas/actions";
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
@@ -195,7 +198,11 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                 <label id="lblFinal">${idiomas[this.idioma].diagnosticoDetalles.lblFinal + " " + this.termino()}</label>
                 <label  id="lblDiagnostico">${idiomas[this.idioma].diagnosticoDetalles.lblDiagnostico}</label>
                 <textarea id="txtDiagnostico" rows="8" readonly>${this.reservaEnAtencion.Atencion ? this.reservaEnAtencion.Atencion.Diagnostico : ""}</textarea>
+                <div style="font-size:.5rem">
+                    *La atención veterinaria por video consulta es complementaria a la consulta presencial y no la remplaza.
+                    En caso que después de esta consulta los síntomas no mejoraran dentro de las 48 hs deberá concurrir a una consulta presencial
 
+                </div>
                 <div id="divRecetas">
                     ${this.adjuntosVenterinario.map(dato => html`
                         <div id="ciDivEtiqueta">
@@ -234,10 +241,40 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                         <button type="button" id="btn-adjuntar" btn3 @click=${this.adjuntar} >
                                 ${idiomas[this.idioma].consulta.btn1}
                         </button>
+                       
                     </form>   
+                    <button id="btnBorrar" btn3 ?anular="${this.veoSiBorro()}"  @click="${this.borrarReserva}">Borrar Reserva</button>
                 </div>
             </div>          
         `
+    }
+
+
+
+    veoSiBorro() {
+
+        if (this.reservaEnAtencion.Atencion) return true
+
+
+        let fechaHoy = new Date()
+        fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
+        const retorno = this.reservaEnAtencion.FechaAtencion.substr(0, 10) < fechaHoy.substr(0, 10)
+        return retorno
+    }
+
+
+    borrarReserva(e) {
+
+        this.reservaEnAtencion.Id
+
+        store.dispatch(anularReserva(this.reservaEnAtencion.Id, store.getState().cliente.datos.token))
+        if (this.current == "diagnosticoDetalles") {
+            store.dispatch(goTo("misConsultas"))
+        } else {
+            store.dispatch(goTo("mascotaver"))
+        }
+
+
     }
 
     borrarAdjunto(e) {
@@ -356,7 +393,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
         return store.getState().cliente.datos.apellido + ", " + store.getState().cliente.datos.nombre
     }
     clickAtras() {
-        store.dispatch(modoPantalla("misconsultas"))
+        store.dispatch(goTo("misconsultas"))
     }
     static get properties() {
         return {

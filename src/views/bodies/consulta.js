@@ -79,6 +79,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
         //this.item = { para: "", motivo: "", sintoma: "" }
         this.mascotas = []
         this.reserva = []
+        this.mascota = 0
 
     }
 
@@ -160,7 +161,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
                     <option  value=0>${idiomas[this.idioma].consulta.elegimascota}</option>
                         ${this.mascotas.map((p)=>{
                             return html `
-                            <option value=${p.Id} style="color:black">${p.Nombre}</option>
+                            <option value=${p.Id} style="color:black" .selected="${this.mascota==p.Id}">${p.Nombre}</option>
                              `}
                                 )}
                     </select>
@@ -209,7 +210,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
         let valido = true
         const mascota = this.shadowRoot.querySelector("#txtMascota")
         const sintoma = this.shadowRoot.querySelector("#txtSintoma")
-        if (mascota.value = 0) {
+        if (mascota.value == 0) {
             valido = false
         }
 
@@ -257,6 +258,8 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
             fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
             store.dispatch(reservasAFuturo(mascota, store.getState().cliente.datos.token, fechaHoy))
 
+        } else {
+            store.dispatch(showWarning(this.current, 1))
         }
 
     }
@@ -279,6 +282,10 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
                 txtMascota.value = 0
                 const txtSintoma = this.shadowRoot.querySelector("#txtSintoma")
                 txtSintoma.value = ""
+                this.mascota = 0
+                if (this.current == "consultaMascota") {
+                    txtMascota.value = state.mascotas.entities.currentItem.Id.toString()
+                }
 
             }
             this.update();
@@ -298,14 +305,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
             } else {
                 store.dispatch(showWarning(this.current, 0))
             }
-
-
         }
-
-
-
-
-
     }
 
 
