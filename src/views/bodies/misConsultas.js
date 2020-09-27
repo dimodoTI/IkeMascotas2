@@ -40,7 +40,9 @@ import {
 import {
     edit as editReservas,
     reservar,
-    enAtencion as getEnAtencion
+    enAtencion as getEnAtencion,
+    agendarReserva
+
 } from "../../redux/reservas/actions"
 
 
@@ -59,7 +61,7 @@ import {
 
 import {
     get as getMascotas,
-    getCombo
+    getCombo,
 } from "../../redux/mascotas/actions"
 
 /* const RESERVAS_TIMESTAMP = "reservas.timeStamp"
@@ -229,6 +231,7 @@ export class pantallaMisConsultas extends connect(store, MEDIA_CHANGE, SCREEN, C
 
         if (name == COMBO_MASCOTAS && this.current == state.screen.name) {
             store.dispatch(goTo("consulta"))
+            store.dispatch(agendarReserva())
         }
 
 

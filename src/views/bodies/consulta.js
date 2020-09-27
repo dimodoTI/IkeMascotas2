@@ -67,8 +67,8 @@ import {
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 const RESERVAS_A_FUTURO_TIMESTAMP = "reservas.reservasAFuturoTimeStamp"
-
-export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESERVAS_A_FUTURO_TIMESTAMP)(LitElement) {
+const AGENDAR_RESERVA_TIMESTAMP = "reservas.agendarReserva.timeStamp"
+export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESERVAS_A_FUTURO_TIMESTAMP, AGENDAR_RESERVA_TIMESTAMP)(LitElement) {
     constructor() {
         super();
         this.hidden = true
@@ -278,14 +278,6 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
                 this.hidden = false
                 this.current = state.screen.name
                 this.mascotas = state.mascotas.combo
-                const txtMascota = this.shadowRoot.querySelector("#txtMascota")
-                txtMascota.value = 0
-                const txtSintoma = this.shadowRoot.querySelector("#txtSintoma")
-                txtSintoma.value = ""
-                this.mascota = 0
-                if (this.current == "consultaMascota") {
-                    txtMascota.value = state.mascotas.entities.currentItem.Id.toString()
-                }
 
             }
             this.update();
@@ -305,6 +297,16 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
             } else {
                 store.dispatch(showWarning(this.current, 0))
             }
+        }
+        if (name == AGENDAR_RESERVA_TIMESTAMP) {
+            const txtMascota = this.shadowRoot.querySelector("#txtMascota")
+            txtMascota.value = state.reservas.agendarReserva.mascotaId
+            const txtSintoma = this.shadowRoot.querySelector("#txtSintoma")
+            txtSintoma.value = state.reservas.agendarReserva.sintoma
+            this.mascota = state.reservas.agendarReserva.mascotaId
+            /*             if (this.current == "consultaMascota") {
+                            txtMascota.value = state.mascotas.entities.currentItem.Id.toString()
+                        } */
         }
     }
 

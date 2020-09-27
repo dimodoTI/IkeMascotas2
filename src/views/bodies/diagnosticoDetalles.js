@@ -243,7 +243,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                         </button>
                        
                     </form>   
-                    <button id="btnBorrar" btn3 ?anular="${this.veoSiBorro()}"  @click="${this.borrarReserva}">Borrar Reserva</button>
+                    <button id="btnBorrar" btn2 ?anular="${this.veoSiBorro()}"  @click="${this.borrarReserva}">Borrar Reserva</button>
                 </div>
             </div>          
         `

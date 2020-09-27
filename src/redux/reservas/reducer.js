@@ -22,7 +22,8 @@ import {
     RESERVAS_A_FUTURO_ERROR,
     RESERVAS_A_FUTURO_SUCCESS,
     ANULAR_RESERVAS_ERROR,
-    ANULAR_RESERVAS_SUCCESS
+    ANULAR_RESERVAS_SUCCESS,
+    AGENDAR_RESERVA
 } from "./actions";
 
 
@@ -53,7 +54,12 @@ const initialState = {
     claificarTimeStamp: null,
     reservasAFuturoTimeStamp: null,
     reservasAFurturo: null,
-    anularReservaTimeStamp: null
+    anularReservaTimeStamp: null,
+    agendarReserva: {
+        mascotaId: null,
+        sintoma: null,
+        timeStamp: null
+    }
 };
 
 export const reducer = (state = initialState, action) => {
@@ -129,6 +135,11 @@ export const reducer = (state = initialState, action) => {
         case ANULAR_RESERVAS_SUCCESS:
             newState.anularReservaTimeStamp = (new Date()).getTime();
             break;
+        case AGENDAR_RESERVA:
+            newState.agendarReserva.mascotaId = action.mascotaId;
+            newState.agendarReserva.sintoma = action.sintoma;
+            newState.agendarReserva.timeStamp = (new Date()).getTime();
+            break
     }
     return newState;
 };

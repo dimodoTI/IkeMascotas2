@@ -38,7 +38,8 @@ import {
 
 
 import {
-    enAtencion as getEnAtencion
+    enAtencion as getEnAtencion,
+    agendarReserva
 } from "../../redux/reservas/actions"
 import {
     goNext,
@@ -364,6 +365,7 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
 
         if (name == COMBO_MASCOTAS && this.current == state.screen.name) {
             store.dispatch(goTo("consultaMascota"))
+            store.dispatch(agendarReserva(this.items.Id))
         }
 
 

@@ -9,6 +9,7 @@ export const RESERVARFECHA = "[reservas] RESERVARFECHA"
 export const ENATENCION = "[reservas] ENATENCION"
 export const TRAER_ULTIMA_RESERVA = "[reservas] TRAER_ULTIMA_RESERVA";
 export const CALIFICAR = "[reservas] CALIFICAR";
+export const AGENDAR_RESERVA = "[reservas] AGENDAR_RESERVA"
 
 export const RESERVAS_A_FUTURO = "[reservas] RESERVAS_A_FUTURO"
 export const ANULAR_RESERVAS = "[reservas] ANULAR_RESERVAS"
@@ -181,3 +182,9 @@ export const anularReserva = (id, token) => ({
     onSuccess: ANULAR_RESERVAS_SUCCESS,
     onError: ANULAR_RESERVAS_ERROR
 });
+
+export const agendarReserva = (mascotaId = 0, sintoma = "") => ({
+    type: AGENDAR_RESERVA,
+    mascotaId: mascotaId,
+    sintoma: sintoma
+})
