@@ -140,7 +140,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
         }
         .seleccionado{
             box-shadow: var(--shadow-elevation-4-box);
-            background-color:var(--color-gris-claro);
+            background-color:var(--color-gris);
         }
         `
     }

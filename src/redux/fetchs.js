@@ -9,6 +9,9 @@ import {
 
 
 const mascotasDomain = "https://apis.mascotas.dimodo.ga"
+//const mascotasDomain = "http://localhost:5000"
+
+
 
 const publicacionesDomain = "https://apis.publicaciones.dimodo.ga"
 

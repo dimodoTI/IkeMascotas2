@@ -27,9 +27,6 @@ import {
     BORRARADJUNTO,
     BORRARADJUNTO_ERROR,
     BORRARADJUNTO_SUCCESS,
-
-
-
 } from "./actions";
 
 import {
@@ -51,6 +48,10 @@ import {
 import {
     store
 } from "../store";
+import {
+    showSpinner,
+    hideSpinner
+} from "../ui/actions";
 
 export const get = ({
     dispatch
@@ -155,6 +156,7 @@ export const upload = ({
 }) => next => action => {
     next(action);
     if (action.type === UPLOAD) {
+        dispatch(showSpinner())
         fetch("https://apis.mascotas.dimodo.ga/api/Adjuntos/UploadFile", {
             method: "POST",
             headers: {
@@ -164,15 +166,20 @@ export const upload = ({
             body: action.body
         }).then(
             Response => {
+
                 store.dispatch({
                     type: UPLOAD_SUCCESS
                 })
+                store.dispatch(hideSpinner())
                 store.dispatch(delCliente(action.reservaId, action.token))
             }
+        ).catch(error => {
+            store.dispatch({
+                type: UPLOAD_ERROR
 
-        ).catch(error => store.dispatch({
-            type: UPLOAD_ERROR
-        }))
+            })
+            store.dispatch(hideSpinner())
+        })
 
     }
 }

@@ -157,7 +157,7 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
 
                 <div id="selectPara" class="select" style="width:100%;height:3.4rem"> 
                     <label >${idiomas[this.idioma].consulta.para}</label>
-                    <select style="width:100%;height:1.7rem;" id="txtMascota">  
+                    <select style="width:100%;height:1.7rem;" id="txtMascota" >  
                     <option  value=0>${idiomas[this.idioma].consulta.elegimascota}</option>
                         ${this.mascotas.map((p)=>{
                             return html `
@@ -168,11 +168,11 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
                 </div>  
 
                 <div id="lblSintoma">${idiomas[this.idioma].consulta.sintoma}</div>
-                <textarea id="txtSintoma" style="width:100%;height:5rem;" @input=${this.activar}></textarea>
+                <textarea id="txtSintoma" style="width:100%;height:5rem;" ></textarea>
 
 
 
-                <button id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
+                <button id="btnSeleccionar" btn1  @click=${this.clickBoton2}>
                     ${idiomas[this.idioma].consulta.btn2}
                 </button>
                 <div style="height:1rem"></div> 
@@ -189,13 +189,14 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
         const mascota = this.shadowRoot.querySelector("#txtMascota")
 
         const sintoma = this.shadowRoot.querySelector("#txtSintoma")
-        if (mascota.value.length < 1) {
+        if (mascota.value == 0) {
             this.activo = false
         }
 
         if (sintoma.value.length < 4) {
             this.activo = false
         }
+
         if (this.activo) {
             this.shadowRoot.querySelector("#btnSeleccionar").removeAttribute("apagado")
         } else {
@@ -210,15 +211,19 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
         let valido = true
         const mascota = this.shadowRoot.querySelector("#txtMascota")
         const sintoma = this.shadowRoot.querySelector("#txtSintoma")
+
         if (mascota.value == 0) {
-            valido = false
+            store.dispatch(showWarning(this.current, 1))
+            return false
         }
 
-        if (sintoma.value.length < 8) {
-            valido = false
+        if (sintoma.value.length < 4) {
+            //valido = false
+            store.dispatch(showWarning(this.current, 2))
+            return false
         }
         this.update()
-        return valido
+        return true
     }
     clickBoton1() {
         store.dispatch(goPrev())
@@ -258,8 +263,6 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
             fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
             store.dispatch(reservasAFuturo(mascota, store.getState().cliente.datos.token, fechaHoy))
 
-        } else {
-            store.dispatch(showWarning(this.current, 1))
         }
 
     }
