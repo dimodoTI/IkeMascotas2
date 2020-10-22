@@ -245,7 +245,7 @@ export class pantallaOnboarding extends connect(store, SCREEN, MEDIA_CHANGE, PUB
             const SeMuestraEnUnasDeEstasPantallas = "-onboarding-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
-                store.dispatch(getPublicaciones({}))
+                store.dispatch(getPublicaciones({orderby:"tipo,orden"}))
             }
             this.update();
         }
