@@ -53,12 +53,17 @@ import {
 import {
     anularReserva
 } from "../../redux/reservas/actions";
+import {
+    showAlert,
+    showWarning
+} from "../../redux/ui/actions";
 
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp"
 const RESERVASENATENCION_TIMESTAMP = "reservas.enAtencionTimeStamp"
 const ADJUNTOS_DELCLIENTE_TIMESTAMP = "adjuntos.delClienteTimeStamp"
 const ADJUNTOS_DELVETERINARIO_TIMESTAMP = "adjuntos.delVeterinarioTimeStamp"
+//const ALERT_TIMESTAMP = "ui.alert.timeStamp"
 export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_CHANGE, RESERVASENATENCION_TIMESTAMP, ADJUNTOS_DELCLIENTE_TIMESTAMP, ADJUNTOS_DELVETERINARIO_TIMESTAMP)(LitElement) {
     constructor() {
         super();
@@ -95,7 +100,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             display: grid;
             position: relative;
             background-color: var(--color-gris-fondo) !important;
-            overflow-x:none;
+            overflow-x:hidden;
             overflow-y:auto;
         }
 
@@ -187,6 +192,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             grid-gap: .2rem;
             border-radius: .4rem;
         }
+
         `
     }
 
@@ -238,12 +244,12 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
                     `)}
                     <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="POST" style="justify-self: center;">
                         <input id="files" name="files" type="file" size="1" style="display:none" @change="${this.uploadFiles}" />
-                        <button type="button" id="btn-adjuntar" btn3 @click=${this.adjuntar} >
+                        <button type="button" id="btn-adjuntar" ?anular="${this.veoSiBorro()}" btn3 @click=${this.adjuntar} >
                                 ${idiomas[this.idioma].consulta.btn1}
                         </button>
                        
                     </form>   
-                    <button id="btnBorrar" btn3 ?anular="${this.veoSiBorro()}"  @click="${this.borrarReserva}">Borrar Reserva</button>
+                    <button id="btnBorrar" btn2 ?anular="${this.veoSiBorro()}"  @click="${this.borrarReserva}">${idiomas[this.idioma].diagnosticoDetalles.borrarReserva}</button>
                 </div>
             </div>          
         `
@@ -254,8 +260,6 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     veoSiBorro() {
 
         if (this.reservaEnAtencion.Atencion) return true
-
-
         let fechaHoy = new Date()
         fechaHoy = (new Date(fechaHoy.getTime() - (fechaHoy.getTimezoneOffset() * 60000))).toJSON()
         const retorno = this.reservaEnAtencion.FechaAtencion.substr(0, 10) < fechaHoy.substr(0, 10)
@@ -266,6 +270,7 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     borrarReserva(e) {
 
         this.reservaEnAtencion.Id
+        //store.dispatch(showAlert(this.current, idiomas[this.idioma].diagnosticoDetalles.alertHeader[0], idiomas[this.idioma].diagnosticoDetalles.alertMessage, 1))
 
         store.dispatch(anularReserva(this.reservaEnAtencion.Id, store.getState().cliente.datos.token))
         if (this.current == "diagnosticoDetalles") {
@@ -278,7 +283,6 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
     }
 
     borrarAdjunto(e) {
-
         const id = e.currentTarget.item.Id
 
         let datosPatch = [{
@@ -303,13 +307,18 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             formData.append("files", files[i]);
         }
 
-        formData.append("ReservaId", this.reservaEnAtencion.Id)
-        store.dispatch(upload(this.reservaEnAtencion.Id, formData, store.getState().cliente.datos.token))
+        if (files[0].size < (3 * 1024 * 1024)) {
+            formData.append("ReservaId", this.reservaEnAtencion.Id)
+            store.dispatch(upload(this.reservaEnAtencion.Id, formData, store.getState().cliente.datos.token))
+        } else {
+            store.dispatch(showWarning(this.current, 0))
+        }
+
     }
 
     irA(e) {
         if (e.currentTarget.link) {
-            //window.open(e.currentTarget.link)
+
             window.open(e.currentTarget.link)
         }
     }
@@ -374,6 +383,8 @@ export class pantallaDiagnosticosDetalles extends connect(store, SCREEN, MEDIA_C
             this.adjuntosVenterinario = state.adjuntos.entitityDelVeterinario ? state.adjuntos.entitityDelVeterinario : []
             this.update()
         }
+
+
     }
 
     verNombre() {

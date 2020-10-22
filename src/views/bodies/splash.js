@@ -26,6 +26,7 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
         super();
         this.hidden = true
         this.area = "body"
+        this.timeOut = 0
     }
 
     static get styles() {
@@ -67,7 +68,7 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
     render() {
         return html `
         <div id="cuerpo" @click=${this.proximo}>
-        <div id="version">v.1.6</div>
+        <div id="version">v.1.1.5</div>
         </div>
         `
     }
@@ -75,16 +76,22 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
         if ((name == SCREEN || name == MEDIA_CHANGE)) {
             this.mediaSize = state.ui.media.size
             this.hidden = true
+
             const haveBodyArea = isInLayout(state, this.area)
             const SeMuestraEnUnasDeEstasPantallas = "-splash-".indexOf("-" + state.screen.name + "-") != -1
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
                 this.hidden = false
+
+                this.timeOut = setTimeout(() => {
+                    store.dispatch(goNext());
+                }, 3000)
             }
             this.update();
         }
     }
 
     proximo() {
+        clearTimeout(this.timeOut)
         store.dispatch(goNext());
     }
 

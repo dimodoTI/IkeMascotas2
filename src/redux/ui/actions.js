@@ -25,6 +25,15 @@ export const FOOTHER_MUESTRA_TAPA = "[ui] foother muestra tapa"
 export const SELECTMENU = "[ui] select menu"
 
 
+export const SHOW_WARNING = "[ui] show warning";
+export const HIDE_WARNING = "[ui] hide warning";
+
+export const SHOW_ALERT = "[ui] show alert"
+export const HIDE_ALERT = "[ui] hide alert"
+
+export const MESSAGE_ALERT = "[ui] message alert"
+
+
 
 export const showSpinner = () => ({
   type: SHOW_SPINNER
@@ -49,8 +58,6 @@ export const setMedia = (size) => ({
   size: size
 });
 
-export const SHOW_WARNING = "[ui] show warning";
-export const HIDE_WARNING = "[ui] hide warning";
 
 
 export const setMediaOrientation = (orientation) => ({
@@ -104,4 +111,17 @@ export const hideWarning = () => ({
 export const selectMenu = (opcion) => ({
   type: SELECTMENU,
   opcion: opcion
+})
+
+export const showAlert = (quienLlama, header = "", message, tipo = 0) => ({
+  type: SHOW_ALERT,
+  quienLllama: quienLlama,
+  header: header,
+  message: message,
+  tipo: tipo
+})
+
+export const hideAlert = (respuesta = 0) => ({
+  type: HIDE_ALERT,
+  respuesta: respuesta
 })

@@ -394,6 +394,7 @@ export const idiomas = {
             btn2: "Agendar nueva consulta",
             vacuna: "Vacunas registradas",
             btn3: "Registrar nueva vacuna"
+
         },
         consulta: {
             titulo: "Agendá una consulta",
@@ -404,8 +405,8 @@ export const idiomas = {
             motivo: "¿Cuál es el motivo de la consulta?",
             sintoma: "¿Qué síntomas tiene? (opcional)",
             elegimascota: "Elegí tu mascota",
-            warningTitulo: ["Consuta", "Consulta"],
-            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Completá los datos"]
+            warningTitulo: ["Consuta", "Consulta", "Consulta"],
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Seleccioná mascota", "Decinos qué síntomas tiene"]
         },
         consultaTurnos: {
             titulo: "Agendá una consulta",
@@ -446,7 +447,14 @@ export const idiomas = {
             fecha: "Fecha: ",
             hora: "Hora: ",
             veterinario: "Veterinario: ",
-
+            borrarReserva: "Borrar Reserva",
+            warningTitulo: ["Adjuntar Archivos"],
+            warningCuerpo: ["Los Archivos no pueden ser mayores a 3MB!"],
+            alertHeader: ["Borrar Consulta"],
+            alertMessage: [{
+                campo: "Mail",
+                mensaje: "No corresponde"
+            }]
         },
 
         diagnosticoDetallesM: {
@@ -461,7 +469,14 @@ export const idiomas = {
             fecha: "Fecha: ",
             hora: "Hora: ",
             veterinario: "Veterinario: ",
-
+            borrarReserva: "Borrar Reserva",
+            warningTitulo: ["Adjuntar Archivos"],
+            warningCuerpo: ["Los Archivos no pueden ser mayores a 3MB"],
+            alertHeader: ["Borrar Consulta"],
+            alertMessage: [{
+                campo: "Mail",
+                mensaje: "No corresponde"
+            }]
         },
         listaReserva: {
             verDetalle: "Ver detalle",
@@ -511,6 +526,15 @@ export const idiomas = {
             subTitulo: "Un veterinario te atenderá el ",
             hora: " a las ",
             adjuntar: "Adjuntar Archivos"
+        },
+        alert: {
+            aceptar: "Aceptar",
+            cancelar: "Cancelar",
+            si: "SI",
+            no: "NO"
+
         }
     }
+
+
 }

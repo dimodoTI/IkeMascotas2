@@ -33,7 +33,8 @@ import {
     get as getReservas
 } from "../../redux/reservas/actions"
 import {
-    get as getMascotas
+    get as getMascotas,
+    getCombo
 } from "../../redux/mascotas/actions"
 
 import {
@@ -304,6 +305,14 @@ export class pieComponente extends connect(store, MEDIA_CHANGE, SCREEN, SELECTME
     }
 
     clickBoton4() {
+        store.dispatch(getCombo({
+            orderby: "Nombre",
+            select: "Id,Nombre",
+            filter: "Activo",
+            token: store.getState().cliente.datos.token
+        }))
+
+
         store.dispatch(goTo("calendario"))
         store.dispatch(selectMenu("cuatro"))
     }

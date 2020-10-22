@@ -9,7 +9,9 @@ import {
     HIDE_WARNING,
     HEADER_MUESTRA_TAPA,
     FOOTHER_MUESTRA_TAPA,
-    SELECTMENU
+    SELECTMENU,
+    SHOW_ALERT,
+    HIDE_ALERT
 } from "./actions";
 
 const initialState = {
@@ -34,7 +36,16 @@ const initialState = {
     },
     headerMuestraTapa: false,
     footherMuestraTapa: false,
-    selectMenu: 1
+    selectMenu: 1,
+    alert: {
+        tipo: 0,
+        header: null,
+        timeStamp: null,
+        message: null,
+        respuesta: null,
+        hidden: false
+
+    }
 
 };
 
@@ -87,6 +98,17 @@ export const reducer = (state = initialState, action) => {
         case SELECTMENU:
             newState.selectMenu = action.opcion
             break;
+        case SHOW_ALERT:
+            newState.alert.timeStamp = (new Date()).getTime()
+            newState.alert.message = action.message
+            newState.alert.header = action.header
+            newState.alert.tipo = action.tipo
+            newState.alert.hidden = false
+            break;
+        case HIDE_ALERT:
+            newState.alert.timeStamp = (new Date()).getTime();
+            newState.alert.respuesta = action.respuesta
+            newState.alert.hidden = true
 
     }
     return newState;

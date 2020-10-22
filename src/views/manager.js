@@ -180,6 +180,11 @@ import {
     pantallaVideoCalificacion
 } from "./bodies/videoCalificacion"
 
+
+import {
+    pantallaAlert
+} from "./bodies/alert"
+
 const MEDIA_CHANGE = "ui.media.timeStamp"
 const SCREEN = "screen.timeStamp";
 export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
@@ -247,6 +252,7 @@ export class viewManager extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement
             <pantalla-warning ></pantalla-warning>
             <pantalla-plandetalle class="body" ></pantalla-plandetalle>
             <pantalla-videocalificacion class="body"></pantalla-videocalificacion>
+            <pantalla-alert></pantalla-alert>
             `
 
     }

@@ -272,6 +272,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, MASCOTA
                 this.hidden = false
                 this.current = state.screen.name
                 this.mascota = 0
+                this.mascotas = state.mascotas.combo
                 if (this.current == "vacunaMascota") {
                     this.mascota = state.mascotas.entities.currentItem.Id
                 }

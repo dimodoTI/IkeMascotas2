@@ -13,6 +13,7 @@ import {
 } from "./views/manager"
 import {
     captureMedia
+
 } from "./redux/ui/actions";
 
 import {
@@ -82,7 +83,6 @@ store.dispatch(getRazas({
 store.dispatch(getVacunas({
     filter: "Activo"
 }))
-
 
 
 
