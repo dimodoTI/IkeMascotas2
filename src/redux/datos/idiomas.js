@@ -141,13 +141,13 @@ export const idiomas = {
         },
         publicidad: {
             marquesina: [{
-                lbl: "Club Iké"
+                lbl: ""
             }, {
-                lbl: "Ecommerce"
+                lbl: ""
             }, {
-                lbl: "Agendar Alarma"
+                lbl: ""
             }, {
-                lbl: "Club Iké"
+                lbl: ""
             }],
             flier: [{
                 lbl: "Visitá al veterinario, sin moverte del sillón.",

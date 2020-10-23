@@ -57,15 +57,17 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
             grid-template-columns:100%;
             grid-gap:0;
             border-radius:.4rem;
+            overflow:hidden
         }
         .cuerpo-marq-combinado{
              grid-template-rows: 70% 30%;
         }
         :host(:not([media-size="small"])) .cuerpo-marq-combinado{
              grid-template-rows: 65% 35%;
-        }
+        } 
         .cuerpo-marq-uno{
             grid-template-rows: 100%;
+            background-color:transparent !important;
         }
         .img-marq-dos{
             height: 100%;
@@ -75,9 +77,11 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
             justify-content:center;
         }
         .img-marq-dos img{
-            height: 70%;
+            height: 100%; 
             width: auto;
             justify-self: center;
+            object-fit:contain
+
        }
         .img-marq-solo{
             height: 100%;
@@ -106,13 +110,18 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
     }
     render() {
         if (this.item) {
-            return repeat(this.item, (dato) => dato.Titulo, (dato, index) => html `
-                  <div id="cuerpo-marq" class="${!dato.Titulo == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.Color});">
-                      <div class="${!dato.Titulo == '' ? 'img-marq-dos' : 'img-marq-solo'}">
-                        <img  style="content:url(${dato.Imagen})"/>
+            return this.item.map((dato)=>{
+                const tit =  idiomas[this.idioma].publicidad.marquesina[dato.Titulo]?idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl:""
+                return html `
+                  <div id="cuerpo-marq" class="${tit != ''? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.Color});">
+                      <div class="${tit != '' ? 'img-marq-dos' : 'img-marq-solo'}">
+                        <img  style="content:url('${dato.Imagen}')"/>
                       </div>
-                      <label id="lbl-marq" >${!dato.Titulo == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl : ''}</label>
-                  </div>`)
+                      <label id="lbl-marq" >${tit}</label>
+                  </div>`
+
+            })
+            
         }
     }
     stateChanged(state, name) {

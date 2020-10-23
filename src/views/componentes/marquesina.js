@@ -48,19 +48,20 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
         #cuerpo-marq{
             position: relative;
             display: grid;
-            height: 98%;
             background-color: var(--color-celeste);
             align-items:center; 
             justify-content:center;
             grid-template-columns:100%;
             grid-gap:0;
             border-radius:.4rem;
+            overflow:hidden
         }
         .cuerpo-marq-combinado{
              grid-template-rows: 70% 30%;
         }
         .cuerpo-marq-uno{
             grid-template-rows: 100%;
+            background-color:transparent !important;
         }
         .img-marq-dos{
             height: 100%;
@@ -70,9 +71,9 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
             justify-content:center;
         }
         .img-marq-dos img{
-            height: 70%;
-            width: auto;
+            height: 100%;
             justify-self: center;
+            object-fit: contain;
        }
         .img-marq-solo{
             height: 100%;
@@ -101,14 +102,19 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
     }
     render() {
         if (this.item) {
-            return repeat(this.item, (dato) => dato.Titulo, (dato, index) => html `
-                    <div id="cuerpo-marq" class="${!dato.Titulo == '' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"
-                    style="background-color:var(${dato.Color});width:${this.etiquetaAncho}" .item="${dato}" @click="${this.link}">
-                        <div class="${!dato.Titulo == '' ? 'img-marq-dos' : 'img-marq-solo'}" >
-                        <img src="${dato.Imagen}"/>
-                        </div>
-                        <label id="lbl-marq" >${!dato.Titulo == '' > 0 ? idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl : ''}</label>
-                    </div>`)
+            return this.item.map((dato)=>{
+                
+                const tit =  idiomas[this.idioma].publicidad.marquesina[dato.Titulo]?idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl:""
+                return html `
+                <div id="cuerpo-marq" class="${tit!='' ? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"
+                style="background-color:var(${dato.Color});width:${this.etiquetaAncho}" .item="${dato}" @click="${this.link}">
+                    <div class="${tit!=''  ? 'img-marq-dos' : 'img-marq-solo'}" >
+                        <img style="content:url('${dato.Imagen}')" />
+                    </div>
+                    <label id="lbl-marq" >${ tit }</label>
+                </div>`
+
+            })
         }
 
     }
