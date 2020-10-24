@@ -8,16 +8,16 @@ import {
 } from "../libs/fetchFactory"
 
 
-const mascotasDomain = "https://apis.mascotas.dimodo.ga"
+const mascotasDomain = "https://apis.mascotas.ikeargentina.com.ar"
 //const mascotasDomain = "http://localhost:5000"
 
 
 
-const publicacionesDomain = "https://apis.publicaciones.dimodo.ga"
+const publicacionesDomain = "https://apis.publicaciones.ikeargentina.com.ar"
 
-const webApiUsuarios = "https://apis.usuarios.dimodo.ga/api"
+const webApiUsuarios = "https://apis.usuarios.ikeargentina.com.ar/api"
 
-const chatDomain = "https://apis.chat.dimodo.ga"
+const chatDomain = "https://apis.chat.ikeargentina.com.ar"
 //const chatDomain = "http://localhost:5000"
 
 

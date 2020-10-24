@@ -175,7 +175,7 @@ export const processLogin = ({
                 token: getState().cliente.datos.token
             }))
 
-            connection = new WebSocket('wss://ws.chat.dimodo.ga:9080');
+            connection = new WebSocket('wss://ws.chat.ikeargentina.com.ar:9080');
 
             connection.onopen = () => {
                 connection.send(JSON.stringify({

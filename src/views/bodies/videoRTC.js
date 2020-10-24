@@ -184,7 +184,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
 
         this.otherName = rol == "cliente" ? "veterinario" : "cliente"
 
-        this.connWS = new WebSocket('wss://ws.video.dimodo.ga:9090');
+        this.connWS = new WebSocket('wss://ws.video.ikeargentina.com.ar:9090');
 
         if (!("mediaDevices" in navigator) || !("RTCPeerConnection" in window)) {
             alert("Sorry, your browser does not support WebRTC.");
@@ -267,7 +267,7 @@ export class videoRTC extends connect(store, MEDIA_CHANGE, SCREEN)(LitElement) {
 
             const configuration = {
                 iceServers: [{
-                    urls: "turn:dimodo.ga",
+                    urls: "turn:mascotas.ikeargentina.com.ar",
                     username: "dimodo",
                     credential: "dimodo"
                 }]

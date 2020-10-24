@@ -157,7 +157,7 @@ export const upload = ({
     next(action);
     if (action.type === UPLOAD) {
         dispatch(showSpinner())
-        fetch("https://apis.mascotas.dimodo.ga/api/Adjuntos/UploadFile", {
+        fetch("https://apis.mascotas.ikeargentina.com.ar/api/Adjuntos/UploadFile", {
             method: "POST",
             headers: {
                 "Access-Control-Allow-Origin": "*",
