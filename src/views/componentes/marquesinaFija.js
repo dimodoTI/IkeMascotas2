@@ -57,7 +57,8 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
             grid-template-columns:100%;
             grid-gap:0;
             border-radius:.4rem;
-            overflow:hidden
+            overflow:hidden;
+            cursor:pointer;
         }
         .cuerpo-marq-combinado{
              grid-template-rows: 70% 30%;
@@ -113,7 +114,7 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
             return this.item.map((dato)=>{
                 const tit =  idiomas[this.idioma].publicidad.marquesina[dato.Titulo]?idiomas[this.idioma].publicidad.marquesina[dato.Titulo].lbl:""
                 return html `
-                  <div id="cuerpo-marq" class="${tit != ''? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.Color});">
+                  <div id="cuerpo-marq" class="${tit != ''? 'cuerpo-marq-combinado' : 'cuerpo-marq-uno'}"  style="background-color:var(${dato.Color});" .item="${dato}" @click="${this.link}">
                       <div class="${tit != '' ? 'img-marq-dos' : 'img-marq-solo'}">
                         <img  style="content:url('${dato.Imagen}')"/>
                       </div>
@@ -132,6 +133,13 @@ export class marquesinaFijaComponente extends connect(store, PUBLICIDAD_TIMESTAM
             this.update();
         }
     }
+
+    link(e) {
+        if (e.currentTarget.item.Http != "") {
+            window.open(e.currentTarget.item.Http)
+        }
+    }
+
     static get properties() {
         return {
             tipo: {

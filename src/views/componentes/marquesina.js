@@ -54,7 +54,8 @@ export class marquesinaComponente extends connect(store, PUBLICIDAD_TIMESTAMP)(L
             grid-template-columns:100%;
             grid-gap:0;
             border-radius:.4rem;
-            overflow:hidden
+            overflow:hidden;
+            cursor:pointer;
         }
         .cuerpo-marq-combinado{
              grid-template-rows: 70% 30%;
