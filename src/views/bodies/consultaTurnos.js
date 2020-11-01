@@ -102,6 +102,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
                 border-radius: 0.4rem;
                 box-shadow: var(--shadow-elevation-2-box);
                 background-color: transparent;
+                cursor: pointer;
             }
             .seleccionado {
                 box-shadow: var(--shadow-elevation-4-box);

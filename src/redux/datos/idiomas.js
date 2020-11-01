@@ -5,7 +5,7 @@ export const idiomas = {
         onboarding: {
             btn1: "Siguiente",
             btn2: "Ya tengo cuenta.",
-            btn3: "Comenzar"
+            btn3: "Comenzar",
         },
         inicioSesion: {
             titulo: "Iniciá sesión",
@@ -19,14 +19,14 @@ export const idiomas = {
             btn3: "Ingresar sin registrarme",
             errorMail: {
                 err1: "Mail incorrecto",
-                err2: "wer"
+                err2: "wer",
             },
             errorClave: {
                 err1: "Tu contraseña debe tener 4 caraceres",
-                err2: "Usuario o clave incorrectas"
+                err2: "Usuario o clave incorrectas",
             },
             warningTitulo: ["Error en login."],
-            warningCuerpo: ["Mail o password incorrecta"]
+            warningCuerpo: ["Mail o password incorrecta"],
         },
         recuperaclave: {
             titulo: "Recuperá tu contraseña",
@@ -38,17 +38,17 @@ export const idiomas = {
             btn1: "Recuperar contraseña",
             errorMail: {
                 err1: "Mail incorrecto",
-                err2: "wer"
+                err2: "wer",
             },
             errorDocumento: {
                 err1: "Documento incorrecto",
-                err2: "wer"
-            }
+                err2: "wer",
+            },
         },
         recuperaclavemsg: {
             titulo: "¡Todo listo para recuperar tu contraseña!",
             subTitulo: "Ingresá a tu casilla de mail y seguí los pasos para recuperar tu contraseña.",
-            detalle: "No olvider verificar en la carpeta de correos no deseados."
+            detalle: "No olvider verificar en la carpeta de correos no deseados.",
         },
         crearclave: {
             titulo: "Creá tu contraseña",
@@ -58,17 +58,17 @@ export const idiomas = {
             btn1: "Crear nueva contraseña",
             errorClave1: {
                 err1: "Clave1 incorrecto",
-                err2: "wer"
+                err2: "wer",
             },
             errorClave2: {
                 err1: "Clave2 incorrecto",
-                err2: "Las claves ingresadas deben ser iguales"
-            }
+                err2: "Las claves ingresadas deben ser iguales",
+            },
         },
         crearclavemsg: {
             titulo: "¡Genial!",
             subTitulo: "Tu contraseña fue creada con éxito.",
-            btn1: "Ingresar a mi cuenta"
+            btn1: "Ingresar a mi cuenta",
         },
         accesoplan: {
             titulo: "Accedé a tu Plan Iké",
@@ -82,15 +82,15 @@ export const idiomas = {
             btn5: "Ayuda",
             errorDocumento: {
                 err1: "Documento incorrecto",
-                err2: "wer"
-            }
+                err2: "wer",
+            },
         },
         vercobertura: {
             titulo: "¿Necesitás ayuda con tu cobertura Iké Mascotas?",
             subTitulo: "Contacta a un asesor para hacer consultas o contratar un plan.",
             btn1: "Ver planes disponibles",
             btn2: "Contactar a un asesor de Iké",
-            btn3: "Volver"
+            btn3: "Volver",
         },
         usuarioregistro: {
             titulo: "Creá tu cuenta",
@@ -107,25 +107,25 @@ export const idiomas = {
             lblClave2: "Repeti tu contraseña",
             btn1: "Crear cuenta",
             btn2: "¿Qué incluye mi cobertura?",
-            btn3: "Ingresar sin registrarme"
+            btn3: "Ingresar sin registrarme",
         },
         planDetalle: {
             titulo: "Plan Mascotas 110",
             subTitulo: "Este plan incluye las siguientes prestaciones:",
             btn1: "Descargar póliza",
-            btn2: "Ver todos los planes"
+            btn2: "Ver todos los planes",
         },
         planDetalleU: {
             titulo: "Plan Mascotas 110",
             subTitulo: "Este plan incluye las siguientes prestaciones:",
             btn1: "Descargar póliza",
-            btn2: "Ver todos los planes"
+            btn2: "Ver todos los planes",
         },
         planDetalleC: {
             titulo: "Plan Mascotas 110",
             subTitulo: "Este plan incluye las siguientes prestaciones:",
             btn1: "Descargar póliza",
-            btn2: "Ver todos los planes"
+            btn2: "Ver todos los planes",
         },
         principal: {
             titulo: "Hola",
@@ -137,22 +137,29 @@ export const idiomas = {
             lblNovedades: "Novedades Iké",
             lblAyuda01: "¿Necesitás ayuda?.",
             lblAyuda02: "Estamos para lo que necesites.",
-            btnAyuda: "Comunicarse con IKÉ"
+            btnAyuda: "Comunicarse con IKÉ",
         },
         publicidad: {
-            marquesina: [{
-                lbl: ""
-            }, {
-                lbl: ""
-            }, {
-                lbl: ""
-            }, {
-                lbl: ""
-            }],
-            flier: [{
-                lbl: "Visitá al veterinario, sin moverte del sillón.",
-                lblBtn: "Agenda una consulta."
-            }]
+            marquesina: [
+                {
+                    lbl: "",
+                },
+                {
+                    lbl: "",
+                },
+                {
+                    lbl: "",
+                },
+                {
+                    lbl: "",
+                },
+            ],
+            flier: [
+                {
+                    lbl: "Visitá al veterinario, sin moverte del sillón.",
+                    lblBtn: "Agenda una consulta.",
+                },
+            ],
         },
         pie: {
             inicio: "Inicio",
@@ -162,7 +169,7 @@ export const idiomas = {
             foto: "Fotos",
             lblAyuda01: "¿Necesitás ayuda?.",
             lblAyuda02: "Estamos para lo que necesites.",
-            btnAyuda: "Comunicarse con IKÉ"
+            btnAyuda: "Comunicarse con IKÉ",
         },
         usuariodetalle: {
             titulo: "Tu perfil",
@@ -186,7 +193,7 @@ export const idiomas = {
             btnCobertura: "¿Qué incluye mi cobertura?",
             btnDelete: "Eliminar esta cuenta",
             btnAsistencia: "Comunicarse con IKÉ",
-            lblAyuda: "¿Necesitás ayuda?. Estamos para lo que necesites."
+            lblAyuda: "¿Necesitás ayuda?. Estamos para lo que necesites.",
         },
         mascota: {
             titulo: "Mis mascotas",
@@ -195,7 +202,7 @@ export const idiomas = {
             btn: "Agregar mascota",
             raza: "Raza: ",
             edad: "Edad: ",
-            consultas: " Consulta/s"
+            consultas: " Consulta/s",
         },
         misConsultas: {
             titulo: "Mis consultas",
@@ -203,7 +210,7 @@ export const idiomas = {
             titulo02: "Historial de consultas",
             label: "Mis consultas",
             btn: "Agendar consulta",
-            verDetalle: "Ver detalle: "
+            verDetalle: "Ver detalle: ",
         },
         calendario: {
             titulo: "Calendario de Vacunas",
@@ -213,26 +220,26 @@ export const idiomas = {
             gato: "Gatos",
             verDetalle: "Ver detalle: ",
             optativa: "Optativa",
-            obligatoria: "Obligatoria"
+            obligatoria: "Obligatoria",
         },
         fotogaleria: {
             titulo: "Mis fotos",
-            subTitulo: "Creá tu galería de fotos en Iké."
+            subTitulo: "Creá tu galería de fotos en Iké.",
         },
         video: {
             conectando: "Conectando ...",
             titulo: "Consulta Online",
-            subTitulo: "Accedé a consulta con un veterinario."
+            subTitulo: "Accedé a consulta con un veterinario.",
         },
         videoConsulta: {
             conectando: "Conectando ...",
             titulo: "Consulta Online",
-            subTitulo: "Accedé a consulta con un veterinario."
+            subTitulo: "Accedé a consulta con un veterinario.",
         },
         videoMascotaVer: {
             conectando: "Conectando ...",
             titulo: "Consulta Online",
-            subTitulo: "Accedé a consulta con un veterinario."
+            subTitulo: "Accedé a consulta con un veterinario.",
         },
         videoCalificacion: {
             titulo: "Calificá la consulta",
@@ -240,7 +247,7 @@ export const idiomas = {
             calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",
             comentarioLbl: "Dejanos un comentario (opcional)",
             btn1: "Guardar calificación",
-            btn2: "Ahora no"
+            btn2: "Ahora no",
         },
 
         videoCalificacionM: {
@@ -249,7 +256,7 @@ export const idiomas = {
             calificaLbl: "¿Cómo calificarías la atención que acabas de recibir?",
             comentarioLbl: "Dejanos un comentario (opcional)",
             btn1: "Guardar calificación",
-            btn2: "Ahora no"
+            btn2: "Ahora no",
         },
         videodetalle: {
             titulo: "Detalle de tu consulta",
@@ -264,7 +271,7 @@ export const idiomas = {
             motivo: "Motivo: ",
             fecha: "Fecha: ",
             hora: "Hora: ",
-            sintoma: "Sintoma: "
+            sintoma: "Sintoma: ",
         },
         clavemodificar: {
             titulo: "Cambiá tu contraseña",
@@ -274,33 +281,33 @@ export const idiomas = {
             btn1: "Crear nueva contraseña",
             errorClave1: {
                 err1: "Clave1 incorrecto",
-                err2: "wer"
+                err2: "wer",
             },
             errorClave2: {
                 err1: "Clave2 incorrecto",
-                err2: "Las claves ingresadas deben ser iguales"
-            }
+                err2: "Las claves ingresadas deben ser iguales",
+            },
         },
         clavemodificarmsg: {
             titulo: "¡Listo!",
             subTitulo: "Tu contraseña ya fue modificada. Verificá tu casilla de correo. No te olvides de verificar en la bandeja de correo no deseado",
-            btn1: "Volver a mi perfil"
+            btn1: "Volver a mi perfil",
         },
 
         crearClaveMsg: {
             titulo: "¡Genial!",
             subTitulo: "Tu contraseña fue creada con éxito. Verificá tu casilla de correo. No te olvides de verificar en la bandeja de correo no deseado",
-            btn1: "Ingresar a mi cuenta"
+            btn1: "Ingresar a mi cuenta",
         },
         plancontrata: {
             titulo: "¡Contratá tu Plan Iké Mascotas!",
             subTitulo: "Accedé a esta y otras funcionalidades contratando tu plan.",
             btn1: "Volver a mi perfilVer planes disponibles",
             btn2: "Contactar a un asesor de Iké",
-            btn3: "Volver al inicio"
+            btn3: "Volver al inicio",
         },
         notificacion: {
-            titulo: "Notificaciones"
+            titulo: "Notificaciones",
         },
         vacuna: {
             titulo: "Registrá una vacuna",
@@ -318,8 +325,7 @@ export const idiomas = {
             fechaerror: "Seleccioná la fecha de aplicación",
 
             warningTitulo: ["Mascota", "Vacuna", "Fecha de Aplicación,"],
-            warningCuerpo: ["A qué mascota vacunaste", "Qué vacuna le diste?", "Debe ser menor al día de hoy", "Decinos cuando la vacunaste"]
-
+            warningCuerpo: ["A qué mascota vacunaste", "Qué vacuna le diste?", "Debe ser menor al día de hoy", "Decinos cuando la vacunaste"],
         },
         vacunaMascota: {
             titulo: "Registrá una vacuna",
@@ -334,15 +340,17 @@ export const idiomas = {
             btn1: "Registrar vacuna",
             mascotaerror: "Tenés que elgir una mascota",
             vacunaerror: "Tenés que seleccionar una vacuna",
-            fechaerror: "Seleccioná la fecha de aplicación"
+            fechaerror: "Seleccioná la fecha de aplicación",
 
+            warningTitulo: ["Mascota", "Vacuna", "Fecha de Aplicación,"],
+            warningCuerpo: ["A qué mascota vacunaste", "Qué vacuna le diste?", "Debe ser menor al día de hoy", "Decinos cuando la vacunaste"],
         },
 
         vacunamsg: {
             titulo: "¡Genial!",
             subTitulo: "La vacuna fue registrada con éxito.",
             btn1: "Registrar otra vacuna",
-            btn2: "Volver al inicio"
+            btn2: "Volver al inicio",
         },
         mascotaalta: {
             titulo: "Agregá tu mascota",
@@ -360,7 +368,7 @@ export const idiomas = {
             btnCancelar: "Cancelar",
             castrada: "Castrado/a",
             warningTitulo: ["Tipo de Mascota", "Nombre de la mascota", "Fecha de Nacimiento", "Fecha de Nacimiento,", "Raza"],
-            warningCuerpo: ["Debés seleccionar uno", "No puede estar vacío", "Debe ser menor al día de hoy", "Decinos cuando nació", "Decinos de qué raza es"]
+            warningCuerpo: ["Debés seleccionar uno", "No puede estar vacío", "Debe ser menor al día de hoy", "Decinos cuando nació", "Decinos de qué raza es"],
         },
         mascotaeditar: {
             titulo: "Editar perfil",
@@ -374,13 +382,13 @@ export const idiomas = {
             btn2: "Actualizar perfil",
             btnCamara: "Camara",
             btnImagen: "Libreria de Fotos",
-            btnCancelar: "Cancelar"
+            btnCancelar: "Cancelar",
         },
         mascotaaltamsg: {
             titulo: "¡Listo!",
             subTitulo: "Tu mascota fue agregada con éxito",
             btn1: "Ver perfil",
-            btn2: "Volver al inicio"
+            btn2: "Volver al inicio",
         },
         mascotaver: {
             subTitulo: "Ingresá al perfil de tus mascotas y accedé a su historia clínica.",
@@ -393,8 +401,7 @@ export const idiomas = {
             consulta: "Consultas",
             btn2: "Agendar nueva consulta",
             vacuna: "Vacunas registradas",
-            btn3: "Registrar nueva vacuna"
-
+            btn3: "Registrar nueva vacuna",
         },
         consulta: {
             titulo: "Agendá una consulta",
@@ -406,13 +413,13 @@ export const idiomas = {
             sintoma: "¿Qué síntomas tiene? (opcional)",
             elegimascota: "Elegí tu mascota",
             warningTitulo: ["Consuta", "Consulta", "Consulta"],
-            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Seleccioná mascota", "Decinos qué síntomas tiene"]
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Seleccioná mascota", "Decinos qué síntomas tiene"],
         },
         consultaTurnos: {
             titulo: "Agendá una consulta",
             subTitulo: "Ahora seleccioná un día y horario para la consulta.",
             proximo: "Próximos turnos disponibles",
-            btn1: "Confirmar turno"
+            btn1: "Confirmar turno",
         },
         consultadetalle: {
             titulo: "Agendá una consulta",
@@ -424,13 +431,13 @@ export const idiomas = {
             fecha: "Fecha: ",
             hora: "Hora: ",
             sintoma: "Sintoma: ",
-            btn1: "Confirmar consulta"
+            btn1: "Confirmar consulta",
         },
         consultadetallemsg: {
             titulo: "¡Listo!",
             subTitulo: "Tu consulta fue agendada con éxito",
             btn1: "Ir a Mis Consultas",
-            btn2: "Volver al inicio"
+            btn2: "Volver al inicio",
         },
 
         diagnosticoDetalles: {
@@ -451,10 +458,12 @@ export const idiomas = {
             warningTitulo: ["Adjuntar Archivos"],
             warningCuerpo: ["Los Archivos no pueden ser mayores a 3MB!"],
             alertHeader: ["Borrar Consulta"],
-            alertMessage: [{
-                campo: "Mail",
-                mensaje: "No corresponde"
-            }]
+            alertMessage: [
+                {
+                    campo: "Mail",
+                    mensaje: "No corresponde",
+                },
+            ],
         },
 
         diagnosticoDetallesM: {
@@ -473,15 +482,16 @@ export const idiomas = {
             warningTitulo: ["Adjuntar Archivos"],
             warningCuerpo: ["Los Archivos no pueden ser mayores a 3MB"],
             alertHeader: ["Borrar Consulta"],
-            alertMessage: [{
-                campo: "Mail",
-                mensaje: "No corresponde"
-            }]
+            alertMessage: [
+                {
+                    campo: "Mail",
+                    mensaje: "No corresponde",
+                },
+            ],
         },
         listaReserva: {
             verDetalle: "Ver detalle",
-            agendarReserva: "AgendarReserva"
-
+            agendarReserva: "AgendarReserva",
         },
         consultaMascota: {
             titulo: "Agendá una consulta",
@@ -493,48 +503,44 @@ export const idiomas = {
             sintoma: "¿Qué síntomas tiene? (opcional)",
             elegimascota: "Elegí tu mascota",
             warningTitulo: ["Consuta", "Consulta"],
-            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Completá los datos"]
+            warningCuerpo: ["Ya tenes agendada una consulta para esta Mascota", "Completá los datos"],
         },
         consultaTurnosMascota: {
             titulo: "Agendá una consulta",
             subTitulo: "Ahora seleccioná un día y horario para la consulta.",
             proximo: "Próximos turnos disponibles",
-            btn1: "Confirmar turno"
+            btn1: "Confirmar turno",
         },
         notificacionReservas: {
             titulo: "Notificaciones",
             verDetalle: "Ver Detalle",
             nuevaPregunta: "Nueva Pregunta",
             eliminar: "Eliminar",
-            verMas: "Ver más"
-
+            verMas: "Ver más",
         },
         chatApp: {
             titulo: "Notificación",
-            subTitulo: ""
+            subTitulo: "",
         },
         chatAppM: {
             titulo: "Notificación",
-            subTitulo: ""
+            subTitulo: "",
         },
         chatAppR: {
             titulo: "Notificación",
-            subTitulo: ""
+            subTitulo: "",
         },
         consultaMsg: {
             titulo: "Se ha registrado la reserva!",
             subTitulo: "Un veterinario te atenderá el ",
             hora: " a las ",
-            adjuntar: "Adjuntar Archivos"
+            adjuntar: "Adjuntar Archivos",
         },
         alert: {
             aceptar: "Aceptar",
             cancelar: "Cancelar",
             si: "SI",
-            no: "NO"
-
-        }
-    }
-
-
-}
+            no: "NO",
+        },
+    },
+};
