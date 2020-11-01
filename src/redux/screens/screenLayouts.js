@@ -1,273 +1,259 @@
-import {
-    ALL_BODY,
-    HEADER_BODY_FOOT,
-    BODY_FOOT,
-    HEADER_BODY,
-    SLIDER_HEADER_BODY
-} from "./layouts"
-
-
-
+import { ALL_BODY, HEADER_BODY_FOOT, BODY_FOOT, HEADER_BODY, SLIDER_HEADER_BODY } from "./layouts";
 
 export const screenLayuts = {
-    splash: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
+	splash: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
 
-    onboarding: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
+	onboarding: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
 
-    inicioSesion: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
+	inicioSesion: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
 
-    principal: {
-        small: HEADER_BODY_FOOT,
-        medium: SLIDER_HEADER_BODY,
-        large: SLIDER_HEADER_BODY
-    },
+	principal: {
+		small: HEADER_BODY_FOOT,
+		medium: SLIDER_HEADER_BODY,
+		large: SLIDER_HEADER_BODY,
+	},
 
-    videoRTC: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
+	videoRTC: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
 
-    crearclave: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    accesoplan: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    vercobertura: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
+	crearclave: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	accesoplan: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	vercobertura: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	recuperaclave: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	recuperaclavemsg: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	usuariodetalle: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	usuarioregistro: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	mascota: {
+		small: HEADER_BODY_FOOT,
+		medium: SLIDER_HEADER_BODY,
+		large: SLIDER_HEADER_BODY,
+	},
+	mascotaver: {
+		small: HEADER_BODY_FOOT,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	calendario: {
+		small: HEADER_BODY_FOOT,
+		medium: SLIDER_HEADER_BODY,
+		large: SLIDER_HEADER_BODY,
+	},
+	vacuna: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	vacunaMsg: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	vacunaMsgMascota: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	mascotaalta: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	mascotaeditar: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	mascotaAltaMsg: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	misConsultas: {
+		small: HEADER_BODY_FOOT,
+		medium: SLIDER_HEADER_BODY,
+		large: SLIDER_HEADER_BODY,
+	},
+	consulta: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	consultaTurnos: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	diagnosticoDetalles: {
+		small: HEADER_BODY_FOOT,
+		medium: SLIDER_HEADER_BODY,
+		large: SLIDER_HEADER_BODY,
+	},
+	diagnosticoDetallesM: {
+		small: HEADER_BODY_FOOT,
+		medium: SLIDER_HEADER_BODY,
+		large: SLIDER_HEADER_BODY,
+	},
+	fotos: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	mascotaEditarFoto: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	mascotaAltaFoto: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
 
-    },
-    recuperaclave: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    recuperaclavemsg: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    usuariodetalle: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    usuarioregistro: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    mascota: {
-        small: HEADER_BODY_FOOT,
-        medium: SLIDER_HEADER_BODY,
-        large: SLIDER_HEADER_BODY
-    },
-    mascotaver: {
-        small: HEADER_BODY_FOOT,
-        medium: HEADER_BODY_FOOT,
-        large: HEADER_BODY_FOOT
-    },
-    calendario: {
-        small: HEADER_BODY_FOOT,
-        medium: SLIDER_HEADER_BODY,
-        large: SLIDER_HEADER_BODY
-    },
-    vacuna: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    vacunaMsg: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    vacunaMsgMascota: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    mascotaalta: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    mascotaeditar: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    mascotaAltaMsg: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    misConsultas: {
-        small: HEADER_BODY_FOOT,
-        medium: SLIDER_HEADER_BODY,
-        large: SLIDER_HEADER_BODY
+	videoMasocotaVer: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
 
-    },
-    consulta: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    consultaTurnos: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    diagnosticoDetalles: {
-        small: HEADER_BODY_FOOT,
-        medium: SLIDER_HEADER_BODY,
-        large: SLIDER_HEADER_BODY
-    },
-    diagnosticoDetallesM: {
-        small: HEADER_BODY_FOOT,
-        medium: SLIDER_HEADER_BODY,
-        large: SLIDER_HEADER_BODY
-    },
-    fotos: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    mascotaEditarFoto: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    mascotaAltaFoto: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-
-    videoMasocotaVer: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-
-    videoConsulta: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    vacunaMascota: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    consultaMascota: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    consultaTurnosMascota: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    notificacionReservas: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    chatApp: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    chatAppM: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    chatAppR: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    crearClaveMsg: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    estrellitas: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    consultaMsg: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    consultaMsgMascota: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    planDetalle: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    planDetalleU: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    planDetalleC: {
-        small: HEADER_BODY,
-        medium: HEADER_BODY,
-        large: HEADER_BODY
-    },
-    videoCalificacion: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-    videoCalificacionM: {
-        small: ALL_BODY,
-        medium: ALL_BODY,
-        large: ALL_BODY
-    },
-
-
-}
-
+	videoConsulta: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	vacunaMascota: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	consultaMascota: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	consultaTurnosMascota: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	notificacionReservas: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	chatApp: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	chatAppM: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	chatAppR: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	crearClaveMsg: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	estrellitas: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	consultaMsg: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	consultaMsgMascota: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	planDetalle: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	planDetalleU: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	planDetalleC: {
+		small: HEADER_BODY,
+		medium: HEADER_BODY,
+		large: HEADER_BODY,
+	},
+	videoCalificacion: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+	videoCalificacionM: {
+		small: ALL_BODY,
+		medium: ALL_BODY,
+		large: ALL_BODY,
+	},
+};
 
 export const getLayout = (state) => {
-    if (!state.screen.layouts[state.ui.media.size]) throw "no hay un layout definido en el state para media-size:" + state.ui.media.size
-    let layout = state.screen.layouts[state.ui.media.size]
-    if (state.screen.layouts[state.ui.media.size][state.ui.media.orientation]) {
-        layout = state.screen.layouts[state.ui.media.size][state.ui.media.orientation]
-    }
-    return layout
-}
+	if (!state.screen.layouts[state.ui.media.size]) throw "no hay un layout definido en el state para media-size:" + state.ui.media.size;
+	let layout = state.screen.layouts[state.ui.media.size];
+	if (state.screen.layouts[state.ui.media.size][state.ui.media.orientation]) {
+		layout = state.screen.layouts[state.ui.media.size][state.ui.media.orientation];
+	}
+	return layout;
+};
 
 export const isInLayout = (state, area) => {
-    return getLayout(state).areas.find(a => a == area)
-}
+	return getLayout(state).areas.find((a) => a == area);
+};
