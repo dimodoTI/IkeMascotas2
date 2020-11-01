@@ -287,7 +287,8 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
         }
 
         if (name == RESERVAS_A_FUTURO_TIMESTAMP) {
-            if (state.reservas.reservasAFurturo.length == 0) {
+
+            if (state.reservas.reservasAFurturo.length == 0 || this.esUnaReservaPasada(state.reservas.reservasAFurturo[0])) {
                 store.dispatch(getTurnosDisponibles())
                 const mascota = this.shadowRoot.querySelector("#txtMascota").value
                 const motivo = this.shadowRoot.querySelector("#txtSintoma").value
@@ -311,6 +312,14 @@ export class pantallaConsulta extends connect(store, MEDIA_CHANGE, SCREEN, RESER
                             txtMascota.value = state.mascotas.entities.currentItem.Id.toString()
                         } */
         }
+    }
+
+    esUnaReservaPasada(reserva){
+        if (reserva.FechaAtencion.substr(0,10) == (new Date()).toJSON().substr(0,10)){
+            const ahora= parseInt((new Date()).toTimeString().substr(0,5).replace(":",""),10)
+            return reserva.HoraAtencion<=ahora
+        }
+        return false
     }
 
 

@@ -161,7 +161,9 @@ export const calificarAtencion = (id, calificacion, comentario, token) => ({
 export const reservasAFuturo = (mascotaId, token, fecha) => ({
     type: RESERVAS_A_FUTURO,
     options: {
-        filter: "FechaAtencion gt " + fecha + " and MascotaId eq " + mascotaId + " and Activo",
+        top:1,
+        filter: "FechaAtencion ge " + fecha.substr(0,10) + " and MascotaId eq " + mascotaId + " and Activo",
+        orderby:"FechaAtencion desc,HoraAtencion desc",
         token: token
     },
 

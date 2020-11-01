@@ -158,8 +158,10 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
                         const dia = this.nroDia(item.fecha)
                         const mes = this.mes(item.fecha)
                         const fecha = item.fecha
-                    
-                        return item.horarios.map(horario=>{
+                        const ahora= (new Date()).toTimeString().substr(0,5).replace(":","")
+                        const hoy = (new Date()).toJSON().substr(0,10)
+
+                        return item.horarios.filter(h=> hoy != item.fecha.substr(0,10) ||  h.hora>ahora).map(horario=>{
                         return  html`
                             <div   class="etiqueta" .item="${item}" .horario="${horario}"  @click=${this.clickSeleccionar}>
                                 <div id="atDivDia">
@@ -177,32 +179,6 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             
             
             </div>
-            
-            
-<!--             <div id="cuerpo">
-            <div><label style="padding:.8rem" id="lblProximo">${idiomas[this.idioma].consultaTurnos.proximo}</label></div>
-                
-                ${this.libres.map((item) => { 
-                    
-                    const dia = this.nroDia(item.fecha)
-                    const mes = this.mes(item.fecha)
-                    const fecha = item.fecha
-                   
-                    return item.horarios.map(horario=>{
-                    return  html`
-                        <div   class="etiqueta" .item="${item}" .horario="${horario}"  @click=${this.clickSeleccionar}>
-                            <div id="atDivDia">
-                                <label id="atLblDiaNumero">${dia}</label>
-                                <label id="atLblMes">${mes}</label>
-                            </div>
-                            <div id="atDivHora">
-                                <label id="atLblDiaTexto">${this.dow(fecha)}</label>
-                                <label id="atLblHora" value="${horario.hora}">${this.formateoHora(horario.hora)}</label>
-                            </div>
-                        </div>`
-                    })
-                })}    
-            </div> -->
             
              <div style="display:grid;"> 
             <button style="margin:1rem" id="btnSeleccionar" btn1 apagado @click=${this.clickBoton2}>
@@ -266,27 +242,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
             }
 
         }
-        /* 
-                if (name == RESERVASADD_TIMESTAMP) {
-
-                    if (this.current == "consultaTurnos") {
-                        store.dispatch(getReservas({
-                            token: state.cliente.datos.token,
-                            expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
-                            orderby: "FechaAtencion desc"
-                        }))
-                        store.dispatch(goTo("misConsultas"))
-                    } else {
-                        store.dispatch(getReservas({
-                            token: state.cliente.datos.token,
-                            filter: "MascotaId eq " + state.mascotas.entities.currentItem.Id,
-                            expand: "Mascota($expand=MascotasVacuna,Raza($expand=MascotasTipo)),Atencion,Chats($count=true;$select=Id)",
-                            orderby: "FechaAtencion desc"
-                        }))
-                        store.dispatch(goTo("mascotaver"))
-                    }
-
-                } */
+        
     }
 
 
@@ -298,7 +254,7 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
     }
     nroDia(fecha) {
         let d = new Date(fecha)
-        return d.getDate() + 1
+        return d.getUTCDate()
     }
     dow(fecha) {
         let d = new Date(fecha);
