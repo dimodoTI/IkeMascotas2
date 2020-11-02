@@ -1,185 +1,150 @@
-import {
-    html,
-    LitElement,
-    css
-} from "lit-element";
-import {
-    store
-} from "../../redux/store";
-import {
-    connect
-} from "@brunomon/helpers";
-import {
-    ATRAS
-} from "../../../assets/icons/icons";
-import {
-    idiomas
-} from "../../redux/datos/idiomas"
-import {
-    isInLayout
-} from "../../redux/screens/screenLayouts";
-import {
-    goNext,
-    goPrev,
-    goTo
-} from "../../redux/routing/actions"
+/** @format */
 
-import {
-    selectMenu
-} from "../../redux/ui/actions"
+import { html, LitElement, css } from "lit-element";
+import { store } from "../../redux/store";
+import { connect } from "@brunomon/helpers";
+import { ATRAS } from "../../../assets/icons/icons";
+import { idiomas } from "../../redux/datos/idiomas";
+import { isInLayout } from "../../redux/screens/screenLayouts";
+import { goNext, goPrev, goTo } from "../../redux/routing/actions";
 
+import { selectMenu } from "../../redux/ui/actions";
 
-const MEDIA_CHANGE = "ui.media.timeStamp"
+const MEDIA_CHANGE = "ui.media.timeStamp";
 const SCREEN = "screen.timeStamp";
 
-const MASCOTASEDIT_TIMESTAMP = "mascotas.editTimeStamp"
+const MASCOTASEDIT_TIMESTAMP = "mascotas.editTimeStamp";
 export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTASEDIT_TIMESTAMP)(LitElement) {
-
     constructor() {
         super();
         this.idioma = "ES";
-        this.hidden = true
-        this.area = "body"
-        this.item = []
-        this.pagina = store.getState().screen.name
-        this.titulo = ""
-        this.subTitulo = ""
+        this.hidden = true;
+        this.area = "body";
+        this.item = [];
+        this.pagina = store.getState().screen.name;
+        this.titulo = "";
+        this.subTitulo = "";
     }
 
-
     static get styles() {
-        return css `
-        
-            :host(){
+        return css`
+            :host() {
                 position: relative;
-                display:grid;
+                display: grid;
                 height: 100%;
                 width: 100%;
-                display:grid;
+                display: grid;
                 grid-template-rows: 50% 50%;
                 background-color: transparent;
             }
-            :host([hidden]){
-                display:none ;
+            :host([hidden]) {
+                display: none;
             }
-            #divTitulo{                    
+            #divTitulo {
                 height: 50%;
-                display:flex;
+                display: flex;
                 flex-flow: row;
                 align-items: flex-end;
             }
             :host(:not([media-size="small"])) #divTitulo {
                 justify-content: center;
             }
-            #divImg{
-                display:grid;
-                padding-right: .4rem;
+            #divImg {
+                display: grid;
+                padding-right: 0.4rem;
                 align-self: flex-end;
             }
-            #divImg svg{
+            #divImg svg {
                 height: 1.5rem;
                 width: 1.5rem;
+                cursor: pointer;
             }
-  
-            #lblTitulo{               
+
+            #lblTitulo {
                 background-color: transparent;
                 display: flex;
-                align-items:center; 
-                justify-content:left;
+                align-items: center;
+                justify-content: left;
                 text-align: left;
                 font-size: var(--font-header-h1-size);
                 font-weight: var(--font-header-h1-weight);
-     
-
             }
-            #lblLeyenda{           
+            #lblLeyenda {
                 display: flex;
-                justify-content:left;
+                justify-content: left;
                 text-align: left;
-                font-size:var(--font-bajada-size);
+                font-size: var(--font-bajada-size);
                 font-weight: var(--font-bajada-weight);
             }
             :host(:not([media-size="small"])) #lblLeyenda {
                 justify-content: center;
             }
-            #detalle{
-            height: 90%;
-            width: 2rem;
-            background-image: var(--icon-flecha-abajo-sin-bordes);
-            background-color: transparent;
-            background-repeat: no-repeat;
-            background-position: left bottom;
-            background-size: 1rem 1rem;
-            opacity:.4;
-        }
+            #detalle {
+                height: 90%;
+                width: 2rem;
+                background-image: var(--icon-flecha-abajo-sin-bordes);
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-position: left bottom;
+                background-size: 1rem 1rem;
+                opacity: 0.4;
+            }
 
-       
-        #campana{
+            #campana {
+                display: grid;
 
-            display:grid;
-
-           align-items:center
-
-        }
-
-
-        `
+                align-items: center;
+            }
+        `;
     }
 
     render() {
-        return html `
+        return html`
             <div id="divTitulo">
-            <div id="divImg" @click=${this.atras}>
-                     ${ATRAS}
-                </div>
+                <div id="divImg" @click=${this.atras}>${ATRAS}</div>
                 <div id="divTxt">
-
                     <label id="lblTitulo">${this.titulo}</label>
-                  
                 </div>
-                
             </div>
             <div>
                 <label id="lblLeyenda">${this.subTitulo}</label>
             </div>
-            `
+        `;
     }
 
-
     stateChanged(state, name) {
-        if ((name == SCREEN || name == MEDIA_CHANGE)) {
-            this.current = state.screen.name
-            this.mediaSize = state.ui.media.size
-            this.hidden = true
-            const haveBodyArea = isInLayout(state, this.area)
-            const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1
+        if (name == SCREEN || name == MEDIA_CHANGE) {
+            this.current = state.screen.name;
+            this.mediaSize = state.ui.media.size;
+            this.hidden = true;
+            const haveBodyArea = isInLayout(state, this.area);
+            const SeMuestraEnUnasDeEstasPantallas = "-mascotaver-".indexOf("-" + state.screen.name + "-") != -1;
             if (haveBodyArea && SeMuestraEnUnasDeEstasPantallas) {
-                this.hidden = false
-                this.titulo = state.mascotas.entities.currentItem.Nombre
+                this.hidden = false;
+                this.titulo = state.mascotas.entities.currentItem.Nombre;
 
-                this.subTitulo = idiomas[this.idioma][this.current].subTitulo
+                this.subTitulo = idiomas[this.idioma][this.current].subTitulo;
             }
             this.update();
         }
         if (name == MASCOTASEDIT_TIMESTAMP) {
-
-            this.item = state.mascotas.entities.currentItem
-            const labelTitulo = this.shadowRoot.querySelector("#lblTitulo")
-            labelTitulo.innerHTML = this.item.Nombre
-            this.update()
+            this.item = state.mascotas.entities.currentItem;
+            const labelTitulo = this.shadowRoot.querySelector("#lblTitulo");
+            labelTitulo.innerHTML = this.item.Nombre;
+            this.update();
         }
     }
 
     atras() {
-        store.dispatch(goTo("mascota"))
-        store.dispatch(selectMenu("dos"))
+        store.dispatch(goTo("mascota"));
+        store.dispatch(selectMenu("dos"));
     }
     static get properties() {
         return {
             mediaSize: {
                 type: String,
                 reflect: true,
-                attribute: 'media-size'
+                attribute: "media-size",
             },
             layout: {
                 type: String,
@@ -190,15 +155,14 @@ export class headerMascota extends connect(store, MEDIA_CHANGE, SCREEN, MASCOTAS
                 reflect: true,
             },
             area: {
-                type: String
+                type: String,
             },
             current: {
                 type: String,
                 reflect: true,
-            }
-        }
+            },
+        };
     }
 }
-
 
 window.customElements.define("header-mascota", headerMascota);

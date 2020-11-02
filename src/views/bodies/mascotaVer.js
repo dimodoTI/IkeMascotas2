@@ -1,3 +1,5 @@
+/** @format */
+
 import { html, LitElement, css } from "lit-element";
 import { store } from "../../redux/store";
 import { connect } from "@brunomon/helpers";
@@ -118,17 +120,15 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
         return css`
             ${button}
             ${cardCalendario}
-        ${cardMascotaHorizontal}
+            ${cardMascotaHorizontal}
 
-        :host {
+            :host {
                 background-color: var(--color-gris-fondo);
                 display: grid;
-                height: 75vh;
-                width: 100%;
-                overflow-y: scroll !important;
 
                 -webkit-overflow-scrolling: touch;
                 z-index: 1000;
+                overflow-y: auto;
             }
 
             :host([hidden]) {
@@ -201,10 +201,9 @@ export class pantallaMascotaVer extends connect(store, SCREEN, MEDIA_CHANGE, VAC
             </div>
 
             <div style="display:grid;grid-auto-flow:row;grid-gap:.3rem">
-                <div>
-                    <label class="subTitulo">${idiomas[this.idioma].mascotaver.consulta}</label>
-                    <pantalla-listareserva class="body"></pantalla-listareserva>
-                </div>
+                <label class="subTitulo">${idiomas[this.idioma].mascotaver.consulta}</label>
+                <pantalla-listareserva class="body"></pantalla-listareserva>
+
                 <button style="margin-top:1rem" id="btn-edit" btn3 @click=${this.clickConsulta}>${idiomas[this.idioma].listaReserva.agendarReserva}</button>
                 <div style="padding:.5rem 0 .5rem 0">
                     <label class="subTitulo">${idiomas[this.idioma].mascotaver.vacuna}</label>
