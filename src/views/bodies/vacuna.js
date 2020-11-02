@@ -1,3 +1,5 @@
+/** @format */
+
 import { html, LitElement, css } from "lit-element";
 import { store } from "../../redux/store";
 import { connect } from "@brunomon/helpers";
@@ -232,7 +234,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, GET_COM
                 this.hidden = false;
                 this.current = state.screen.name;
                 this.mascota = 0;
-                this.mascotas = state.mascotas.combo;
+                this.mascotas = state.mascotas.combo || [];
                 if (this.current == "vacunaMascota") {
                     this.mascota = state.mascotas.entities.currentItem.Id;
                     this.cambiarVacunas(state.mascotas.entities.currentItem.Raza.idMascotasTipo);
@@ -241,8 +243,7 @@ export class pantallaVacuna extends connect(store, SCREEN, MEDIA_CHANGE, GET_COM
             this.update();
         }
         if (name == GET_COMBO) {
-            this.mascotas = state.mascotas.entities;
-
+            this.mascotas = state.mascotas.entities || [];
             this.update();
         }
 

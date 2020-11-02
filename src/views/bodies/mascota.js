@@ -1,3 +1,5 @@
+/** @format */
+
 import { html, LitElement, css } from "lit-element";
 import { store } from "../../redux/store";
 import { connect } from "@brunomon/helpers";
@@ -34,8 +36,8 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
         this.hidden = true;
         this.area = "body";
         this.idioma = "ES";
-
         this.items = [];
+        this.empty = false;
     }
 
     static get styles() {
@@ -98,9 +100,8 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
         `;
     }
     render() {
-        return html`
-
-
+        if (!this.empty) {
+            return html`
             <div id="cuerpo">
                 ${this.items.map(
                     (dato) => html`
@@ -122,6 +123,13 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
             <label>${idiomas[this.idioma].mascota.btn}</label>
         </div>
         `;
+        } else {
+            return html`<div style="padding:1rem">No hay mascotas registradas</div>
+                <div id="bfaDivMas" @click=${this.clickAgregarMascota}>
+                    ${MASCOTA}
+                    <label>${idiomas[this.idioma].mascota.btn}</label>
+                </div> `;
+        }
     }
     clickBotonNotificacion() {}
     clickAgregarMascota() {
@@ -177,6 +185,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
 
         if (name == MASCOTAS_TIMESTAMP) {
             this.items = state.mascotas.entities;
+            this.empty = !this.items || this.items.length == 0;
             this.update();
         }
     }
