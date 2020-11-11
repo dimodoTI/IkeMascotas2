@@ -517,6 +517,7 @@ export const idiomas = {
             nuevaPregunta: "Nueva Pregunta",
             eliminar: "Eliminar",
             verMas: "Ver más",
+            volver: "Volver",
         },
         chatApp: {
             titulo: "Notificación",

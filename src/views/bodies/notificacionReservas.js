@@ -251,8 +251,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                     <textarea id="cuerpo" readonly> </textarea>
                     <div id="linkNotificacion" @click="${this.goToLink}" style="font-size:var(--font-label-size)"></div>
                     <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
-                        <button style="height:7vh" id="leer" btn1 @click="${this.leer}">Leer</button>
-                        <button id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
+                        <button style="height:7vh" id="leer" btn1 @click="${this.leer}">${idiomas[this.idioma].notificacionReservas.eliminar}</button>
+                        <button id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">${idiomas[this.idioma].notificacionReservas.volver}</button>
                     </div>
                 </div>
             `;
