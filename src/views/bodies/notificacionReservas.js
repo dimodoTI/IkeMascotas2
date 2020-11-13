@@ -17,7 +17,7 @@ import { chatReserva, patch as patchChat } from "../../redux/chat/actions";
 
 import { headerMuestraTapa } from "../../redux/ui/actions";
 
-import { leido, getNotificacionChatPendientes } from "../../redux/notificacion/actions";
+import { leido, getNotificacionChatPendientes, eliminado } from "../../redux/notificacion/actions";
 
 const MEDIA_CHANGE = "ui.media.timeStamp";
 const SCREEN = "screen.timeStamp";
@@ -242,7 +242,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                     <textarea id="nuevaPregunta" placeholder="Escriba su pregunta"> </textarea>
                     <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
                         <button style="height:7vh" id="grabar" btn1 @click="${this.grabar}">Grabar</button>
-                        <button id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
+                        <button id="cancelar1" btn3 style="color:red;height:7vh" @click="${this.cancelar}">Cancelar</button>
                     </div>
                 </div>
 
@@ -251,8 +251,8 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
                     <textarea id="cuerpo" readonly> </textarea>
                     <div id="linkNotificacion" @click="${this.goToLink}" style="font-size:var(--font-label-size)"></div>
                     <div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
-                        <button style="height:7vh" id="leer" btn1 @click="${this.leer}">${idiomas[this.idioma].notificacionReservas.eliminar}</button>
-                        <button id="cancelar" btn3 style="color:red;height:7vh" @click="${this.cancelar}">${idiomas[this.idioma].notificacionReservas.volver}</button>
+                        <button style="height:7vh" id="leer" btn1 @click="${this.eliminar}">${idiomas[this.idioma].notificacionReservas.eliminar}</button>
+                        <button id="cancelar2" btn3 style="color:red;height:7vh" @click="${this.leido}">${idiomas[this.idioma].notificacionReservas.volver}</button>
                     </div>
                 </div>
             `;
@@ -364,12 +364,17 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
         const cuerpo = this.shadowRoot.querySelector("#cuerpo");
         const link = this.shadowRoot.querySelector("#linkNotificacion");
         const leer = this.shadowRoot.querySelector("#leer");
+
+        const cancelar2 = this.shadowRoot.querySelector("#cancelar2");
         cuerpo.value = e.currentTarget.item.item.texto;
         tituloNotificacion.innerHTML = e.currentTarget.item.item.titulo;
         link.innerHTML = e.currentTarget.item.item.link;
         link.link = e.currentTarget.item.item.link;
         leer.value = e.currentTarget.item.item.detalleId;
         notificacion.style.display = "grid";
+
+        cancelar2.value = e.currentTarget.item.item.detalleId;
+
         this.update();
     }
 
@@ -377,9 +382,9 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
         window.open(e.currentTarget.link);
     }
 
-    leer(e) {
+    eliminar(e) {
         store.dispatch(headerMuestraTapa(false));
-        store.dispatch(leido(e.currentTarget.value, null, store.getState().cliente.datos.token));
+        store.dispatch(eliminado(e.currentTarget.value, null, store.getState().cliente.datos.token));
         const notificacion = this.shadowRoot.querySelector("#notificacion");
         notificacion.style.display = "none";
 
@@ -391,6 +396,14 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
         const pregunta = this.shadowRoot.querySelector("#pregunta");
         const notificacion = this.shadowRoot.querySelector("#notificacion");
         pregunta.style.display = "none";
+        notificacion.style.display = "none";
+        this.update();
+    }
+
+    leido(e) {
+        store.dispatch(headerMuestraTapa(false));
+        store.dispatch(leido(e.currentTarget.value, null, store.getState().cliente.datos.token));
+        const notificacion = this.shadowRoot.querySelector("#notificacion");
         notificacion.style.display = "none";
         this.update();
     }

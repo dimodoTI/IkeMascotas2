@@ -1,3 +1,5 @@
+/** @format */
+
 import {
     GET,
     GET_SUCCESS,
@@ -17,194 +19,162 @@ import {
     LEIDO,
     LEIDO_ERROR,
     LEIDO_SUCCESS,
-    getNotificacionChatPendientes as getPendientes
+    getNotificacionChatPendientes as getPendientes,
+    ELIMINADO,
+    ELIMINADO_SUCCESS,
+    ELIMINADO_ERROR,
 } from "../notificacion/actions";
 
-import {
-    SIN_CONTESTAR_SUCCESS,
-    SIN_CONTESTAR_ERROR,
-    setCampana
-} from "../chat/actions"
+import { SIN_CONTESTAR_SUCCESS, SIN_CONTESTAR_ERROR, setCampana } from "../chat/actions";
 
-import {
-    ikeNotificacionDetalleQuery,
-    ikeNotificacionDetalle,
-    ikeChatQuery,
-    ikeChat
+import { ikeNotificacionDetalleQuery, ikeNotificacionDetalle, ikeChatQuery, ikeChat, ikeNotificacionEliminado } from "../fetchs";
 
-} from "../fetchs"
+import { RESTPatch, RESTAdd } from "../rest/actions";
 
-import {
-    RESTPatch,
-    RESTAdd
-} from "../rest/actions"
+import { apiRequest } from "../api/actions";
+import { showWarning } from "../ui/actions";
+import { showSpinner, hideSpinner } from "../api/actions";
 
-import {
-    apiRequest
-} from "../api/actions"
-import {
-    showWarning
-} from "../ui/actions";
-import {
-    showSpinner,
-    hideSpinner
-} from "../api/actions"
+import { goTo } from "../../redux/routing/actions";
 
-import {
-    goTo
-} from "../../redux/routing/actions"
-
-export const get = ({
-    dispatch
-}) => next => action => {
+export const get = ({ dispatch }) => (next) => (action) => {
     next(action);
     if (action.type === GET || action.type === GET_DETALLE_CABECERA || action.type === GET_NOTIFICACION_PENDIENTES) {
-        dispatch(apiRequest(ikeNotificacionDetalleQuery, action.options, action.onSuccess, action.onError))
+        dispatch(apiRequest(ikeNotificacionDetalleQuery, action.options, action.onSuccess, action.onError));
     }
 };
 
-export const getNotificacionChatPendientes = ({
-    dispatch,
-    getState
-}) => next => action => {
+export const getNotificacionChatPendientes = ({ dispatch, getState }) => (next) => (action) => {
     next(action);
     if (action.type === GET_NOTIFICACION_CHAT_PENDIENTES) {
-        const optionsChat = {}
-        optionsChat.expand = "Usuario,Reserva($expand=Mascota($select=Nombre))"
-        optionsChat.filter = "((Respondido eq 0 and  Tipo eq 0 ) or (Leido eq 0 and  Tipo eq 1 ))  and Reserva/UsuarioId eq " + action.clienteId
-        const optionsNotif = {}
-        optionsNotif.expand = "Cabecera"
-        optionsNotif.filter = "Leido eq 0 and ClienteId eq " + action.clienteId
-        var dataChat = null
-        var dataNotif = null
-        dispatch(showSpinner(ikeChatQuery))
+        const optionsChat = {};
+        optionsChat.expand = "Usuario,Reserva($expand=Mascota($select=Nombre))";
+        optionsChat.filter = "((Respondido eq 0 and  Tipo eq 0 ) or (Leido eq 0 and  Tipo eq 1 ))  and Reserva/UsuarioId eq " + action.clienteId;
+        const optionsNotif = {};
+        optionsNotif.expand = "Cabecera";
+        optionsNotif.filter = "Leido ge 0 and ClienteId eq " + action.clienteId;
+        var dataChat = null;
+        var dataNotif = null;
+        dispatch(showSpinner(ikeChatQuery));
         Promise.all([
-            ikeChatQuery.get(optionsChat).then((data) => {
-                dataChat = data
-            }).catch((err) => {
-                throw err
-            }),
-            ikeNotificacionDetalleQuery.get(optionsNotif).then((data) => {
-                dataNotif = data
-            }).catch((err) => {
-                throw err
-            })
-        ]).then((value) => {
-            var notificaciones = []
-            if (dataChat.length > 0) {
-                dataChat.forEach(function (p) {
-                    let arr = {
-                        fecha: p.Fecha,
-                        tipo: p.Tipo,
-                        item: {
-                            mascota: p.Reserva.Mascota.Nombre,
-                            motivo: p.Reserva.Motivo,
-                            texto: p.Texto,
-                            reservaId: p.ReservaId,
-                            chatId: p.Id,
-                            usuarioId: p.UsuarioId
-                        }
-                    }
-                    notificaciones.push(arr)
+            ikeChatQuery
+                .get(optionsChat)
+                .then((data) => {
+                    dataChat = data;
                 })
-            }
-            if (dataNotif.length > 0) {
-                dataNotif.forEach(function (p) {
-                    let arr = {
-                        fecha: p.Cabecera.Fecha,
-                        tipo: 2,
-                        item: {
-                            cabeceraId: p.CabeceraId,
-                            detalleId: p.Id,
-                            usuarioId: p.Cabecera.UsuarioId,
-                            titulo: p.Cabecera.Titulo,
-                            texto: p.Cabecera.Texto,
-                            link: p.Cabecera.Link
-                        }
-                    }
-                    notificaciones.push(arr)
+                .catch((err) => {
+                    throw err;
+                }),
+            ikeNotificacionDetalleQuery
+                .get(optionsNotif)
+                .then((data) => {
+                    dataNotif = data;
                 })
-            }
-
-            dispatch({
-                type: GET_NOTIFICACION_CHAT_PENDIENTES_SUCCESS,
-                payload: {
-                    send: null,
-                    receive: notificaciones.length == 0 ? null : notificaciones
+                .catch((err) => {
+                    throw err;
+                }),
+        ])
+            .then((value) => {
+                var notificaciones = [];
+                if (dataChat.length > 0) {
+                    dataChat.forEach(function (p) {
+                        let arr = {
+                            fecha: p.Fecha,
+                            tipo: p.Tipo,
+                            item: {
+                                mascota: p.Reserva.Mascota.Nombre,
+                                motivo: p.Reserva.Motivo,
+                                texto: p.Texto,
+                                reservaId: p.ReservaId,
+                                chatId: p.Id,
+                                usuarioId: p.UsuarioId,
+                            },
+                        };
+                        notificaciones.push(arr);
+                    });
                 }
-            })
-            dispatch(hideSpinner(ikeChatQuery))
-            dispatch(goTo("notificacionReservas"))
+                if (dataNotif.length > 0) {
+                    dataNotif.forEach(function (p) {
+                        let arr = {
+                            fecha: p.Cabecera.Fecha,
+                            tipo: 2,
+                            item: {
+                                cabeceraId: p.CabeceraId,
+                                detalleId: p.Id,
+                                usuarioId: p.Cabecera.UsuarioId,
+                                titulo: p.Cabecera.Titulo,
+                                texto: p.Cabecera.Texto,
+                                link: p.Cabecera.Link,
+                            },
+                        };
+                        notificaciones.push(arr);
+                    });
+                }
 
-
-        }).catch(() => {
-            dispatch({
-                type: GET_NOTIFICACION_CHAT_PENDIENTES_ERROR
+                dispatch({
+                    type: GET_NOTIFICACION_CHAT_PENDIENTES_SUCCESS,
+                    payload: {
+                        send: null,
+                        receive: notificaciones.length == 0 ? null : notificaciones,
+                    },
+                });
+                dispatch(hideSpinner(ikeChatQuery));
+                dispatch(goTo("notificacionReservas"));
             })
-            dispatch(hideSpinner(ikeChatQuery))
-            dispatch(showWarning())
-        })
+            .catch(() => {
+                dispatch({
+                    type: GET_NOTIFICACION_CHAT_PENDIENTES_ERROR,
+                });
+                dispatch(hideSpinner(ikeChatQuery));
+                dispatch(showWarning());
+            });
     }
 };
 
-export const patch = ({
-    dispatch
-}) => next => action => {
+export const patch = ({ dispatch }) => (next) => (action) => {
     next(action);
     if (action.type === PATCH) {
-        dispatch(RESTPatch(ikeNotificacionDetalle, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR, action.token))
+        dispatch(RESTPatch(ikeNotificacionDetalle, action.id, action.body, PATCH_SUCCESS, PATCH_ERROR, action.token));
     }
 };
 
-
-
-export const leido = ({
-    dispatch
-}) => next => action => {
+export const leido = ({ dispatch }) => (next) => (action) => {
     next(action);
     if (action.type === LEIDO) {
-        dispatch(RESTAdd(ikeNotificacionDetalle, action.body, LEIDO_SUCCESS, LEIDO_ERROR, action.token, action.id))
+        dispatch(RESTAdd(ikeNotificacionDetalle, action.body, LEIDO_SUCCESS, LEIDO_ERROR, action.token, action.id));
     }
 };
 
-export const processGet = ({
-    dispatch,
-    getState
-}) => next => action => {
+export const eliminado = ({ dispatch }) => (next) => (action) => {
+    next(action);
+    if (action.type === ELIMINADO) {
+        dispatch(RESTAdd(ikeNotificacionEliminado, action.body, ELIMINADO_SUCCESS, ELIMINADO_ERROR, action.token, action.id));
+    }
+};
+
+export const processGet = ({ dispatch, getState }) => (next) => (action) => {
     next(action);
     if (action.type === GET_SUCCESS || action.type === GET_DETALLE_CABECERA_SUCCESS) {
-
     }
     if (action.type === GET_NOTIFICACION_PENDIENTES_SUCCESS) {
-        dispatch(setCampana(getState().cliente.datos.id))
-
+        dispatch(setCampana(getState().cliente.datos.id));
     }
-
-
-
 };
 
-export const processComand = ({
-    dispatch,
-    getState
-}) => next => action => {
+export const processComand = ({ dispatch, getState }) => (next) => (action) => {
     next(action);
     if (action.type === PATCH_SUCCESS) {
-
     }
-    if (action.type === LEIDO_SUCCESS) {
-        dispatch(getPendientes(getState().cliente.datos.id))
-        dispatch(setCampana(getState().cliente.datos.id))
+    if (action.type === LEIDO_SUCCESS || action.type === ELIMINADO_SUCCESS) {
+        dispatch(getPendientes(getState().cliente.datos.id));
+        dispatch(setCampana(getState().cliente.datos.id));
     }
 };
 
-export const processError = ({
-    dispatch
-}) => next => action => {
+export const processError = ({ dispatch }) => (next) => (action) => {
     next(action);
-    if (action.type === GET_ERROR || action.type === GET_DETALLE_CABECERA_ERROR || action.type === PATCH_ERROR || action.type === LEIDO_ERROR) {
-
+    if (action.type === GET_ERROR || action.type === GET_DETALLE_CABECERA_ERROR || action.type === PATCH_ERROR || action.type === LEIDO_ERROR || action.type === ELIMINADO_ERROR) {
     }
 };
 
-export const middleware = [get, getNotificacionChatPendientes, patch, leido, processGet, processComand, processError];
+export const middleware = [get, getNotificacionChatPendientes, patch, leido, eliminado, processGet, processComand, processError];
