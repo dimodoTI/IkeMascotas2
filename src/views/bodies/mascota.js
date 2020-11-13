@@ -111,7 +111,7 @@ export class pantallaMascota extends connect(store, SCREEN, MEDIA_CHANGE, MASCOT
                             <div id="cmhDivNombre">${dato.Nombre}</div>
                             <div id="cmhDivRaza">${idiomas[this.idioma].mascota.raza + dato.Raza.Descripcion}</div>
                             <div id="cmhDivEdad">${idiomas[this.idioma].mascota.edad + this.calculaEdad(dato.FechaNacimiento)}</div>
-                            <div id="cmhDivConsultas">${dato.Reservas ? dato.Reservas.length : "0" + idiomas[this.idioma].mascota.consultas} Consultas</div>
+                            <div id="cmhDivConsultas">${dato.Reservas ? dato.Reservas.length : "0"} ${idiomas[this.idioma].mascota.consultas}</div>
                         </div>
                     `
                 )}

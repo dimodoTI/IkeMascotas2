@@ -1,3 +1,5 @@
+/** @format */
+
 export const idiomas = {
     ES: {
         diasCortos: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
@@ -383,6 +385,7 @@ export const idiomas = {
             btnCamara: "Camara",
             btnImagen: "Libreria de Fotos",
             btnCancelar: "Cancelar",
+            castrada: "Castrado/a",
         },
         mascotaaltamsg: {
             titulo: "¡Listo!",
