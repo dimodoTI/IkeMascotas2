@@ -5,7 +5,7 @@ import { LOGIN, RECUPERO, RENOVACION, LOGON, UPDATE_PROFILE, LOGIN_SUCCESS, RECU
 import { ikeLoginFetch, ikeRecuperoFetch, ikeRenovacionFetch, ikeLogonFetch, ikeUpdateProfileFetch, ikeChatQuery } from "../fetchs";
 
 import { RESTAdd } from "../rest/actions";
-import { setDatos, setLogueado, setRecuperando, setRenovado } from "../cliente/actions";
+import { getCobertura, setDatos, setLogueado, setRecuperando, setRenovado } from "../cliente/actions";
 
 import { get as getMascotas, getCantidad } from "../mascotas/actions";
 
@@ -119,6 +119,8 @@ export const processLogin = ({ dispatch, getState }) => (next) => (action) => {
             dispatch(setDatos(action.payload.receive));
 
             dispatch(setCampana(getState().cliente.datos.id));
+
+            dispatch(getCobertura(action.payload.receive.documento));
 
             dispatch(
                 getCantidad({
