@@ -114,6 +114,7 @@ export class headerPrincipal extends connect(store, MEDIA_CHANGE, SCREEN, CLIENT
             .flecha svg {
                 width: 1rem;
                 height: 1rem;
+                cursor: pointer;
             }
         `;
     }
