@@ -55,7 +55,7 @@ export class splashScreen extends connect(store, MEDIA_CHANGE, SCREEN)(LitElemen
     render() {
         return html`
             <div id="cuerpo" @click=${this.proximo}>
-                <div id="version">v.1.2.4</div>
+                <div id="version">v.1.2.5</div>
             </div>
         `;
     }
