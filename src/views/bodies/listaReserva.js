@@ -16,7 +16,7 @@ import { chatReserva, CHAT_RESERVAM_SUCCESS, CHAT_RESERVAR_SUCCESS } from "../..
 const MEDIA_CHANGE = "ui.media.timeStamp";
 const SCREEN = "screen.timeStamp";
 const RESERVAS_TIMESTAMP = "reservas.timeStamp";
-
+const MARGEN = 5;
 export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, RESERVAS_TIMESTAMP)(LitElement) {
 	constructor() {
 		super();
@@ -134,8 +134,14 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
 
 	muestroChat(dato) {
 		let reto = false;
-		const fecha = new Date(dato.fechaAtencion.substr(0, 10) + " " + dato.horaAtencion.padStart(4, "0").replace(/^(\d{2})(\d{2})/, "$1:$2"));
-		if (dato.Atencion && fecha.getTime() + 10 * (60 * 60 * 1000) < new Date().getTime()) {
+		const fecha = new Date(
+			dato.FechaAtencion.substr(0, 10) +
+				" " +
+				dato.HoraAtencion.toString()
+					.padStart(4, "0")
+					.replace(/^(\d{2})(\d{2})/, "$1:$2")
+		);
+		if (dato.Atencion && fecha.getTime() + MARGEN * (60 * 60 * 1000) > new Date().getTime()) {
 			reto = true;
 		}
 		return reto;
