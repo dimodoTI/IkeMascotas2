@@ -231,6 +231,11 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 				font-size: var(--font-label-size);
 				font-weight: var(--font-label-weight);
 			}
+			#linkNotificacion {
+				font-size: var(--font-label-size);
+				text-decoration: underline;
+				cursor: pointer;
+			}
 		`;
 	}
 	render() {
@@ -249,7 +254,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 				<div id="notificacion">
 					<div id="tituloNotificacion"></div>
 					<textarea id="cuerpo" readonly> </textarea>
-					<div id="linkNotificacion" @click="${this.goToLink}" style="font-size:var(--font-label-size)"></div>
+					<div id="linkNotificacion" @click="${this.goToLink}"></div>
 					<div style="grid-gap:.3rem;display:grid;grid-template-columns:50% 50%">
 						<button style="height:7vh" id="leer" btn1 @click="${this.eliminar}">${idiomas[this.idioma].notificacionReservas.eliminar}</button>
 						<button id="cancelar2" btn3 style="color:red;height:7vh" @click="${this.leido}">${idiomas[this.idioma].notificacionReservas.volver}</button>
@@ -368,8 +373,13 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 		const cancelar2 = this.shadowRoot.querySelector("#cancelar2");
 		cuerpo.value = e.currentTarget.item.item.texto;
 		tituloNotificacion.innerHTML = e.currentTarget.item.item.titulo;
-		link.innerHTML = e.currentTarget.item.item.link;
-		link.link = e.currentTarget.item.item.link;
+		if (e.currentTarget.item.item.link && e.currentTarget.item.item.link.length > 0) {
+			link.innerHTML = "Ver mas";
+			link.link = e.currentTarget.item.item.link;
+		} else {
+			link.innerHTML = "";
+			link.link = "";
+		}
 		leer.value = e.currentTarget.item.item.detalleId;
 		notificacion.style.display = "grid";
 
