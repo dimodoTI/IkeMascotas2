@@ -22,4 +22,7 @@ html {
 
 	--primary-color: #7a86e6;
 	--onsurface-color-helper: #5a5856;
+
+	--color-error: #eda5a5;
+	--color-ok: #c5efb0;
 }
