@@ -371,7 +371,7 @@ export class pantallaUsuariodetalle extends connect(store, SCREEN, MEDIA_CHANGE,
             if (this.valido()) {
                 const nombre = this.shadowRoot.querySelector("#txtNombre").value;
                 const apellido = this.shadowRoot.querySelector("#txtApellido").value;
-                const documento = this.item.documento;
+                const documento = this.shadowRoot.querySelector("#txtDocumento").value;
                 let foto = this.item.foto;
                 if (!store.getState().fotos.foto) {
                     foto = store.getState().fotos.foto;

@@ -202,9 +202,12 @@ export const processRenovado = ({ dispatch }) => (next) => (action) => {
     }
 };
 
-export const processCommand = ({ dispatch }) => (next) => (action) => {
+export const processCommand = ({ dispatch, getState }) => (next) => (action) => {
     next(action);
-    if (action.type === LOGON_SUCCESS || action.type === UPDATE_PROFILE_SUCCESS) {
+    if (action.type === UPDATE_PROFILE_SUCCESS) {
+        dispatch(getCobertura(getState().cliente.datos.documento));
+    }
+    if (action.type === LOGON_SUCCESS) {
     }
 };
 
