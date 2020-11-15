@@ -1,6 +1,6 @@
 /** @format */
 
-const cacheName = "Version1.2.5";
+const cacheName = "Version1.2.6";
 
 const enCache = ["./index.html", "./app.bundle.js", "./favicon.png"];
 
