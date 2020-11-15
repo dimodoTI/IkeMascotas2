@@ -18,7 +18,7 @@ export const idiomas = {
             datos: "Recordar mis datos",
             btn1: "Iniciar sesión",
             btn2: "Olvidé mi contraseña",
-            btn3: "Ingresar sin registrarme",
+            btn3: "Creá tu cuenta",
             errorMail: {
                 err1: "Mail incorrecto",
                 err2: "wer",
