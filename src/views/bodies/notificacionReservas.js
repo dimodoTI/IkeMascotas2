@@ -374,7 +374,7 @@ export class pantallaNotificacionReservas extends connect(store, MEDIA_CHANGE, S
 		cuerpo.value = e.currentTarget.item.item.texto;
 		tituloNotificacion.innerHTML = e.currentTarget.item.item.titulo;
 		if (e.currentTarget.item.item.link && e.currentTarget.item.item.link.length > 0) {
-			link.innerHTML = "Ver mas";
+			link.innerHTML = idiomas[this.idioma].notificacionReservas.verMas;
 			link.link = e.currentTarget.item.item.link;
 		} else {
 			link.innerHTML = "";
