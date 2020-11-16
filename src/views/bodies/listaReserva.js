@@ -135,7 +135,7 @@ export class pantallaListaReserva extends connect(store, MEDIA_CHANGE, SCREEN, R
 	muestroChat(dato) {
 		let reto = false;
 		const fecha = new Date(
-			dato.FechaAtencion.substr(0, 10) +
+			dato.FechaAtencion.substr(0, 10).replace(/-/g, "/") +
 				" " +
 				dato.HoraAtencion.toString()
 					.padStart(4, "0")
