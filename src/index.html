@@ -1,165 +1,154 @@
+<!-- @format -->
+
 <!DOCTYPE html>
 <html translate="no">
+    <head>
+        <title>IKE-Mascotas</title>
+        <!--    <link rel="manifest" href="manifest.json" /> -->
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+        <meta http-equiv="ScreenOrientation" content="autoRotate:disabled" />
 
-<head>
-    <title>IKE-Mascotas</title>
-    <!--    <link rel="manifest" href="manifest.json" /> -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport"
-        content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
-    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+        <link rel="icon" href="./icon-iphone.png" />
+        <!-- <link rel="apple-touch-icon" href="./mascotas/icon-iphone.png"> -->
+        <link rel="apple-touch-icon" sizes="192x192" href="./ic_launcher.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="./mascotas/icon-ipad.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./mascotas/icon-retina.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="./mascotas/icon-ipadretina.png" />
+        <meta name="apple-mobile-web-app-title" content="Ike-Mascotas" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="apple-touch-startup-image" href="launch-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="launch-750x1294.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-touch-fullscreen" content="yes" />
 
-    <link rel="icon" href="./icon-iphone.png">
-    <link rel="apple-touch-icon" href="./mascotas/icon-iphone.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="./mascotas/icon-ipad.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./mascotas/icon-retina.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="./mascotas/icon-ipadretina.png">
-    <meta name="apple-mobile-web-app-title" content="Ike-Mascotas">
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="apple-touch-startup-image" href="launch-640x1136.png"
-        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="launch-750x1294.png"
-        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-touch-fullscreen" content="yes">
+        <link rel="manifest" crossorigin="use-credentials" href="manifest.txt" />
+        <style>
+            #snackbarFondo {
+                position: absolute;
+                display: none;
+                background-color: var(--color-negro);
+                color: rgb(0, 0, 0);
+                padding: 1.5rem;
+                z-index: 900;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0.5;
+            }
 
-    <link rel="manifest" crossorigin="use-credentials" href="manifest.txt" />
-    <style>
-        #snackbarFondo {
-            position: absolute;
-            display: none;
-            background-color: var(--color-negro);
-            color: rgb(0, 0, 0);
-            padding: 1.5rem;
-            z-index: 900;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            opacity: .5;
-        }
+            #snackbar {
+                position: absolute;
+                display: none;
+                background-color: var(--color-celeste);
+                color: rgb(0, 0, 0);
+                padding: 1.5rem;
+                z-index: 1000;
+                left: 1rem;
+                right: 1rem;
+                bottom: 3rem;
+                border-radius: 1rem;
+                text-align: center;
+            }
 
-        #snackbar {
-            position: absolute;
-            display: none;
-            background-color: var(--color-celeste);
-            color: rgb(0, 0, 0);
-            padding: 1.5rem;
-            z-index: 1000;
-            left: 1rem;
-            right: 1rem;
-            bottom: 3rem;
-            border-radius: 1rem;
-            text-align: center;
-        }
+            #snackbar.show {
+                display: grid;
+            }
 
-        #snackbar.show {
-            display: grid;
-        }
+            #snackbarFondo.show {
+                display: grid;
+            }
 
-        #snackbarFondo.show {
-            display: grid;
-        }
+            a {
+                color: var(--color-rosa);
+                font-weight: bold;
+                cursor: pointer;
+            }
+        </style>
 
-        a {
-            color: var(--color-rosa);
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+        <link rel="shortcut icon" href="./favicon.png" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
 
-    <link rel="shortcut icon" href="./favicon.png">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2V1WY3FYKQ"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2V1WY3FYKQ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag("js", new Date());
+
+            gtag("config", "G-2V1WY3FYKQ");
+        </script>
+    </head>
+
+    <body>
+        <view-manager></view-manager>
+        <div id="snackbarFondo"></div>
+        <div id="snackbar">Una nueva versión esta disponible. Presione <a id="reload">Aqui</a> para actualizar.</div>
+    </body>
     <script>
-
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag(){dataLayer.push(arguments);}
-
-        gtag('js', new Date());
-
-        gtag('config', 'G-2V1WY3FYKQ');
-
+        window.scrollTo(0, 0);
+        document.addEventListener("focusout", function (e) {
+            window.scrollTo(0, 0);
+        });
     </script>
 
-
-</head>
-
-
-<body>
-    <view-manager></view-manager>
-    <div id="snackbarFondo">
-    </div>
-    <div id="snackbar">Una nueva versión esta disponible. Presione <a id="reload">Aqui</a> para actualizar.
-    </div>
-</body>
-<script>
-    window.scrollTo(0, 0)
-    document.addEventListener('focusout', function (e) {
-        window.scrollTo(0, 0)
-    });
-</script>
-
-<script>
-    let newWorker;
-    function showUpdateBar() {
-        let snackbar = document.getElementById('snackbar');
-        let snackbarFondo = document.getElementById('snackbarFondo');
-        snackbar.className = 'show';
-        snackbarFondo.className = 'show';
-    }
-    // The click event on the pop up notification
-    document.getElementById('snackbar').addEventListener('click', function () {
-        let snackbar = document.getElementById('snackbar');
-        let snackbarFondo = document.getElementById('snackbarFondo');
-        snackbar.classList.remove('show');
-        snackbarFondo.classList.remove('show');
-        newWorker.postMessage({
-            action: 'skipWaiting'
-        });
-    });
-
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('Service-worker.js').then(reg => {
-            reg.addEventListener('updatefound', () => {
-                // A wild service worker has appeared in reg.installing!
-                newWorker = reg.installing;
-
-                newWorker.addEventListener('statechange', () => {
-                    // Has network.state changed?
-                    switch (newWorker.state) {
-                        case 'installed':
-                            if (navigator.serviceWorker.controller) {
-                                // new update available
-                                showUpdateBar();
-                            }
-                            // No update available
-                            break;
-                    }
-                });
+    <script>
+        let newWorker;
+        function showUpdateBar() {
+            let snackbar = document.getElementById("snackbar");
+            let snackbarFondo = document.getElementById("snackbarFondo");
+            snackbar.className = "show";
+            snackbarFondo.className = "show";
+        }
+        // The click event on the pop up notification
+        document.getElementById("snackbar").addEventListener("click", function () {
+            let snackbar = document.getElementById("snackbar");
+            let snackbarFondo = document.getElementById("snackbarFondo");
+            snackbar.classList.remove("show");
+            snackbarFondo.classList.remove("show");
+            newWorker.postMessage({
+                action: "skipWaiting",
             });
         });
 
-        let refreshing;
-        navigator.serviceWorker.addEventListener('controllerchange', function () {
-            if (refreshing) return;
-            window.location.reload();
-            refreshing = true;
-        });
-    }
-</script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("Service-worker.js").then((reg) => {
+                reg.addEventListener("updatefound", () => {
+                    // A wild service worker has appeared in reg.installing!
+                    newWorker = reg.installing;
 
+                    newWorker.addEventListener("statechange", () => {
+                        // Has network.state changed?
+                        switch (newWorker.state) {
+                            case "installed":
+                                if (navigator.serviceWorker.controller) {
+                                    // new update available
+                                    showUpdateBar();
+                                }
+                                // No update available
+                                break;
+                        }
+                    });
+                });
+            });
 
-
-
-
+            let refreshing;
+            navigator.serviceWorker.addEventListener("controllerchange", function () {
+                if (refreshing) return;
+                window.location.reload();
+                refreshing = true;
+            });
+        }
+    </script>
 </html>
