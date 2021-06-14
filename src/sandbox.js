@@ -1,92 +1,69 @@
-import {} from "../css/main.css"
-import {} from "../css/media.css"
-import {} from "../css/quicksand.css"
-import {} from "../css/fontSizes.css"
-import {} from "../css/colors.css"
-import {} from "../css/shadows.css"
-import {} from "../css/imagenes.css"
-import {
-    store
-} from "../src/redux/store"
-import {
-    viewManager
-} from "./views/manager"
-import {
-    captureMedia
+/** @format */
 
-} from "./redux/ui/actions";
+import {} from "../css/main.css";
+import {} from "../css/media.css";
+import {} from "../css/quicksand.css";
+import {} from "../css/fontSizes.css";
+import {} from "../css/colors.css";
+import {} from "../css/shadows.css";
+import {} from "../css/imagenes.css";
+import { store } from "../src/redux/store";
+import { viewManager } from "./views/manager";
+import { captureMedia } from "./redux/ui/actions";
 
-import {
-    showScreen
-} from "./redux/screens/actions"
+import { showScreen } from "./redux/screens/actions";
 
-import {
-    get as getCalendario
-} from "./redux/calendario/actions"
+import { get as getCalendario } from "./redux/calendario/actions";
 
-import {
-    get as getMascotasTipo
-} from "./redux/mascotastipo/actions"
+import { get as getMascotasTipo } from "./redux/mascotastipo/actions";
 
-import {
-    get as getVacunas
-} from "./redux/vacunas/actions"
-import {
-    get as getRazas
-} from "./redux/razas/actions"
+import { get as getVacunas } from "./redux/vacunas/actions";
+import { get as getRazas } from "./redux/razas/actions";
 
-import {
-    getParameterByName
-} from "./libs/helpers";
-import {
-    goNext,
-    goTo,
-    goPrev
-} from "./redux/routing/actions"
+import { getParameterByName } from "./libs/helpers";
+import { goNext, goTo, goPrev } from "./redux/routing/actions";
+import { login } from "./redux/autorizacion/actions";
+import { selectMenu } from "./redux/ui/actions";
+import { get as getPublicaciones } from "./redux/publicacion/actions";
 
-
-
-
-
-
-
-
-store.dispatch(captureMedia())
+store.dispatch(captureMedia());
 if (getParameterByName("ticket")) {
-    store.dispatch(goTo("crearclave"))
+    store.dispatch(goTo("crearclave"));
 } else {
-    store.dispatch(showScreen("splash"))
-    //store.dispatch(showScreen("estrellitas"))
+    if (getParameterByName("user")) {
+        store.dispatch(login(getParameterByName("user"), ""));
+        store.dispatch(getPublicaciones({ orderby: "tipo,orden" }));
+    } else {
+        store.dispatch(showScreen("splash"));
+    }
 }
 
+store.dispatch(
+    getCalendario({
+        expand: "MascotasTipo($filter=Activo), Vacuna($filter=Activo)",
+        filter: "Activo",
+    })
+);
 
+store.dispatch(
+    getMascotasTipo({
+        filter: "Activo",
+        orderby: "Descripcion",
+    })
+);
 
+store.dispatch(
+    getRazas({
+        orderby: "idMascotasTipo,Descripcion",
+        filter: "Activo",
+    })
+);
 
-
-store.dispatch(getCalendario({
-    expand: "MascotasTipo($filter=Activo), Vacuna($filter=Activo)",
-    filter: "Activo"
-
-}))
-
-store.dispatch(getMascotasTipo({
-    filter: "Activo",
-    orderby: "Descripcion"
-}))
-
-store.dispatch(getRazas({
-    orderby: "idMascotasTipo,Descripcion",
-    filter: "Activo"
-}))
-
-
-store.dispatch(getVacunas({
-    filter: "Activo"
-}))
-
-
-
-
+store.dispatch(
+    getVacunas({
+        filter: "Activo",
+    })
+);
 
 /* 
 
