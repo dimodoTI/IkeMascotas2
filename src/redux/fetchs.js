@@ -10,6 +10,7 @@ const mascotasDomain = "https://apis.mascotas.ikeargentina.com.ar";
 const publicacionesDomain = "https://apis.publicaciones.ikeargentina.com.ar";
 
 const webApiUsuarios = "https://apis.usuarios.ikeargentina.com.ar/api";
+//const webApiUsuarios = "http://localhost:5000/api";
 
 const chatDomain = "https://apis.chat.ikeargentina.com.ar";
 //const chatDomain = "http://localhost:5000"
