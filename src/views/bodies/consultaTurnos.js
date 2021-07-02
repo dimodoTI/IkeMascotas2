@@ -163,14 +163,18 @@ export class pantallaConsultaTurnos extends connect(store, SCREEN, MEDIA_CHANGE,
         store.dispatch(goPrev());
     }
 
-    clickBoton2() {
+    clickBoton2(e) {
         //store.dispatch(modoPantalla("consultadetalle", "consultaturnos"))
 
-        let reserva = store.getState().reservas.reserva;
+        if (store.getState().api.loading == 0) {
+            this.shadowRoot.querySelector("#btnSeleccionar").setAttribute("apagado", "");
+            this.update();
+            let reserva = store.getState().reservas.reserva;
 
-        reserva.UsuarioId = store.getState().cliente.datos.id;
-        reserva.FechaGeneracion = new Date();
-        store.dispatch(addReservas(reserva, store.getState().cliente.datos.token));
+            reserva.UsuarioId = store.getState().cliente.datos.id;
+            reserva.FechaGeneracion = new Date();
+            store.dispatch(addReservas(reserva, store.getState().cliente.datos.token));
+        }
     }
 
     stateChanged(state, name) {

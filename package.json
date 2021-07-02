@@ -1,6 +1,6 @@
 {
     "name": "mascotas",
-    "version": "2.1.0",
+    "version": "2.1.2",
     "description": "HC de mascotas",
     "main": "./src/sandbox.js",
     "scripts": {
