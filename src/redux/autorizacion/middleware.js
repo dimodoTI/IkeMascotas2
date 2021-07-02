@@ -133,7 +133,7 @@ export const processLogin =
                 if (pantalla) {
                     dispatch(showWarning(pantalla, 0));
                 } else {
-                    alert("Credencial vencida, volver a portal de Visa");
+                    window.open("https://staging.ike.fierastudio.com/");
                 }
             } else {
                 dispatch(setLogueado(true));
